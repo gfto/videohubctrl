@@ -1,0 +1,4 @@
+videohubctrl
+version.h
+*.o
+*.d
