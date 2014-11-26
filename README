@@ -81,7 +81,7 @@ Main options:
  -p --port <port_number>    | Set device port (default: 9990).
 
 Misc options:
- -v --verbose               | Enable verbose logging.
+ -v --verbose               | Increase logging verbosity.
  -q --quiet                 | Suppress warnings.
  -h --help                  | Show help screen.
  -V --version               | Show program version.

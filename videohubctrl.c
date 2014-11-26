@@ -54,7 +54,7 @@ static void show_help(struct videohub_data *data) {
 	printf(" -p --port <port_number>    | Set device port (default: 9990).\n");
 	printf("\n");
 	printf("Misc options:\n");
-	printf(" -v --verbose               | Enable verbose logging.\n");
+	printf(" -v --verbose               | Increase logging verbosity.\n");
 	printf(" -q --quiet                 | Suppress warnings.\n");
 	printf(" -h --help                  | Show help screen.\n");
 	printf(" -V --version               | Show program version.\n");
@@ -78,7 +78,7 @@ static void parse_options(struct videohub_data *data, int argc, char **argv) {
 				data->dev_port = optarg;
 				break;
 			case 'v': // --verbose
-				verbose = !verbose;
+				verbose++;
 				if (verbose)
 					quiet = 0; // Disable quiet
 				break;

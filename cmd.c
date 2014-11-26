@@ -163,6 +163,8 @@ bool parse_command(struct videohub_data *data, char *cmd) {
 	}
 
 	v("verbose: Got '%s' command.\n", v->txt);
+	if (verbose > 1)
+		v("----\n%s\n----\n", cmd);
 
 	bool cmd_response = false;
 	char *p, *cmd_data = xstrdup( cmd + strlen(v->txt) + 2 ); // +2 to compensate for :\n at the end of the command
