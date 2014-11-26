@@ -1,5 +1,5 @@
 |-----------------------------------------------------------------------|
-xxxx-xx-xx : Version 0.2 - dev
+2014-11-27 : Version 0.2
  * Fix port routing. Previously it was reversed and incorrect.
  * Fix command parsing of multiple commands comming in one packet.
  * Add -m / --monitor parameter for live configuration monitoring.
