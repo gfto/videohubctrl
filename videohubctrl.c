@@ -128,18 +128,18 @@ static void printf_line(int len) {
 static void print_device_settings(struct videohub_data *d) {
 	unsigned int i;
 	printf("\n");
-	printf_line(76);
-	printf("|  # | x | %-30s | %-30s |\n", "Input name", "Output name");
-	printf_line(76);
+	printf_line(70);
+	printf("|  # | x | %-27s | %-27s |\n", "Input name", "Output name");
+	printf_line(70);
 	for(i = 0; i < d->device.num_video_inputs; i++) {
-		printf("| %2d | %c | %-30s | %-30s |\n",
+		printf("| %2d | %c | %-27s | %-27s |\n",
 			i + 1,
 			d->inputs[i].locked ? 'L' : ' ',
 			d->inputs[i].name,
 			d->outputs[d->inputs[i].routed_to].name
 		);
 	}
-	printf_line(76);
+	printf_line(70);
 }
 
 int main(int argc, char **argv) {

@@ -2,13 +2,13 @@ videohubctrl - Blackmagic Videohub control application
 ======================================================
 
 Blackmagic Design Videohub is SDI router device which can be controlled
-over the network using very simple text based protocol which 'videohubctrl'
-implements.
+over the network using very simple text based protocol which
+videohubctrl implements.
 
-'videohubctrl' is tested with Blackmagic Design Micro Videohub 16x16 router
-and probably will work with other Videohub models.
+videohubctrl is tested with Blackmagic Design Micro Videohub 16x16
+router and probably will work with other Videohub models.
 
-'videohubctrl' currently displays:
+videohubctrl currently displays:
 
   - Input port labels
   - Output port labels
@@ -22,8 +22,8 @@ supported (I don't have the hardware):
   - Configuration of Video monitoring outputs
   - Configuration of Serial ports
 
-Configuration of Videohub's network settings can be made using Blackmagic's
-Windows program when the device is connected via USB.
+Configuration of Videohub's network settings can be made using
+Blackmagic's Windows program when the device is connected via USB.
 
 
 License
@@ -48,8 +48,8 @@ To clone the repository issue the following commands:
    git submodule update
    make
 
-The code is developed and tested under modern Linux. It's also compiled from
-time to time under OS X but it's not tested there.
+The code is developed and tested under modern Linux. It's also compiled
+from time to time under OS X but it's not tested there.
 
 
 Updating the code
@@ -101,7 +101,7 @@ Example output
 
 Here is how videohubctrl output looks like:
 
-|-----------------------------------------------------------------------------|
+|----------------------------------------------------------------------|
 gf@gf:~/git/videohubctrl$ ./videohubctrl --host sdi-matrix
 videohubctrl Version: 0.1 Git: 0.1
 
@@ -114,40 +114,41 @@ Video outputs: 16
 Video monitoring outputs: 0
 Serial ports: 0
 
-----------------------------------------------------------------------------
-|  # | x | Input name                     | Output name                    |
-----------------------------------------------------------------------------
-|  1 | L | Windows 1                      | Enc1 3                         |
-|  2 | L | Windows 2                      | Enc1 2                         |
-|  3 | L | Windows 3                      | Enc1 1                         |
-|  4 | L | Windows 4 HD                   | Enc1 1                         |
-|  5 |   | Input 5                        | Output 5                       |
-|  6 |   | Input 6                        | Output 6                       |
-|  7 |   | Input 7                        | Output 7                       |
-|  8 |   | Input 8                        | Output 8                       |
-|  9 | L | Input 9                        | Enc1 4                         |
-| 10 |   | Input 10                       | Enc1 4                         |
-| 11 |   | Input 11                       | Output 11                      |
-| 12 | L | DPlay1                         | Output 13                      |
-| 13 | L | DPlay2                         | Denc                           |
-| 14 |   | Input 14                       | Output 14                      |
-| 15 |   | Input 15                       | Output 15                      |
-| 16 |   | Loopback                       | Loopback                       |
-----------------------------------------------------------------------------
+----------------------------------------------------------------------
+|  # | x | Input name                  | Output name                 |
+----------------------------------------------------------------------
+|  1 | L | Windows 1                   | Enc1 3                      |
+|  2 | L | Windows 2                   | Enc1 2                      |
+|  3 | L | Windows 3                   | Enc1 1                      |
+|  4 | L | Windows 4 HD                | Enc1 1                      |
+|  5 |   | Input 5                     | Output 5                    |
+|  6 |   | Input 6                     | Output 6                    |
+|  7 |   | Input 7                     | Output 7                    |
+|  8 |   | Input 8                     | Output 8                    |
+|  9 | L | Input 9                     | Enc1 4                      |
+| 10 |   | Input 10                    | Enc1 4                      |
+| 11 |   | Input 11                    | Output 11                   |
+| 12 | L | DPlay1                      | Output 13                   |
+| 13 | L | DPlay2                      | Denc                        |
+| 14 |   | Input 14                    | Output 14                   |
+| 15 |   | Input 15                    | Output 15                   |
+| 16 |   | Loopback                    | Loopback                    |
+----------------------------------------------------------------------
 
 gf@gf:~/git/videohubctrl$
-|-----------------------------------------------------------------------------|
+|----------------------------------------------------------------------|
 
 
 Reporting bugs
 ==============
 
-If you think you have found bug in videohubctrl, please report it to the
-e-mail listed in Contact section (see below) of this README file.
+If you think you have found bug in videohubctrl, please report it to
+the e-mail listed in Contact section (see below) of this README file.
 
-When reporting bugs, please send the whole output that videohubctrl generated
-(preferably by using --verbose option) and also the full command line which
-you used and describe what you think the videohubctrl does wrong.
+When reporting bugs, please send the whole output that videohubctrl
+generated (preferably by using --verbose option) and also the full
+command line which you used and describe what you think the videohubctrl
+does wrong.
 
 
 Releases
