@@ -34,11 +34,11 @@ struct device_desc {
 struct input_desc {
 	char			name[MAX_NAME_LEN];
 	bool			locked;
-	unsigned int	routed_to;
 };
 
 struct output_desc {
 	char			name[MAX_NAME_LEN];
+	unsigned int	routed_to;
 };
 
 struct videohub_data {
