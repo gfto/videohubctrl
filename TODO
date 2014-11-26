@@ -1,4 +1,3 @@
-- Add --save-config and --restore-config.
 - Add commands to set labels, routing and locking.
 - Create man page.
-- Investigate the USB protocol for configuring network settings.
+- Add support for all Videohub commands described in the docs.
