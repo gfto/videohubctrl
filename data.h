@@ -33,12 +33,12 @@ struct device_desc {
 
 struct input_desc {
 	char			name[MAX_NAME_LEN];
-	bool			locked;
 };
 
 struct output_desc {
 	char			name[MAX_NAME_LEN];
 	unsigned int	routed_to;
+	bool			locked;
 };
 
 struct videohub_data {

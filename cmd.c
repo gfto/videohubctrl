@@ -251,7 +251,7 @@ bool parse_command(struct videohub_data *data, char *cmd) {
 
 		case CMD_VIDEO_OUTPUT_LOCKS:
 			if (valid_slot)
-				data->inputs[slot_pos].locked = slot_data[0] == 'L' ? true : false;
+				data->outputs[slot_pos].locked = slot_data[0] == 'L' ? true : false;
 			break;
 
 		case CMD_VIDEO_OUTPUT_ROUTING:
