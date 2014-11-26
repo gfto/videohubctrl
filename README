@@ -123,7 +123,7 @@ Serial ports: 0
 |  3 | L | Windows 1                   | Enc1 3                      |
 |  4 | L | Windows 1                   | Enc1 4                      |
 |  5 |   | Input 5                     | Output 5                    |
-|  6 | + | Input 6                     | Output 6                    |
+|  6 | O | Input 6                     | Output 6                    |
 |  7 |   | Input 7                     | Output 7                    |
 |  8 |   | Input 8                     | Output 8                    |
 |  9 | L | Windows 4 HD                | Enc2 1                      |
@@ -132,12 +132,22 @@ Serial ports: 0
 | 12 | L | DPlay2                      | Denc                        |
 | 13 | L | DPlay1                      | Output 13                   |
 | 14 |   | Input 14                    | Output 14                   |
-| 15 | + | Input 15                    | Output 15                   |
+| 15 | O | Input 15                    | Output 15                   |
 | 16 |   | Loopback                    | Loopback                    |
 ----------------------------------------------------------------------
 
 gf@gf:~/git/videohubctrl$
 |----------------------------------------------------------------------|
+
+Output Legend
+=============
+
+ Column 1 (#) - Port number
+ Column 2 (x) - Output lock status
+                  L - The port is locked by another user (IP address)
+                  O - The port is locked by my me (my IP address)
+ Column 3     - List of the inputs and their names
+ Column 4     - List of the outputs and their names
 
 
 Reporting bugs
