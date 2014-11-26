@@ -287,16 +287,6 @@ bool parse_command(struct videohub_data *data, char *cmd) {
 
 	/* Check if everything is within limits */
 	switch (v->cmd) {
-	case CMD_PROTOCOL_PREAMBLE:
-		if (!streq(data->device.protocol_ver, "2.4")) {
-			if (!quiet) {
-				fprintf(stderr, "WARNING: Device protocol is %s but this program is tested with 2.4 only.\n",
-					data->device.protocol_ver);
-				fprintf(stderr, "         Please report successes/failures to author's email: georgi@unixsol.org\n");
-				fprintf(stderr, "         You may use -q or --quiet to suppress the message.\n");
-			}
-		}
-		break;
 	case CMD_VIDEOHUB_DEVICE:
 		if (!data->device.dev_present) {
 			die("Device reports that it's not present.");

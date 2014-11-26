@@ -114,8 +114,6 @@ static void parse_options(struct videohub_data *data, int argc, char **argv) {
 }
 
 static void print_device_desc(struct device_desc *d) {
-	if (!strlen(d->protocol_ver) || !strlen(d->model_name))
-		die("The device does not return protocol version and model name!");
 	printf("\n");
 	printf("Protocol version: %s\n", d->protocol_ver);
 	printf("Model name: %s\n", d->model_name);
@@ -175,6 +173,14 @@ int main(int argc, char **argv) {
 		exit(EXIT_FAILURE);
 
 	read_device_command_stream(data);
+
+	if (!strlen(data->device.protocol_ver) || !strlen(data->device.model_name))
+		die("The device does not respond correctly. Is it Videohub?");
+
+	if (strstr(data->device.protocol_ver, "2.") != data->device.protocol_ver)
+		die("Device protocol is %s but this program supports 2.x only.\n",
+			data->device.protocol_ver);
+
 	if (show_monitor) {
 		while (1) {
 			printf("\e[2J\e[H"); // Clear screen
