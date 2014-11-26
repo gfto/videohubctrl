@@ -107,6 +107,8 @@ static void parse_options(struct videohub_data *data, int argc, char **argv) {
 }
 
 static void print_device_desc(struct device_desc *d) {
+	if (!strlen(d->protocol_ver) || !strlen(d->model_name))
+		die("The device does not return protocol version and model name!");
 	printf("\n");
 	printf("Protocol version: %s\n", d->protocol_ver);
 	printf("Model name: %s\n", d->model_name);
