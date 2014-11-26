@@ -14,7 +14,13 @@ CFLAGS ?= -O2 -ggdb -pipe -ffunction-sections -fdata-sections \
  -Wshadow -Wformat-security -Wstrict-prototypes -Wno-unused-parameter \
  -Wredundant-decls -Wold-style-definition
 
+uname_S := $(shell sh -c 'uname -s 2>/dev/null || echo not')
+
 LDFLAGS ?= -Wl,--gc-sections
+
+ifeq ($(uname_S),Darwin)
+LDFLAGS :=
+endif
 
 DEFS += -D_FILE_OFFSET_BITS=64
 

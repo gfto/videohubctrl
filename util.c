@@ -15,7 +15,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include <inttypes.h>
-#include <malloc.h>
 #include <unistd.h>
 
 #include "util.h"
@@ -32,7 +31,7 @@ void die(const char *fmt, ...) {
 }
 
 void *xmalloc(size_t size) {
-	void *ret = memalign(16, size);
+	void *ret = malloc(size);
 	if (!ret)
 		die("Can't alloc %ld bytes\n", (unsigned long)size);
 	return ret;
