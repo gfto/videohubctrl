@@ -12,6 +12,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <getopt.h>
+#include <unistd.h>
 
 #include "data.h"
 #include "cmd.h"
@@ -26,10 +27,11 @@ int quiet;
 
 static struct videohub_data maindata;
 static int show_info = 1;
+static int show_monitor = 0;
 
 static const char *program_id = PROGRAM_NAME " Version: " VERSION " Git: " GIT_VER;
 
-static const char short_options[] = "s:p:qvhVi";
+static const char short_options[] = "s:p:qvhVim";
 
 static const struct option long_options[] = {
 	{ "host",				required_argument, NULL, 's' },
@@ -39,6 +41,7 @@ static const struct option long_options[] = {
 	{ "help",				no_argument,       NULL, 'h' },
 	{ "version",			no_argument,       NULL, 'V' },
 	{ "info",				no_argument,       NULL, 'i' },
+	{ "monitor",			no_argument,       NULL, 'm' },
 	{ 0, 0, 0, 0 }
 };
 
@@ -58,6 +61,7 @@ static void show_help(struct videohub_data *data) {
 	printf("\n");
 	printf("Commands:\n");
 	printf(" -i --info                  | Show device info (default command).\n");
+	printf(" -m --monitor               | Show real time monitor for config changes.\n");
 	printf("\n");
 }
 
@@ -83,6 +87,9 @@ static void parse_options(struct videohub_data *data, int argc, char **argv) {
 				break;
 			case 'i': // --info
 				show_info = 1;
+				break;
+			case 'm': // --monitor
+				show_monitor = 1;
 				break;
 			case 'h': // --help
 				show_help(data);
@@ -144,6 +151,18 @@ static void print_device_settings(struct videohub_data *d) {
 	printf_line(70);
 }
 
+static int read_device_command_stream(struct videohub_data *d) {
+	int ret, ncommands = 0;
+	char buf[8192 + 1];
+	memset(buf, 0, sizeof(buf));
+	while ((ret = fdread_ex(d->dev_fd, buf, sizeof(buf) - 1, 5, 0, 0)) >= 0) {
+		if (parse_command(d, buf))
+			ncommands++;
+		memset(buf, 0, sizeof(buf));
+	}
+	return ncommands;
+}
+
 int main(int argc, char **argv) {
 	struct videohub_data *data = &maindata;
 
@@ -156,20 +175,25 @@ int main(int argc, char **argv) {
 	if (data->dev_fd < 0)
 		exit(EXIT_FAILURE);
 
-	int ret;
-	char buf[8192 + 1];
-	memset(buf, 0, sizeof(buf));
-	while ((ret = fdread_ex(data->dev_fd, buf, sizeof(buf) - 1, 5, 0, 0)) >= 0) {
-		parse_command(data, buf);
-		memset(buf, 0, sizeof(buf));
-	}
-	shutdown_fd(&data->dev_fd);
-
-	if (show_info) {
+	read_device_command_stream(data);
+	if (show_monitor) {
+		while (1) {
+			printf("\e[2J\e[H"); // Clear screen
+			printf("%s\n", program_id);
+			print_device_desc(&data->device);
+			print_device_settings(data);
+			fflush(stdout);
+			do {
+				sleep(1);
+			} while (read_device_command_stream(data) == 0);
+		}
+	} else if (show_info) {
 		print_device_desc(&data->device);
 		print_device_settings(data);
 		fflush(stdout);
 	}
+
+	shutdown_fd(&data->dev_fd);
 
 	return 0;
 }

@@ -1,4 +1,3 @@
-- Add --monitor option to continually display configuration and changes to it.
 - Add --save-config and --restore-config.
 - Add commands to set labels, routing and locking.
 - Create man page.

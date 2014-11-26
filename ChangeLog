@@ -1,6 +1,7 @@
 |-----------------------------------------------------------------------|
 xxxx-xx-xx : Version 0.2 - dev
  * Fix port routing. Previously it was reversed and incorrect.
+ * Add -m / --monitor parameter for live configuration monitoring.
 
 2014-11-26 : Version 0.1
  * Initial vesion with support for showing Videohub configuration

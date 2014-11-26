@@ -88,6 +88,7 @@ Misc options:
 
 Commands:
  -i --info                  | Show device info (default command).
+ -m --monitor               | Show real time monitor for config changes.
 
 
 Example usage
