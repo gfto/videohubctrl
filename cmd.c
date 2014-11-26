@@ -258,14 +258,14 @@ bool parse_command(struct videohub_data *data, char *cmd) {
 
 		case CMD_VIDEO_OUTPUT_LOCKS:
 			if (valid_slot) {
-				// L is exclusive lock     - can be set only via USB
-				// O is non-exclusive lock - can be set via network
+				// L is lock owned by somebody else (set from other IP address)
+				// O is lock owned by us (set from our IP address)
 				if (slot_data[0] == 'L' || slot_data[0] == 'O') {
 					data->outputs[slot_pos].locked = true;
 					if (slot_data[0] == 'L')
-						data->outputs[slot_pos].locked_exclusive = true;
+						data->outputs[slot_pos].locked_other = true;
 					else
-						data->outputs[slot_pos].locked_exclusive = false;
+						data->outputs[slot_pos].locked_other = false;
 				} else {
 					data->outputs[slot_pos].locked = false;
 				}

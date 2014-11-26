@@ -141,7 +141,7 @@ static void print_device_settings(struct videohub_data *d) {
 	for(i = 0; i < d->device.num_video_inputs; i++) {
 		printf("| %2d | %c | %-27s | %-27s |\n",
 			i + 1,
-			d->outputs[i].locked ? (d->outputs[i].locked_exclusive ? 'L' : 'O') : ' ',
+			d->outputs[i].locked ? (d->outputs[i].locked_other ? 'L' : 'O') : ' ',
 			d->inputs[d->outputs[i].routed_to].name,
 			d->outputs[i].name
 		);
