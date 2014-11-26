@@ -140,6 +140,8 @@ static char *parse_text(char *line, char *cmd) {
 
 bool parse_command(struct videohub_data *data, char *cmd) {
 	unsigned int i;
+	if (!strlen(cmd))
+		return false;
 	struct videohub_commands *v = NULL;
 	for (i = 0; i < ARRAY_SIZE(videohub_commands); i++) {
 		if (!videohub_commands[i].txt)
@@ -300,4 +302,28 @@ bool parse_command(struct videohub_data *data, char *cmd) {
 	}
 
 	return true;
+}
+
+int parse_text_buffer(struct videohub_data *data, char *cmd_buffer) {
+	// The buffer contains only one command, no splitting is needed
+	if (!strstr(cmd_buffer, "\n\n"))
+		return parse_command(data, cmd_buffer);
+	// Split commands and parse them one by one
+	int ok_commands = 0;
+	char *bcopy = xstrdup(cmd_buffer);
+	char *newcmd, *cmd = bcopy;
+	while(1) {
+		newcmd = strstr(cmd, "\n\n"); // Find next command
+		if (!newcmd) {
+			if (parse_command(data, cmd)) // Parse current command
+				ok_commands++;
+			break;
+		}
+		newcmd[0] = '\0'; // Terminate previous command
+		if (parse_command(data, cmd)) // Parse previous command
+			ok_commands++;
+		cmd = newcmd + 2; // Advance cmd to the next command
+	}
+	free(bcopy);
+	return ok_commands;
 }

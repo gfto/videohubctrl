@@ -14,5 +14,6 @@
 #define CMD_H
 
 bool parse_command(struct videohub_data *d, char *cmd);
+bool parse_text_buffer(struct videohub_data *data, char *cmd_buffer);
 
 #endif

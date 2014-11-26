@@ -156,8 +156,7 @@ static int read_device_command_stream(struct videohub_data *d) {
 	char buf[8192 + 1];
 	memset(buf, 0, sizeof(buf));
 	while ((ret = fdread_ex(d->dev_fd, buf, sizeof(buf) - 1, 5, 0, 0)) >= 0) {
-		if (parse_command(d, buf))
-			ncommands++;
+		ncommands += parse_text_buffer(d, buf);
 		memset(buf, 0, sizeof(buf));
 	}
 	return ncommands;
