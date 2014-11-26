@@ -219,8 +219,10 @@ bool parse_command(struct videohub_data *data, char *cmd) {
 			break;
 
 		case CMD_VIDEOHUB_DEVICE:
-			if ((p = parse_text(line, "Device present: ")))
+			if ((p = parse_text(line, "Device present: "))) {
 				data->device.dev_present = streq(p, "true");
+				data->device.needs_fw_update = streq(p, "needs_update");
+			}
 
 			if ((p = parse_text(line, "Model name: ")))
 				snprintf(data->device.model_name, sizeof(data->device.model_name), "%s", p);
@@ -289,6 +291,9 @@ bool parse_command(struct videohub_data *data, char *cmd) {
 	switch (v->cmd) {
 	case CMD_VIDEOHUB_DEVICE:
 		if (!data->device.dev_present) {
+			if (data->device.needs_fw_update) {
+				die("Device reports that it needs firmware update.");
+			}
 			die("Device reports that it's not present.");
 		}
 		if (data->device.num_video_inputs > ARRAY_SIZE(data->inputs)) {

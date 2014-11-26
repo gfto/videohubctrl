@@ -21,6 +21,7 @@
 
 struct device_desc {
 	bool			dev_present;
+	bool			needs_fw_update;
 	char			protocol_ver[16];
 	char			model_name[MAX_NAME_LEN];
 	char			unique_id[MAX_NAME_LEN];
