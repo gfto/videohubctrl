@@ -15,6 +15,7 @@
 #include <string.h>
 
 #include "data.h"
+#include "cmd.h"
 #include "util.h"
 
 /*
