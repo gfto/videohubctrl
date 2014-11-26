@@ -83,9 +83,9 @@ VIDEO OUTPUT LOCKS:
 10 U
 11 L
 12 L
-13 U
+13 O
 14 U
-15 U
+15 O
 
 VIDEO OUTPUT ROUTING:
 0 2
@@ -254,8 +254,19 @@ bool parse_command(struct videohub_data *data, char *cmd) {
 			break;
 
 		case CMD_VIDEO_OUTPUT_LOCKS:
-			if (valid_slot)
-				data->outputs[slot_pos].locked = slot_data[0] == 'L' ? true : false;
+			if (valid_slot) {
+				// L is exclusive lock     - can be set only via USB
+				// O is non-exclusive lock - can be set via network
+				if (slot_data[0] == 'L' || slot_data[0] == 'O') {
+					data->outputs[slot_pos].locked = true;
+					if (slot_data[0] == 'L')
+						data->outputs[slot_pos].locked_exclusive = true;
+					else
+						data->outputs[slot_pos].locked_exclusive = false;
+				} else {
+					data->outputs[slot_pos].locked = false;
+				}
+			}
 			break;
 
 		case CMD_VIDEO_OUTPUT_ROUTING:

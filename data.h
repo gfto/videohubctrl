@@ -39,6 +39,7 @@ struct output_desc {
 	char			name[MAX_NAME_LEN];
 	unsigned int	routed_to;
 	bool			locked;
+	bool			locked_exclusive;
 };
 
 struct videohub_data {
