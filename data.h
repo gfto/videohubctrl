@@ -15,8 +15,8 @@
 
 #include <stdbool.h>
 
-#define MAX_INPUTS 72
-#define MAX_OUTPUTS 72
+#define MAX_INPUTS 288
+#define MAX_OUTPUTS 288
 #define MAX_NAME_LEN 64
 
 struct device_desc {
