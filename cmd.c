@@ -275,7 +275,7 @@ bool parse_command(struct videohub_data *data, char *cmd) {
 		case CMD_VIDEO_OUTPUT_ROUTING:
 			if (valid_slot) {
 				unsigned int dest_pos = strtoul(slot_data, NULL, 10);
-				if (dest_pos < ARRAY_SIZE(data->outputs))
+				if (dest_pos < ARRAY_SIZE(data->inputs))
 					data->outputs[slot_pos].routed_to = dest_pos;
 			}
 			break;
