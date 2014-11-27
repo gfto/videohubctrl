@@ -108,16 +108,6 @@ VIDEO OUTPUT ROUTING:
 
 */
 
-enum vcmd {
-	CMD_PROTOCOL_PREAMBLE,
-	CMD_VIDEOHUB_DEVICE,
-	CMD_INPUT_LABELS,
-	CMD_OUTPUT_LABELS,
-	CMD_VIDEO_OUTPUT_LOCKS,
-	CMD_VIDEO_OUTPUT_ROUTING,
-	CMD_PING,
-};
-
 static struct videohub_commands {
 	enum vcmd	cmd;
 	const char	*txt;
@@ -130,6 +120,15 @@ static struct videohub_commands {
 	{ CMD_VIDEO_OUTPUT_ROUTING,    "VIDEO OUTPUT ROUTING" },
 	{ CMD_PING,                    "PING" },
 };
+
+static const char *get_cmd_text(enum vcmd cmd) {
+	unsigned int i;
+	for (i = 0; i < ARRAY_SIZE(videohub_commands); i++) {
+		if (videohub_commands[i].cmd == cmd)
+			return videohub_commands[i].txt;
+	}
+	return "";
+}
 
 static char *parse_text(char *line, char *cmd) {
 	char *parsed_text = strstr(line, cmd);
