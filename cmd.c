@@ -286,28 +286,6 @@ bool parse_command(struct videohub_data *data, char *cmd) {
 		}
 	}
 	free(cmd_data);
-
-	/* Check if everything is within limits */
-	switch (v->cmd) {
-	case CMD_VIDEOHUB_DEVICE:
-		if (!data->device.dev_present) {
-			if (data->device.needs_fw_update) {
-				die("Device reports that it needs firmware update.");
-			}
-			die("Device reports that it's not present.");
-		}
-		if (data->device.num_video_inputs > ARRAY_SIZE(data->inputs)) {
-			die("The device supports %d inputs. Recompile the program with more MAX_INPUTS (currently %d)",
-				data->device.num_video_inputs, MAX_INPUTS);
-		}
-		if (data->device.num_video_outputs > ARRAY_SIZE(data->outputs)) {
-			die("The device supports %d outputs. Recompile the program with more MAX_OUTPUTS (currently %d)\n",
-				data->device.num_video_outputs, MAX_OUTPUTS);
-		}
-	default:
-		break;
-	}
-
 	return true;
 }
 

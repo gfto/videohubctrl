@@ -181,6 +181,21 @@ int main(int argc, char **argv) {
 		die("Device protocol is %s but this program supports 2.x only.\n",
 			data->device.protocol_ver);
 
+	if (!data->device.dev_present) {
+		if (data->device.needs_fw_update) {
+			die("Device reports that it needs firmware update.");
+		}
+		die("Device reports that it's not present.");
+	}
+
+	if (data->device.num_video_inputs > ARRAY_SIZE(data->inputs))
+		die("The device supports %d inputs. Recompile the program with more MAX_INPUTS (currently %d)",
+			data->device.num_video_inputs, MAX_INPUTS);
+
+	if (data->device.num_video_outputs > ARRAY_SIZE(data->outputs))
+		die("The device supports %d outputs. Recompile the program with more MAX_OUTPUTS (currently %d)\n",
+			data->device.num_video_outputs, MAX_OUTPUTS);
+
 	if (show_monitor) {
 		while (1) {
 			printf("\e[2J\e[H"); // Clear screen
