@@ -83,7 +83,7 @@ Main options:
 Misc options:
  -d --debug                 | Increase logging verbosity.
  -q --quiet                 | Suppress warnings.
- -h --help                  | Show help screen.
+ -H --help                  | Show help screen.
  -V --version               | Show program version.
 
 Commands:

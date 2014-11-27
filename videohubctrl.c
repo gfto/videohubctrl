@@ -31,14 +31,14 @@ static int show_monitor = 0;
 
 static const char *program_id = PROGRAM_NAME " Version: " VERSION " Git: " GIT_VER;
 
-static const char short_options[] = "s:p:qdhVim";
+static const char short_options[] = "s:p:qdHVim";
 
 static const struct option long_options[] = {
 	{ "host",				required_argument, NULL, 's' },
 	{ "port",				required_argument, NULL, 'p' },
 	{ "quiet",				no_argument,       NULL, 'q' },
 	{ "debug",				no_argument,       NULL, 'd' },
-	{ "help",				no_argument,       NULL, 'h' },
+	{ "help",				no_argument,       NULL, 'H' },
 	{ "version",			no_argument,       NULL, 'V' },
 	{ "info",				no_argument,       NULL, 'i' },
 	{ "monitor",			no_argument,       NULL, 'm' },
@@ -56,7 +56,7 @@ static void show_help(struct videohub_data *data) {
 	printf("Misc options:\n");
 	printf(" -d --debug                 | Increase logging verbosity.\n");
 	printf(" -q --quiet                 | Suppress warnings.\n");
-	printf(" -h --help                  | Show help screen.\n");
+	printf(" -H --help                  | Show help screen.\n");
 	printf(" -V --version               | Show program version.\n");
 	printf("\n");
 	printf("Commands:\n");
@@ -91,7 +91,7 @@ static void parse_options(struct videohub_data *data, int argc, char **argv) {
 			case 'm': // --monitor
 				show_monitor = 1;
 				break;
-			case 'h': // --help
+			case 'H': // --help
 				show_help(data);
 				exit(EXIT_SUCCESS);
 			case 'V': // --version
