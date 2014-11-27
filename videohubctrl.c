@@ -22,7 +22,7 @@
 
 #include "libfuncs/libfuncs.h"
 
-int verbose;
+int debug;
 int quiet;
 
 static struct videohub_data maindata;
@@ -31,13 +31,13 @@ static int show_monitor = 0;
 
 static const char *program_id = PROGRAM_NAME " Version: " VERSION " Git: " GIT_VER;
 
-static const char short_options[] = "s:p:qvhVim";
+static const char short_options[] = "s:p:qdhVim";
 
 static const struct option long_options[] = {
 	{ "host",				required_argument, NULL, 's' },
 	{ "port",				required_argument, NULL, 'p' },
 	{ "quiet",				no_argument,       NULL, 'q' },
-	{ "verbose",			no_argument,       NULL, 'v' },
+	{ "debug",				no_argument,       NULL, 'd' },
 	{ "help",				no_argument,       NULL, 'h' },
 	{ "version",			no_argument,       NULL, 'V' },
 	{ "info",				no_argument,       NULL, 'i' },
@@ -54,7 +54,7 @@ static void show_help(struct videohub_data *data) {
 	printf(" -p --port <port_number>    | Set device port (default: 9990).\n");
 	printf("\n");
 	printf("Misc options:\n");
-	printf(" -v --verbose               | Increase logging verbosity.\n");
+	printf(" -d --debug                 | Increase logging verbosity.\n");
 	printf(" -q --quiet                 | Suppress warnings.\n");
 	printf(" -h --help                  | Show help screen.\n");
 	printf(" -V --version               | Show program version.\n");
@@ -77,9 +77,9 @@ static void parse_options(struct videohub_data *data, int argc, char **argv) {
 			case 'p': // --port
 				data->dev_port = optarg;
 				break;
-			case 'v': // --verbose
-				verbose++;
-				if (verbose)
+			case 'd': // --debug
+				debug++;
+				if (debug)
 					quiet = 0; // Disable quiet
 				break;
 			case 'q': // --quiet
@@ -110,7 +110,7 @@ static void parse_options(struct videohub_data *data, int argc, char **argv) {
 		exit(EXIT_FAILURE);
 	}
 
-	v("Device address: %s:%s\n", data->dev_host, data->dev_port);
+	d("Device address: %s:%s\n", data->dev_host, data->dev_port);
 }
 
 static void print_device_desc(struct device_desc *d) {

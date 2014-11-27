@@ -52,13 +52,13 @@ struct videohub_data {
 	struct output_desc		outputs[MAX_OUTPUTS];
 };
 
-extern int verbose;
+extern int debug;
 extern int quiet;
 
-#define v(fmt, arguments...) \
+#define d(fmt, arguments...) \
 	do { \
-		if (verbose) \
-			printf("verbose: " fmt, ## arguments); \
+		if (debug) \
+			printf("debug: " fmt, ## arguments); \
 	} while(0)
 
 #define ARRAY_SIZE(arr) (sizeof(arr) / sizeof((arr)[0]))

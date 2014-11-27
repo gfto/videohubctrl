@@ -53,7 +53,7 @@ int connect_client(int socktype, const char *hostname, const char *service) {
 	hints.ai_family = ai_family;
 	hints.ai_socktype = socktype;
 
-	v("Connecting to server %s port %s\n", hostname, service);
+	d("Connecting to server %s port %s\n", hostname, service);
 
 	n = getaddrinfo(hostname, service, &hints, &res);
 
@@ -94,7 +94,7 @@ int connect_client(int socktype, const char *hostname, const char *service) {
 		setsockopt(sockfd, IPPROTO_TCP, TCP_NODELAY, &flag, sizeof(int));
 	}
 
-	v("Connected to server %s port %s (addr=%s fd=%d).\n",
+	d("Connected to server %s port %s (addr=%s fd=%d).\n",
 		hostname, service, str_addr, sockfd);
 
 	set_sock_nonblock(sockfd);

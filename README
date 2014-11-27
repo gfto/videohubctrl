@@ -81,7 +81,7 @@ Main options:
  -p --port <port_number>    | Set device port (default: 9990).
 
 Misc options:
- -v --verbose               | Increase logging verbosity.
+ -d --debug                 | Increase logging verbosity.
  -q --quiet                 | Suppress warnings.
  -h --help                  | Show help screen.
  -V --version               | Show program version.
@@ -157,7 +157,7 @@ If you think you have found bug in videohubctrl, please report it to
 the e-mail listed in Contact section (see below) of this README file.
 
 When reporting bugs, please send the whole output that videohubctrl
-generated (preferably by using --verbose option) and also the full
+generated (preferably by using --debug option) and also the full
 command line which you used and describe what you think the videohubctrl
 does wrong.
 
