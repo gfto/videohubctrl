@@ -77,7 +77,7 @@ of supported command line parameters:
  Usage: videohubctrl --host <host> [..commands..]
 
 Main options:
- -s --host <hostname>       | Set device hostname.
+ -h --host <hostname>       | Set device hostname.
  -p --port <port_number>    | Set device port (default: 9990).
 
 Misc options:

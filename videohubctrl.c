@@ -31,10 +31,10 @@ static int show_monitor = 0;
 
 static const char *program_id = PROGRAM_NAME " Version: " VERSION " Git: " GIT_VER;
 
-static const char short_options[] = "s:p:qdHVim";
+static const char short_options[] = "h:p:qdHVim";
 
 static const struct option long_options[] = {
-	{ "host",				required_argument, NULL, 's' },
+	{ "host",				required_argument, NULL, 'h' },
 	{ "port",				required_argument, NULL, 'p' },
 	{ "quiet",				no_argument,       NULL, 'q' },
 	{ "debug",				no_argument,       NULL, 'd' },
@@ -50,7 +50,7 @@ static void show_help(struct videohub_data *data) {
 	printf(" Usage: " PROGRAM_NAME " --host <host> [..commands..]\n");
 	printf("\n");
 	printf("Main options:\n");
-	printf(" -s --host <hostname>       | Set device hostname.\n");
+	printf(" -h --host <hostname>       | Set device hostname.\n");
 	printf(" -p --port <port_number>    | Set device port (default: 9990).\n");
 	printf("\n");
 	printf("Misc options:\n");
@@ -71,7 +71,7 @@ static void parse_options(struct videohub_data *data, int argc, char **argv) {
 	data->dev_port = "9990";
 	while ((j = getopt_long(argc, argv, short_options, long_options, NULL)) != -1) {
 		switch (j) {
-			case 's': // --host
+			case 'h': // --host
 				data->dev_host = optarg;
 				break;
 			case 'p': // --port
