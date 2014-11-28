@@ -8,12 +8,12 @@ videohubctrl implements.
 videohubctrl is tested with Blackmagic Design Micro Videohub 16x16
 router and probably will work with other Videohub models.
 
-videohubctrl currently displays:
+videohubctrl currently displays and can configure:
 
-  - Input port labels
-  - Output port labels
-  - Output routing
-  - Output locking
+  - Video input port names
+  - Video output port names
+  - Video output routing
+  - Video output locking
 
 The following features found in bigger Videohub models are currently not
 supported (I don't have the hardware):
@@ -55,7 +55,7 @@ Commands:
  -i --info                  | Show device info (default command).
  -m --monitor               | Show real time monitor for config changes.
 
-Configuration:
+Video input/output configuration:
  --vi-name <in_X> <name>    | Set video input port X name.
  --vo-name <out_X> <name>   | Set video output port X name.
 
@@ -85,7 +85,44 @@ if they are set:
 Example usage
 =============
 
-TODO: Add examples once set commands are done.
+ # Rename video output
+
+   videohubctrl -h sdi --vo-name 8 "Output 8 - test"
+   videohubctrl -h sdi --vo-name "Output 8 - test" "Output 8"
+
+
+ # Rename video input
+
+   videohubctrl -h sdi --vi-name 4 "Windows 4 HD"
+   videohubctrl -h sdi --vi-name "Windows 4 HD" "CPlay4"
+
+
+ # Lock and then unlock output 16 (unlock assumes that the port is
+ # named Output 16). The hostname is set via env variable.
+
+   export VIDEOHUB_HOST=sdi
+   videohubctrl --vo-lock 16
+   videohubctrl --vo-unlock "Output 16"
+
+
+ # Set two outputs to receive from the same input using port names
+
+   videohubctrl -h sdi --vo-route "Output 8" "Windows 4 HD"
+   videohubctrl -h sdi --vo-route "Output 7" "Windows 4 HD"
+
+
+ # Run several commands at once
+ # Rename video input 11 and 12
+ # Rename video output 5,
+ # Set output 5 to receive from input 12
+ # Lock output 5
+
+   videohubctrl --host sdi \
+                --vi-name 11 "Test input" \
+                --vi-name 12 "Playout input" \
+                --vo-name 5 "Encoder h264" \
+                --vo-route 5 12 \
+                --vo-lock 5
 
 
 Example output

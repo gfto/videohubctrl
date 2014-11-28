@@ -86,7 +86,7 @@ static void show_help(struct videohub_data *data) {
 	printf(" --list-vinputs             | List device video inputs.\n");
 	printf(" --list-voutputs            | List device video outputs.\n");
 	printf("\n");
-	printf("Configuration:\n");
+	printf("Video input/output configuration:\n");
 	printf(" --vi-name <in_X> <name>    | Set video input port X name.\n");
 	printf(" --vo-name <out_X> <name>   | Set video output port X name.\n");
 	printf("\n");
