@@ -262,6 +262,7 @@ int main(int argc, char **argv) {
 			if (strlen(cmd_buffer)) {
 				show_cmd(data, ve);
 				fdwrite(data->dev_fd, cmd_buffer, strlen(cmd_buffer));
+				read_device_command_stream(data);
 			}
 		}
 	} else if (show_monitor) {
