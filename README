@@ -115,8 +115,6 @@ Here is how videohubctrl output looks like:
 
 |----------------------------------------------------------------------|
 gf@gf:~/git/videohubctrl$ ./videohubctrl --host sdi-matrix
-videohubctrl Version: 0.1 Git: 0.1
-
 Protocol version: 2.4
 Model name: Blackmagic Micro Videohub
 Unique ID: 7c2e0d021714

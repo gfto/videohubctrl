@@ -51,6 +51,7 @@ static const struct option long_options[] = {
 };
 
 static void show_help(struct videohub_data *data) {
+	printf("%s\n", program_id);
 	printf("\n");
 	printf(" Usage: " PROGRAM_NAME " --host <host> [..commands..]\n");
 	printf("\n");
@@ -149,7 +150,7 @@ static void parse_options(struct videohub_data *data, int argc, char **argv) {
 				show_help(data);
 				exit(EXIT_SUCCESS);
 			case 'V': // --version
-				// program_id is already printed on startup, just exit.
+				printf("%s\n", program_id);
 				exit(EXIT_SUCCESS);
 		}
 	}
@@ -217,8 +218,6 @@ static int read_device_command_stream(struct videohub_data *d) {
 
 int main(int argc, char **argv) {
 	struct videohub_data *data = &maindata;
-
-	printf("%s\n", program_id);
 
 	parse_options(data, argc, argv);
 	set_log_io_errors(0);
