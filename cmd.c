@@ -404,3 +404,43 @@ void format_cmd_text(struct vcmd_entry *e, char *buf, unsigned int bufsz) {
 		break;
 	}
 }
+
+void show_cmd(struct videohub_data *d, struct vcmd_entry *e) {
+	const char *prefix = "videohub: ";
+	switch (e->cmd) {
+	case CMD_INPUT_LABELS:
+		printf("%srename video input %d - \"%s\" to \"%s\"\n",
+			prefix,
+			e->port_no1, d->inputs[e->port_no1 - 1].name,
+			e->param2
+		);
+		break;
+	case CMD_OUTPUT_LABELS:
+		printf("%srename video output %d - \"%s\" to \"%s\"\n",
+			prefix,
+			e->port_no1, d->outputs[e->port_no1 - 1].name,
+			e->param2
+		);
+		break;
+	case CMD_VIDEO_OUTPUT_LOCKS:
+		printf("%s%s video output %d - \"%s\"\n",
+			prefix,
+			e->do_lock ? "lock" : (e->locked_other ? "force unlock" : "unlock"),
+			e->port_no1, d->outputs[e->port_no1 - 1].name
+		);
+		break;
+	case CMD_VIDEO_OUTPUT_ROUTING:
+		printf("%sset video output %d \"%s\" to read from input %d \"%s\"\n",
+			prefix,
+			e->port_no1, d->outputs[e->port_no1 - 1].name,
+			e->port_no2, d->inputs [e->port_no2 - 1].name
+		);
+		break;
+	case CMD_PROTOCOL_PREAMBLE:
+	case CMD_VIDEOHUB_DEVICE:
+	case CMD_PING:
+	case CMD_ACK:
+	case CMD_NAK:
+		break;
+	}
+}

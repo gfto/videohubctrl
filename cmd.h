@@ -43,4 +43,6 @@ struct vcmd_entry {
 void prepare_cmd_entry(struct videohub_data *d, struct vcmd_entry *e);
 void format_cmd_text(struct vcmd_entry *e, char *buf, unsigned int bufsz);
 
+void show_cmd(struct videohub_data *d, struct vcmd_entry *e);
+
 #endif

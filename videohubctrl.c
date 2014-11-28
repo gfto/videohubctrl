@@ -253,7 +253,6 @@ int main(int argc, char **argv) {
 			prepare_cmd_entry(data, &parsed_cmds.entry[i]);
 		}
 
-		//print_device_settings(data);
 		for (i = 0; i < ARRAY_SIZE(parsed_cmds.entry); i++) {
 			char cmd_buffer[1024];
 			struct vcmd_entry *ve = &parsed_cmds.entry[i];
@@ -261,13 +260,10 @@ int main(int argc, char **argv) {
 				continue;
 			format_cmd_text(ve, cmd_buffer, sizeof(cmd_buffer));
 			if (strlen(cmd_buffer)) {
-				printf("%s", cmd_buffer);
+				show_cmd(data, ve);
 				fdwrite(data->dev_fd, cmd_buffer, strlen(cmd_buffer));
 			}
 		}
-		//usleep(100000);
-		//read_device_command_stream(data);
-		//print_device_settings(data);
 	} else if (show_monitor) {
 		while (1) {
 			int sleeps = 0;
