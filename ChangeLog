@@ -3,6 +3,7 @@ xxxx-xx-xx : Version next
  * Rename -v / --verbose parameter to -d / --debug.
  * Rename -h parameter (help) to -H.
  * Rename -s parameter (host) to -h.
+ * Change output formatting to better show port locks and numbers.
 
 2014-11-27 : Version 0.2
  * Fix port routing. Previously it was reversed and incorrect.
