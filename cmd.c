@@ -189,7 +189,7 @@ bool parse_command(struct videohub_data *data, char *cmd) {
 				slot_data[0] = '\0'; // Separate slot_pos from slot_data
 				slot_data++;
 				slot_pos = strtoul(line, NULL, 10);
-				if (slot_pos < ARRAY_SIZE(data->inputs))
+				if (slot_pos < ARRAY_SIZE(data->outputs))
 					valid_slot = true;
 			}
 			break;
