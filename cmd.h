@@ -1,5 +1,5 @@
 /*
- * === Command parser ===
+ * === Commands processing ===
  *
  * Blackmagic Design Videohub control application
  * Copyright (C) 2014 Unix Solutions Ltd.
