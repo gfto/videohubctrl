@@ -18,6 +18,7 @@
 #include "cmd.h"
 #include "net.h"
 #include "util.h"
+#include "display.h"
 #include "version.h"
 
 #include "libfuncs/libfuncs.h"
@@ -28,6 +29,13 @@ int quiet;
 static struct videohub_data maindata;
 static int show_info = 1;
 static int show_monitor = 0;
+static int show_list = 0;
+
+enum list_actions {
+	action_list_device		= (1 << 0),
+	action_list_vinputs		= (1 << 1),
+	action_list_voutputs	= (1 << 2),
+};
 
 static const char *program_id = PROGRAM_NAME " Version: " VERSION " Git: " GIT_VER;
 
@@ -42,6 +50,9 @@ static const struct option long_options[] = {
 	{ "version",			no_argument,       NULL, 'V' },
 	{ "info",				no_argument,       NULL, 'i' },
 	{ "monitor",			no_argument,       NULL, 'm' },
+	{ "list-device",		no_argument,       NULL, 901 },
+	{ "list-vinputs",		no_argument,       NULL, 902 },
+	{ "list-voutputs",		no_argument,       NULL, 903 },
 	{ "vi-name",			required_argument, NULL, 1001 },
 	{ "vo-name",			required_argument, NULL, 1002 },
 	{ "vo-route",			required_argument, NULL, 1011 },
@@ -66,8 +77,14 @@ static void show_help(struct videohub_data *data) {
 	printf(" -V --version               | Show program version.\n");
 	printf("\n");
 	printf("Commands:\n");
-	printf(" -i --info                  | Show device info (default command).\n");
-	printf(" -m --monitor               | Show real time monitor for config changes.\n");
+	printf(" -i --info                  | Show full device info (default command).\n");
+	printf("                            . This command is shows the equivallent of\n");
+	printf("                            .  running all --list-XXX commands.\n");
+	printf(" -m --monitor               | Display real-time config changes monitor.\n");
+	printf("\n");
+	printf(" --list-device              | Display device info.\n");
+	printf(" --list-vinputs             | List device video inputs.\n");
+	printf(" --list-voutputs            | List device video outputs.\n");
 	printf("\n");
 	printf("Configuration:\n");
 	printf(" --vi-name <in_X> <name>    | Set input <name> to input port X.\n");
@@ -116,6 +133,9 @@ static void parse_options(struct videohub_data *data, int argc, char **argv) {
 			case 'm': // --monitor
 				show_monitor = 1;
 				break;
+			case 901: show_list |= action_list_device; break; // --list-device
+			case 902: show_list |= action_list_vinputs; break; // --list-vinputs
+			case 903: show_list |= action_list_voutputs; break; // --list-voutputs
 			case 1001: // --vi-name
 			case 1002: // --vo-name
 			case 1011: // --vi-route
@@ -166,43 +186,6 @@ static void parse_options(struct videohub_data *data, int argc, char **argv) {
 	}
 
 	d("Device address: %s:%s\n", data->dev_host, data->dev_port);
-}
-
-static void print_device_desc(struct device_desc *d) {
-	printf("\n");
-	printf("Protocol version: %s\n", d->protocol_ver);
-	printf("Model name: %s\n", d->model_name);
-	printf("Unique ID: %s\n", d->unique_id);
-	printf("Video inputs: %u\n", d->num_video_inputs);
-	printf("Video processing units: %u\n", d->num_video_processing_units);
-	printf("Video outputs: %u\n", d->num_video_outputs);
-	printf("Video monitoring outputs: %u\n", d->num_video_monitoring_outputs);
-	printf("Serial ports: %u\n", d->num_serial_ports);
-}
-
-static void printf_line(int len) {
-	int i;
-	for (i = 0; i < len; i++)
-		printf("-");
-	printf("\n");
-}
-
-static void print_device_settings(struct videohub_data *d) {
-	unsigned int i;
-	printf("\n");
-	printf_line(71);
-	printf("| i# | %-25s | o# | x | %-25s |\n", "Input name", "Output name");
-	printf_line(71);
-	for(i = 0; i < MIN(d->device.num_video_outputs, ARRAY_SIZE(d->outputs)); i++) {
-		printf("| %2d | %-25s | %2d | %c | %-25s |\n",
-			i + 1,
-			d->inputs[d->outputs[i].routed_to].name,
-			i + 1,
-			d->outputs[i].locked ? (d->outputs[i].locked_other ? 'L' : 'O') : ' ',
-			d->outputs[i].name
-		);
-	}
-	printf_line(71);
 }
 
 static int read_device_command_stream(struct videohub_data *d) {
@@ -277,17 +260,23 @@ int main(int argc, char **argv) {
 	} else if (show_monitor) {
 		while (1) {
 			printf("\e[2J\e[H"); // Clear screen
-			printf("%s\n", program_id);
-			print_device_desc(&data->device);
-			print_device_settings(data);
+			print_device_info(data);
+			print_device_video_inputs(data);
+			print_device_video_outputs(data);
 			fflush(stdout);
 			do {
 				sleep(1);
 			} while (read_device_command_stream(data) == 0);
 		}
+	} else if (show_list) {
+		if (show_list & action_list_device)		print_device_info(data);
+		if (show_list & action_list_vinputs)	print_device_video_inputs(data);
+		if (show_list & action_list_voutputs)	print_device_video_outputs(data);
+		fflush(stdout);
 	} else if (show_info) {
-		print_device_desc(&data->device);
-		print_device_settings(data);
+		print_device_info(data);
+		print_device_video_inputs(data);
+		print_device_video_outputs(data);
 		fflush(stdout);
 	}
 

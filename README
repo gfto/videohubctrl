@@ -115,49 +115,73 @@ Here is how videohubctrl output looks like:
 
 |----------------------------------------------------------------------|
 gf@gf:~/git/videohubctrl$ ./videohubctrl --host sdi-matrix
-Protocol version: 2.4
-Model name: Blackmagic Micro Videohub
-Unique ID: 7c2e0d021714
-Video inputs: 16
-Video processing units: 0
-Video outputs: 16
-Video monitoring outputs: 0
-Serial ports: 0
+Device info
+  -----------------------------------------------------------
+  | Device address             | sdi-matrix                 |
+  | Device port                | 9990                       |
+  | Model name                 | Blackmagic Micro Videohub  |
+  | Unique ID                  | 7c2e0d021714               |
+  | Protocol                   | 2.4                        |
+  | Video inputs               | 16                         |
+  | Video outputs              | 16                         |
+  -----------------------------------------------------------
 
------------------------------------------------------------------------
-| i# | Input name                | o# | x | Output name               |
------------------------------------------------------------------------
-|  1 | Windows 3                 |  1 | L | Enc1 1                    |
-|  2 | Windows 2                 |  2 | L | Enc1 2                    |
-|  3 | Windows 1                 |  3 | L | Enc1 3                    |
-|  4 | Windows 1                 |  4 | L | Enc1 4                    |
-|  5 | Input 5                   |  5 |   | Output 5                  |
-|  6 | Input 6                   |  6 |   | Output 6                  |
-|  7 | Input 7                   |  7 |   | Output 7                  |
-|  8 | Input 8                   |  8 |   | Output 8                  |
-|  9 | Windows 4 HD              |  9 | L | Enc2 1                    |
-| 10 | Input 10                  | 10 |   | Output 10                 |
-| 11 | Input 11                  | 11 |   | Output 11                 |
-| 12 | DPlay2                    | 12 | L | Denc                      |
-| 13 | DPlay1                    | 13 | O | Output 13                 |
-| 14 | Input 14                  | 14 |   | Output 14                 |
-| 15 | Input 15                  | 15 |   | Output 15                 |
-| 16 | Loopback                  | 16 |   | Loopback                  |
------------------------------------------------------------------------
+Video inputs
+  ---------------------------------
+  | ## | Video input name         |
+  ---------------------------------
+  |  1 | Windows 1                |
+  |  2 | Windows 2                |
+  |  3 | Windows 3                |
+  |  4 | Windows 4 HD             |
+  |  5 | Input 5                  |
+  |  6 | Input 6                  |
+  |  7 | Input 7                  |
+  |  8 | Input 8                  |
+  |  9 | Input 9                  |
+  | 10 | Input 10                 |
+  | 11 | Input 11                 |
+  | 12 | DPlay1                   |
+  | 13 | DPlay2                   |
+  | 14 | Input 14                 |
+  | 15 | Input 15                 |
+  | 16 | Loopback                 |
+  ---------------------------------
+
+Video outputs
+  ----------------------------------------------------------------
+  | ## | x | Video output name        | Connected video input    |
+  ----------------------------------------------------------------
+  |  1 | L | Enc1 1                   | Windows 3                |
+  |  2 | L | Enc1 2                   | Windows 2                |
+  |  3 | L | Enc1 3                   | Windows 1                |
+  |  4 | L | Enc1 4                   | Windows 1                |
+  |  5 |   | Output 5                 | Input 5                  |
+  |  6 |   | Output 6                 | Input 6                  |
+  |  7 |   | Output 7                 | Input 7                  |
+  |  8 |   | Output 8                 | Input 8                  |
+  |  9 | L | Enc2 1                   | Windows 4 HD             |
+  | 10 |   | Output 10                | Input 10                 |
+  | 11 |   | Output 11                | Input 11                 |
+  | 12 | L | Denc                     | DPlay2                   |
+  | 13 | O | Output 13                | DPlay1                   |
+  | 14 |   | Output 14                | Input 14                 |
+  | 15 |   | Output 15                | Input 15                 |
+  | 16 | O | Loopback                 | Loopback                 |
+  ----------------------------------------------------------------
 
 gf@gf:~/git/videohubctrl$
 |----------------------------------------------------------------------|
 
-Output Legend
-=============
+Video outputs Legend
+====================
 
- Column 1 (i#) - Input port number
- Column 2 (..) - Input port names
- Column 3 (o#) - Output port number
- Column 4 (x)  - Output port lock status
+ Column 1 (##) - Input port number
+ Column 2 (x)  - Output port lock status
                   L - The port is locked by another IP address (user)
                   O - The port is locked by me (from my IP address)
- Column 5      - Output port names
+ Column 3      - Output port names
+ Column 4      - Which input port is routed to this output
 
 
 Reporting bugs

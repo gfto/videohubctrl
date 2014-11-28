@@ -31,6 +31,7 @@ videohubctrl_SRC = \
 	cmd.c \
 	net.c \
 	util.c \
+	display.c \
 	videohubctrl.c
 videohubctrl_LIBS = -lpthread
 videohubctrl_OBJS = $(FUNCS_LIB) $(videohubctrl_SRC:.c=.o)

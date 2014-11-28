@@ -6,6 +6,7 @@ xxxx-xx-xx : Version next
  * Change output formatting to better show port locks and numbers.
  * Add support for setting video input/output names, video output locking
    and video output routing.
+ * Add --list-device, --list-vinputs and --list-voutputs parameters.
 
 2014-11-27 : Version 0.2
  * Fix port routing. Previously it was reversed and incorrect.
