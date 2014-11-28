@@ -66,7 +66,7 @@ void print_device_video_outputs(struct videohub_data *d) {
 	printf_line(len);
 	printf("  | ## | x | %-24s | %-24s |\n", "Video output name", "Connected video input");
 	printf_line(len);
-	for(i = 0; i < MIN(d->device.num_video_outputs, ARRAY_SIZE(d->outputs)); i++) {
+	for(i = 0; i < d->device.num_video_outputs; i++) {
 		printf("  | %2d | %c | %-24s | %-24s |\n",
 			i + 1,
 			d->outputs[i].locked ? (d->outputs[i].locked_other ? 'L' : 'O') : ' ',
