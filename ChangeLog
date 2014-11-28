@@ -4,6 +4,8 @@ xxxx-xx-xx : Version next
  * Rename -h parameter (help) to -H.
  * Rename -s parameter (host) to -h.
  * Change output formatting to better show port locks and numbers.
+ * Add support for setting video input/output names, video output locking
+   and video output routing.
 
 2014-11-27 : Version 0.2
  * Fix port routing. Previously it was reversed and incorrect.

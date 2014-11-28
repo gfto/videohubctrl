@@ -302,3 +302,102 @@ int parse_text_buffer(struct videohub_data *data, char *cmd_buffer) {
 	free(bcopy);
 	return ok_commands;
 }
+
+// Try to find input/output with certain name, return 0 on not found, pos + 1 is found
+static int search_video_output_name(struct videohub_data *d, char *name) {
+	unsigned int i;
+	for(i = 0; i < MIN(d->device.num_video_outputs, ARRAY_SIZE(d->outputs)); i++) {
+		if (streq(name, d->outputs[i].name)) {
+			return i + 1;
+		}
+	}
+	return 0;
+}
+
+static int search_video_input_name(struct videohub_data *d, char *name) {
+	unsigned int i;
+	for(i = 0; i < MIN(d->device.num_video_inputs, ARRAY_SIZE(d->inputs)); i++) {
+		if (streq(name, d->inputs[i].name)) {
+			return i + 1;
+		}
+	}
+	return 0;
+}
+
+// Return 0 on error, number otherwise if it can parse the whole input
+static unsigned int my_atoi(char *txt) {
+	char *endptr = NULL;
+	if (!txt)
+		return 0;
+	unsigned int ret = strtoul(txt, &endptr, 10);
+	if (endptr == txt || *endptr)
+		return 0;
+	return ret;
+}
+
+void prepare_cmd_entry(struct videohub_data *d, struct vcmd_entry *e) {
+	e->port_no1 = my_atoi(e->param1);
+	e->port_no2 = my_atoi(e->param2);
+	switch (e->cmd) {
+	case CMD_INPUT_LABELS:
+		if (e->port_no1 == 0 || e->port_no1 > d->device.num_video_inputs) {
+			e->port_no1 = search_video_input_name(d, e->param1);
+			if (!e->port_no1)
+				die("Unknown input port number/name: %s", e->param1);
+		}
+		break;
+	case CMD_OUTPUT_LABELS:
+	case CMD_VIDEO_OUTPUT_LOCKS:
+		if (e->port_no1 == 0 || e->port_no1 > d->device.num_video_outputs) {
+			e->port_no1 = search_video_output_name(d, e->param1);
+			if (!e->port_no1)
+				die("Unknown output port number/name: %s", e->param1);
+			e->locked_other = d->outputs[e->port_no1 - 1].locked_other;
+		} else {
+			e->locked_other = d->outputs[e->port_no1 - 1].locked_other;
+		}
+		break;
+	case CMD_VIDEO_OUTPUT_ROUTING:
+		if (e->port_no1 == 0 || e->port_no1 > d->device.num_video_outputs) {
+			e->port_no1 = search_video_output_name(d, e->param1);
+			if (!e->port_no1)
+				die("Unknown output port number/name: %s", e->param1);
+		}
+		if (e->port_no2 == 0 || e->port_no2 > d->device.num_video_inputs) {
+			e->port_no2 = search_video_input_name(d, e->param2);
+			if (!e->port_no2)
+				die("Unknown input port number/name: %s", e->param2);
+		}
+		break;
+	case CMD_PROTOCOL_PREAMBLE:
+	case CMD_VIDEOHUB_DEVICE:
+	case CMD_PING:
+	case CMD_ACK:
+	case CMD_NAK:
+		break;
+	}
+}
+
+void format_cmd_text(struct vcmd_entry *e, char *buf, unsigned int bufsz) {
+	switch (e->cmd) {
+	case CMD_INPUT_LABELS:
+	case CMD_OUTPUT_LABELS:
+		snprintf(buf, bufsz, "%s:\n%u %s\n\n", get_cmd_text(e->cmd),
+			e->port_no1 - 1, e->param2);
+		break;
+	case CMD_VIDEO_OUTPUT_LOCKS:
+		snprintf(buf, bufsz, "%s:\n%u %s\n\n", get_cmd_text(e->cmd),
+			e->port_no1 - 1, e->do_lock ? "O" : (e->locked_other ? "F" : "U"));
+		break;
+	case CMD_VIDEO_OUTPUT_ROUTING:
+		snprintf(buf, bufsz, "%s:\n%u %u\n\n", get_cmd_text(e->cmd),
+			e->port_no1 - 1, e->port_no2 - 1);
+		break;
+	case CMD_PROTOCOL_PREAMBLE:
+	case CMD_VIDEOHUB_DEVICE:
+	case CMD_PING:
+	case CMD_ACK:
+	case CMD_NAK:
+		break;
+	}
+}

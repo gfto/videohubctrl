@@ -42,6 +42,11 @@ static const struct option long_options[] = {
 	{ "version",			no_argument,       NULL, 'V' },
 	{ "info",				no_argument,       NULL, 'i' },
 	{ "monitor",			no_argument,       NULL, 'm' },
+	{ "vi-name",			required_argument, NULL, 1001 },
+	{ "vo-name",			required_argument, NULL, 1002 },
+	{ "vo-route",			required_argument, NULL, 1011 },
+	{ "vo-lock",			required_argument, NULL, 1021 },
+	{ "vo-unlock",			required_argument, NULL, 1022 },
 	{ 0, 0, 0, 0 }
 };
 
@@ -63,10 +68,27 @@ static void show_help(struct videohub_data *data) {
 	printf(" -i --info                  | Show device info (default command).\n");
 	printf(" -m --monitor               | Show real time monitor for config changes.\n");
 	printf("\n");
+	printf("Configuration:\n");
+	printf(" --vi-name <in_X> <name>    | Set input <name> to input port X.\n");
+	printf(" --vo-name <out_X> <name>   | Set output <name> to output port X.\n");
+	printf("\n");
+	printf(" --vo-route <out_X> <in_Y>  | Connect output port X to input port Y.\n");
+	printf("\n");
+	printf(" --vo-lock <out_X>          | Lock output port X.\n");
+	printf(" --vo-unlock <out_X>        | Unlock output port X.\n");
+	printf("\n");
+	printf("  NOTE: For <in_X/out_X/in_Y> you may use port number or port name.\n");
+	printf("\n");
 }
+
+static int num_parsed_cmds = 0;
+static struct run_cmds {
+	struct vcmd_entry	entry[MAX_RUN_CMDS];
+} parsed_cmds;
 
 static void parse_options(struct videohub_data *data, int argc, char **argv) {
 	int j, err = 0;
+	struct vcmd_entry *c = &parsed_cmds.entry[0];
 	// Set defaults
 	data->dev_port = "9990";
 	while ((j = getopt_long(argc, argv, short_options, long_options, NULL)) != -1) {
@@ -92,6 +114,36 @@ static void parse_options(struct videohub_data *data, int argc, char **argv) {
 				break;
 			case 'm': // --monitor
 				show_monitor = 1;
+				break;
+			case 1001: // --vi-name
+			case 1002: // --vo-name
+			case 1011: // --vi-route
+			case 1012: // --vo-route
+				if (num_parsed_cmds == ARRAY_SIZE(parsed_cmds.entry))
+					die("No more than %u commands are supported.", num_parsed_cmds);
+				if (optind == argc || argv[optind - 1][0] == '-' || argv[optind][0] == '-') {
+					fprintf(stderr, "%s: option '%s' requires two arguments\n", argv[0], argv[optind - 2]);
+					exit(EXIT_FAILURE);
+				}
+				switch (j) {
+				case 1001: c->cmd = CMD_INPUT_LABELS; break; // --vi-name
+				case 1002: c->cmd = CMD_OUTPUT_LABELS; break; // --vo-name
+				case 1011: c->cmd = CMD_VIDEO_OUTPUT_ROUTING; break; // --vo-route
+				}
+				c->param1 = argv[optind - 1];
+				c->param2 = argv[optind];
+				c->param1 = argv[optind - 1];
+				c->param2 = argv[optind];
+				c = &parsed_cmds.entry[++num_parsed_cmds];
+				break;
+			case 1021: // --vo-lock
+			case 1022: // --vo-unlock
+				if (num_parsed_cmds == ARRAY_SIZE(parsed_cmds.entry))
+					die("No more than %u commands are supported.", num_parsed_cmds);
+				c->cmd = CMD_VIDEO_OUTPUT_LOCKS;
+				c->param1 = argv[optind - 1];
+				c->do_lock = (j == 1021);
+				c = &parsed_cmds.entry[++num_parsed_cmds];
 				break;
 			case 'H': // --help
 				show_help(data);
@@ -199,7 +251,31 @@ int main(int argc, char **argv) {
 		die("The device supports %d outputs. Recompile the program with more MAX_OUTPUTS (currently %d)\n",
 			data->device.num_video_outputs, MAX_OUTPUTS);
 
-	if (show_monitor) {
+	if (num_parsed_cmds) {
+		unsigned int i;
+		for (i = 0; i < ARRAY_SIZE(parsed_cmds.entry); i++) {
+			struct vcmd_entry *ve = &parsed_cmds.entry[i];
+			if (!ve->param1)
+				continue;
+			prepare_cmd_entry(data, &parsed_cmds.entry[i]);
+		}
+
+		//print_device_settings(data);
+		for (i = 0; i < ARRAY_SIZE(parsed_cmds.entry); i++) {
+			char cmd_buffer[1024];
+			struct vcmd_entry *ve = &parsed_cmds.entry[i];
+			if (!ve->param1)
+				continue;
+			format_cmd_text(ve, cmd_buffer, sizeof(cmd_buffer));
+			if (strlen(cmd_buffer)) {
+				printf("%s", cmd_buffer);
+				fdwrite(data->dev_fd, cmd_buffer, strlen(cmd_buffer));
+			}
+		}
+		//usleep(100000);
+		//read_device_command_stream(data);
+		//print_device_settings(data);
+	} else if (show_monitor) {
 		while (1) {
 			printf("\e[2J\e[H"); // Clear screen
 			printf("%s\n", program_id);

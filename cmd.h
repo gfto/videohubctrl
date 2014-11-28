@@ -30,4 +30,17 @@ enum vcmd {
 bool parse_command(struct videohub_data *d, char *cmd);
 int parse_text_buffer(struct videohub_data *data, char *cmd_buffer);
 
+struct vcmd_entry {
+	enum vcmd		cmd;
+	char			*param1;
+	char			*param2;
+	unsigned int	port_no1;
+	unsigned int	port_no2;
+	bool			do_lock;
+	bool			locked_other;
+};
+
+void prepare_cmd_entry(struct videohub_data *d, struct vcmd_entry *e);
+void format_cmd_text(struct vcmd_entry *e, char *buf, unsigned int bufsz);
+
 #endif

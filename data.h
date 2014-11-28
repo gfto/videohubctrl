@@ -19,6 +19,8 @@
 #define MAX_OUTPUTS 288
 #define MAX_NAME_LEN 64
 
+#define MAX_RUN_CMDS (MAX_INPUTS + (MAX_OUTPUTS * 2))
+
 struct device_desc {
 	bool			dev_present;
 	bool			needs_fw_update;
