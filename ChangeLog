@@ -1,5 +1,5 @@
 |-----------------------------------------------------------------------|
-xxxx-xx-xx : Version next
+2014-11-28 : Version 0.3
  * Rename -v / --verbose parameter to -d / --debug.
  * Rename -h parameter (help) to -H.
  * Rename -s parameter (host) to -h.
