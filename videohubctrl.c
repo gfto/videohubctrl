@@ -70,6 +70,8 @@ static void parse_options(struct videohub_data *data, int argc, char **argv) {
 	// Set defaults
 	data->dev_port = "9990";
 	while ((j = getopt_long(argc, argv, short_options, long_options, NULL)) != -1) {
+		if (j == '?') // Invalid parameter
+			exit(EXIT_FAILURE);
 		switch (j) {
 			case 'h': // --host
 				data->dev_host = optarg;
