@@ -259,13 +259,21 @@ int main(int argc, char **argv) {
 		//print_device_settings(data);
 	} else if (show_monitor) {
 		while (1) {
+			int sleeps = 0;
 			printf("\e[2J\e[H"); // Clear screen
+			time_t now = time(NULL);
+			struct tm *tm = localtime(&now);
+			printf("Last update: %s\n", asctime(tm));
 			print_device_info(data);
 			print_device_video_inputs(data);
 			print_device_video_outputs(data);
 			fflush(stdout);
 			do {
-				sleep(1);
+				usleep(500000);
+				if (++sleeps >= 20) {
+					char *ping_cmd = "PING:\n\n";
+					fdwrite(data->dev_fd, ping_cmd, strlen(ping_cmd));
+				}
 			} while (read_device_command_stream(data) == 0);
 		}
 	} else if (show_list) {

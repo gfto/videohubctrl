@@ -7,6 +7,7 @@ xxxx-xx-xx : Version next
  * Add support for setting video input/output names, video output locking
    and video output routing.
  * Add --list-device, --list-vinputs and --list-voutputs parameters.
+ * Display last update time in --monitor.
 
 2014-11-27 : Version 0.2
  * Fix port routing. Previously it was reversed and incorrect.
