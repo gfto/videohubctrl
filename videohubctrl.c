@@ -72,12 +72,6 @@ static void show_help(struct videohub_data *data) {
 	printf(" -h --host <hostname>       | Set device hostname.\n");
 	printf(" -p --port <port_number>    | Set device port (default: 9990).\n");
 	printf("\n");
-	printf("Misc options:\n");
-	printf(" -d --debug                 | Increase logging verbosity.\n");
-	printf(" -q --quiet                 | Suppress warnings.\n");
-	printf(" -H --help                  | Show help screen.\n");
-	printf(" -V --version               | Show program version.\n");
-	printf("\n");
 	printf("Commands:\n");
 	printf(" -i --info                  | Show full device info (default command).\n");
 	printf("                            . This command is shows the equivallent of\n");
@@ -100,6 +94,12 @@ static void show_help(struct videohub_data *data) {
 	printf(" --vo-unlock <out_X>        | Unlock output port X.\n");
 	printf("\n");
 	printf("  NOTE: For <in_X/out_X/in_Y> you may use port number or port name.\n");
+	printf("\n");
+	printf("Misc options:\n");
+	printf(" -d --debug                 | Increase logging verbosity.\n");
+	printf(" -q --quiet                 | Suppress warnings.\n");
+	printf(" -H --help                  | Show help screen.\n");
+	printf(" -V --version               | Show program version.\n");
 	printf("\n");
 }
 

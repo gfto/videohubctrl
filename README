@@ -39,23 +39,25 @@ Command line parameters
 videohubctrl is controlled using command line parameters. Here is a list
 of supported command line parameters:
 
+videohubctrl Version: 0.3 Git: 0.3-dirty
+
  Usage: videohubctrl --host <host> [..commands..]
 
 Main options:
  -h --host <hostname>       | Set device hostname.
  -p --port <port_number>    | Set device port (default: 9990).
 
-Misc options:
- -d --debug                 | Increase logging verbosity.
- -q --quiet                 | Suppress warnings.
- -H --help                  | Show help screen.
- -V --version               | Show program version.
-
 Commands:
- -i --info                  | Show device info (default command).
- -m --monitor               | Show real time monitor for config changes.
+ -i --info                  | Show full device info (default command).
+                            . This command is shows the equivallent of
+                            .  running all --list-XXX commands.
+ -m --monitor               | Display real-time config changes monitor.
  -b --backup                | Show the command line that will restore
                             . the device to the current configuration.
+
+ --list-device              | Display device info.
+ --list-vinputs             | List device video inputs.
+ --list-voutputs            | List device video outputs.
 
 Video input/output configuration:
  --vi-name <in_X> <name>    | Set video input port X name.
@@ -67,6 +69,12 @@ Video input/output configuration:
  --vo-unlock <out_X>        | Unlock output port X.
 
   NOTE: For <in_X/out_X/in_Y> you may use port number or port name.
+
+Misc options:
+ -d --debug                 | Increase logging verbosity.
+ -q --quiet                 | Suppress warnings.
+ -H --help                  | Show help screen.
+ -V --version               | Show program version.
 
 
 Environment variables
