@@ -306,7 +306,7 @@ int parse_text_buffer(struct videohub_data *data, char *cmd_buffer) {
 // Try to find input/output with certain name, return 0 on not found, pos + 1 is found
 static int search_video_output_name(struct videohub_data *d, char *name) {
 	unsigned int i;
-	for(i = 0; i < MIN(d->device.num_video_outputs, ARRAY_SIZE(d->outputs)); i++) {
+	for(i = 0; i < d->device.num_video_outputs; i++) {
 		if (streq(name, d->outputs[i].name)) {
 			return i + 1;
 		}
@@ -316,7 +316,7 @@ static int search_video_output_name(struct videohub_data *d, char *name) {
 
 static int search_video_input_name(struct videohub_data *d, char *name) {
 	unsigned int i;
-	for(i = 0; i < MIN(d->device.num_video_inputs, ARRAY_SIZE(d->inputs)); i++) {
+	for(i = 0; i < d->device.num_video_inputs; i++) {
 		if (streq(name, d->inputs[i].name)) {
 			return i + 1;
 		}
