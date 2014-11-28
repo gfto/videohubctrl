@@ -8,6 +8,7 @@ xxxx-xx-xx : Version next
    and video output routing.
  * Add --list-device, --list-vinputs and --list-voutputs parameters.
  * Display last update time in --monitor.
+ * Add support for VIDEOHUB_HOST and VIDEOHUB_PORT env variables.
 
 2014-11-27 : Version 0.2
  * Fix port routing. Previously it was reversed and incorrect.

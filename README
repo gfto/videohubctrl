@@ -102,6 +102,21 @@ Configuration:
   NOTE: For <in_X/out_X/in_Y> you may use port number or port name.
 
 
+Environment variables
+=====================
+
+The following environment variables are checked and used by the program
+if they are set:
+
+ VIDEOHUB_HOST
+    Sets the device host name. It is equivallent to using -h / --host
+    command line parameter.
+
+ VIDEOHUB_PORT
+    Sets the device port. It is equivallent to using -p / --port command
+    line parameter.
+
+
 Example usage
 =============
 

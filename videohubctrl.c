@@ -107,8 +107,12 @@ static struct run_cmds {
 static void parse_options(struct videohub_data *data, int argc, char **argv) {
 	int j, err = 0;
 	struct vcmd_entry *c = &parsed_cmds.entry[0];
+	// Check environment
+	data->dev_host = getenv("VIDEOHUB_HOST");
+	data->dev_port = getenv("VIDEOHUB_PORT");
 	// Set defaults
-	data->dev_port = "9990";
+	if (!data->dev_port)
+		data->dev_port = "9990";
 	while ((j = getopt_long(argc, argv, short_options, long_options, NULL)) != -1) {
 		if (j == '?') // Invalid parameter
 			exit(EXIT_FAILURE);
