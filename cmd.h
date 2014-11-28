@@ -23,6 +23,8 @@ enum vcmd {
 	CMD_VIDEO_OUTPUT_LOCKS,
 	CMD_VIDEO_OUTPUT_ROUTING,
 	CMD_PING,
+	CMD_ACK,
+	CMD_NAK,
 };
 
 bool parse_command(struct videohub_data *d, char *cmd);

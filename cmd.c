@@ -119,6 +119,8 @@ static struct videohub_commands {
 	{ CMD_VIDEO_OUTPUT_LOCKS,      "VIDEO OUTPUT LOCKS" },
 	{ CMD_VIDEO_OUTPUT_ROUTING,    "VIDEO OUTPUT ROUTING" },
 	{ CMD_PING,                    "PING" },
+	{ CMD_ACK,                     "ACK" },
+	{ CMD_NAK,                     "NAK" },
 };
 
 static const char *get_cmd_text(enum vcmd cmd) {
@@ -140,6 +142,7 @@ static char *parse_text(char *line, char *cmd) {
 
 bool parse_command(struct videohub_data *data, char *cmd) {
 	unsigned int i;
+	bool ret = true;
 	if (!strlen(cmd))
 		return false;
 	struct videohub_commands *v = NULL;
@@ -168,26 +171,10 @@ bool parse_command(struct videohub_data *data, char *cmd) {
 	if (debug > 1)
 		d("----\n%s\n----\n", cmd);
 
-	bool cmd_response = false;
 	char *p, *cmd_data = xstrdup( cmd + strlen(v->txt) + 2 ); // +2 to compensate for :\n at the end of the command
 	// Split line by line
 	char *line, *saveptr = NULL;
 	for(i = 0, line = strtok_r(cmd_data, "\n", &saveptr); line; line = strtok_r(NULL, "\n", &saveptr), i++) {
-		if (i == 0) { // Handle command response
-			if (streq(line, "NAK"))
-				return false;
-			if (streq(line, "ACK")) {
-				cmd_response = true;
-				continue;
-			}
-		}
-
-		if (i == 1 && cmd_response) { // The command must match
-			if (strstr(line, v->txt) != line)
-				return false;
-			continue;
-		}
-
 		// Parse command data response looking like that: "[slot_pos] [slot_data]"
 		bool valid_slot = false;
 		unsigned int slot_pos = 0;
@@ -280,12 +267,16 @@ bool parse_command(struct videohub_data *data, char *cmd) {
 			break;
 
 		case CMD_PING:
-			// Do nothing, we just get ACK without any data
+		case CMD_ACK:
+			// Do nothing
+			break;
+		case CMD_NAK:
+			ret = false;
 			break;
 		}
 	}
 	free(cmd_data);
-	return true;
+	return ret;
 }
 
 int parse_text_buffer(struct videohub_data *data, char *cmd_buffer) {
