@@ -381,6 +381,9 @@ void prepare_cmd_entry(struct videohub_data *d, struct vcmd_entry *e) {
 void format_cmd_text(struct vcmd_entry *e, char *buf, unsigned int bufsz) {
 	switch (e->cmd) {
 	case CMD_INPUT_LABELS:
+		snprintf(buf, bufsz, "%s:\n%u %s\n\n", get_cmd_text(e->cmd),
+			e->port_no1 - 1, e->param2);
+		break;
 	case CMD_OUTPUT_LABELS:
 		snprintf(buf, bufsz, "%s:\n%u %s\n\n", get_cmd_text(e->cmd),
 			e->port_no1 - 1, e->param2);
