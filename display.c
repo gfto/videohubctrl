@@ -77,3 +77,24 @@ void print_device_video_outputs(struct videohub_data *d) {
 	printf_line(len);
 	printf("\n");
 }
+
+void print_device_backup(struct videohub_data *d) {
+	unsigned int i;
+	printf("videohubctrl \\\n");
+	for(i = 0; i < d->device.num_video_inputs; i++)
+		printf("  --vi-name %2d \"%s\" \\\n", i + 1, d->inputs[i].name);
+	for(i = 0; i < d->device.num_video_outputs; i++)
+		printf("  --vo-name %2d \"%s\" \\\n", i + 1, d->outputs[i].name);
+	for(i = 0; i < d->device.num_video_outputs; i++)
+		printf("  --vo-route %2d %2d \\\n", i + 1, d->outputs[i].routed_to + 1);
+	for(i = 0; i < d->device.num_video_outputs; i++) {
+		if (d->outputs[i].locked) {
+			printf("  --vo-unlock %2d --vo-lock %2d%s\n", i + 1, i + 1,
+				i + 1 < d->device.num_video_outputs ? " \\" : "");
+		} else {
+			printf("  --vo-unlock %2d%s\n", i + 1,
+				i + 1 < d->device.num_video_outputs ? " \\" : "");
+		}
+	}
+	printf("\n");
+}

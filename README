@@ -54,6 +54,8 @@ Misc options:
 Commands:
  -i --info                  | Show device info (default command).
  -m --monitor               | Show real time monitor for config changes.
+ -b --backup                | Show the command line that will restore
+                            . the device to the current configuration.
 
 Video input/output configuration:
  --vi-name <in_X> <name>    | Set video input port X name.

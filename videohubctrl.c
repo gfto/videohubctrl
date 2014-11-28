@@ -29,6 +29,7 @@ int quiet;
 static struct videohub_data maindata;
 static int show_info = 1;
 static int show_monitor = 0;
+static int show_backup = 0;
 static int show_list = 0;
 
 enum list_actions {
@@ -39,7 +40,7 @@ enum list_actions {
 
 static const char *program_id = PROGRAM_NAME " Version: " VERSION " Git: " GIT_VER;
 
-static const char short_options[] = "h:p:qdHVim";
+static const char short_options[] = "h:p:qdHVimb";
 
 static const struct option long_options[] = {
 	{ "host",				required_argument, NULL, 'h' },
@@ -50,6 +51,7 @@ static const struct option long_options[] = {
 	{ "version",			no_argument,       NULL, 'V' },
 	{ "info",				no_argument,       NULL, 'i' },
 	{ "monitor",			no_argument,       NULL, 'm' },
+	{ "backup",				no_argument,       NULL, 'b' },
 	{ "list-device",		no_argument,       NULL, 901 },
 	{ "list-vinputs",		no_argument,       NULL, 902 },
 	{ "list-voutputs",		no_argument,       NULL, 903 },
@@ -81,6 +83,8 @@ static void show_help(struct videohub_data *data) {
 	printf("                            . This command is shows the equivallent of\n");
 	printf("                            .  running all --list-XXX commands.\n");
 	printf(" -m --monitor               | Display real-time config changes monitor.\n");
+	printf(" -b --backup                | Show the command line that will restore\n");
+	printf("                            . the device to the current configuration.\n");
 	printf("\n");
 	printf(" --list-device              | Display device info.\n");
 	printf(" --list-vinputs             | List device video inputs.\n");
@@ -136,6 +140,9 @@ static void parse_options(struct videohub_data *data, int argc, char **argv) {
 				break;
 			case 'm': // --monitor
 				show_monitor = 1;
+				break;
+			case 'b': // --backup
+				show_backup = 1;
 				break;
 			case 901: show_list |= action_list_device; break; // --list-device
 			case 902: show_list |= action_list_vinputs; break; // --list-vinputs
@@ -285,6 +292,8 @@ int main(int argc, char **argv) {
 		if (show_list & action_list_vinputs)	print_device_video_inputs(data);
 		if (show_list & action_list_voutputs)	print_device_video_outputs(data);
 		fflush(stdout);
+	} else if (show_backup) {
+		print_device_backup(data);
 	} else if (show_info) {
 		print_device_info(data);
 		print_device_video_inputs(data);

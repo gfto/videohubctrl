@@ -9,6 +9,8 @@ xxxx-xx-xx : Version next
  * Add --list-device, --list-vinputs and --list-voutputs parameters.
  * Display last update time in --monitor.
  * Add support for VIDEOHUB_HOST and VIDEOHUB_PORT env variables.
+ * Add support for generating command line that restores the device
+   to it's current configuration using -b / --backup parameter.
 
 2014-11-27 : Version 0.2
  * Fix port routing. Previously it was reversed and incorrect.
