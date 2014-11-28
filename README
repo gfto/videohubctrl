@@ -33,41 +33,6 @@ videohubctrl is released under MIT license.
 See LICENSE-MIT.txt for full license terms.
 
 
-Development
-===========
-
-The development is done using git. videohubctrl repository is hosted at
-
-   http://github.com/gfto/videohubctrl
-
-To clone the repository issue the following commands:
-
-   git clone git://github.com/gfto/videohubctrl.git
-   cd videohubctrl
-   git submodule init
-   git submodule update
-   make
-
-The code is developed and tested under modern Linux. It's also compiled
-from time to time under OS X but it's not tested there.
-
-
-Updating the code
-=================
-
-To update cloned videohubctrl, go to the directory where the repository
-is cloned and run the following commands:
-
-   git fetch origin
-   git merge origin/master
-   git submodule update
-   make clean all
-
-videohubctrl's master branch should always be useful so it is safe to
-use it instead of official release. The master branch will always
-be better than any released version.
-
-
 Command line parameters
 =======================
 
@@ -197,6 +162,41 @@ Video outputs Legend
                   O - The port is locked by me (from my IP address)
  Column 3      - Output port names
  Column 4      - Which input port is routed to this output
+
+
+Development
+===========
+
+The development is done using git. videohubctrl repository is hosted at
+
+   http://github.com/gfto/videohubctrl
+
+To clone the repository issue the following commands:
+
+   git clone git://github.com/gfto/videohubctrl.git
+   cd videohubctrl
+   git submodule init
+   git submodule update
+   make
+
+The code is developed and tested under modern Linux. It's also compiled
+from time to time under OS X but it's not tested there.
+
+
+Updating the code
+=================
+
+To update cloned videohubctrl, go to the directory where the repository
+is cloned and run the following commands:
+
+   git fetch origin
+   git merge origin/master
+   git submodule update
+   make clean all
+
+videohubctrl's master branch should always be useful so it is safe to
+use it instead of official release. The master branch will always
+be better than any released version.
 
 
 Reporting bugs
