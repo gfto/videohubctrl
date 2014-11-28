@@ -87,10 +87,10 @@ static void show_help(struct videohub_data *data) {
 	printf(" --list-voutputs            | List device video outputs.\n");
 	printf("\n");
 	printf("Configuration:\n");
-	printf(" --vi-name <in_X> <name>    | Set input <name> to input port X.\n");
-	printf(" --vo-name <out_X> <name>   | Set output <name> to output port X.\n");
+	printf(" --vi-name <in_X> <name>    | Set video input port X name.\n");
+	printf(" --vo-name <out_X> <name>   | Set video output port X name.\n");
 	printf("\n");
-	printf(" --vo-route <out_X> <in_Y>  | Connect output port X to input port Y.\n");
+	printf(" --vo-route <out_X> <in_Y>  | Connect video output X to video input Y\n");
 	printf("\n");
 	printf(" --vo-lock <out_X>          | Lock output port X.\n");
 	printf(" --vo-unlock <out_X>        | Unlock output port X.\n");

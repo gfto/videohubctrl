@@ -91,10 +91,10 @@ Commands:
  -m --monitor               | Show real time monitor for config changes.
 
 Configuration:
- --vi-name <in_X> <name>    | Set input <name> to input port X.
- --vo-name <out_X> <name>   | Set output <name> to output port X.
+ --vi-name <in_X> <name>    | Set video input port X name.
+ --vo-name <out_X> <name>   | Set video output port X name.
 
- --vo-route <out_X> <in_Y>  | Connect output port X to input port Y.
+ --vo-route <out_X> <in_Y>  | Connect video output X to video input Y
 
  --vo-lock <out_X>          | Lock output port X.
  --vo-unlock <out_X>        | Unlock output port X.
