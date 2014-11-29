@@ -285,8 +285,8 @@ int parse_text_buffer(struct videohub_data *data, char *cmd_buffer) {
 		return parse_command(data, cmd_buffer);
 	// Split commands and parse them one by one
 	int ok_commands = 0;
-	char *bcopy = xstrdup(cmd_buffer);
-	char *newcmd, *cmd = bcopy;
+	char *buf_copy = xstrdup(cmd_buffer);
+	char *newcmd, *cmd = buf_copy;
 	while(1) {
 		newcmd = strstr(cmd, "\n\n"); // Find next command
 		if (!newcmd) {
@@ -299,7 +299,7 @@ int parse_text_buffer(struct videohub_data *data, char *cmd_buffer) {
 			ok_commands++;
 		cmd = newcmd + 2; // Advance cmd to the next command
 	}
-	free(bcopy);
+	free(buf_copy);
 	return ok_commands;
 }
 
