@@ -69,12 +69,12 @@ static void show_help(struct videohub_data *data) {
 	printf(" Usage: " PROGRAM_NAME " --host <host> [..commands..]\n");
 	printf("\n");
 	printf("Main options:\n");
-	printf(" -h --host <hostname>       | Set device hostname.\n");
+	printf(" -h --host <host>           | Set device host name.\n");
 	printf(" -p --port <port_number>    | Set device port (default: 9990).\n");
 	printf("\n");
 	printf("Commands:\n");
 	printf(" -i --info                  | Show full device info (default command).\n");
-	printf("                            . This command is shows the equivallent of\n");
+	printf("                            . This command is shows the equivalent of\n");
 	printf("                            .  running all --list-XXX commands.\n");
 	printf(" -m --monitor               | Display real-time config changes monitor.\n");
 	printf(" -b --backup                | Show the command line that will restore\n");
@@ -93,7 +93,7 @@ static void show_help(struct videohub_data *data) {
 	printf(" --vo-lock <out_X>          | Lock output port X.\n");
 	printf(" --vo-unlock <out_X>        | Unlock output port X.\n");
 	printf("\n");
-	printf("  NOTE: For <in_X/out_X/in_Y> you may use port number or port name.\n");
+	printf("   For <in_X/out_X/in_Y> you may use port number or port name.\n");
 	printf("\n");
 	printf("Misc options:\n");
 	printf(" -d --debug                 | Increase logging verbosity.\n");

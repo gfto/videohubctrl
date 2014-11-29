@@ -1,11 +1,9 @@
 videohubctrl - Blackmagic Videohub control application
 ======================================================
 
-Blackmagic Design Videohub is SDI router device which can be controlled
-over the network using very simple text based protocol which
-videohubctrl implements.
-
-videohubctrl is tested with Blackmagic Design Micro Videohub 16x16
+videohubctrl implements the simple text based network protocol for
+controlling Blackmagic Design Videohub SDI router devices. The
+program is tested with Blackmagic Design Micro Videohub 16x16
 router and probably will work with other Videohub models.
 
 videohubctrl currently displays and can configure:
@@ -15,8 +13,8 @@ videohubctrl currently displays and can configure:
   - Video output routing
   - Video output locking
 
-The following features found in bigger Videohub models are currently not
-supported (I don't have the hardware):
+The following features found in bigger Videohub models are currently
+not supported (I don't have the hardware):
 
   - Configuration of video processing units
   - Configuration of Video monitoring outputs
@@ -44,12 +42,12 @@ videohubctrl Version: 0.3 Git: 0.3-dirty
  Usage: videohubctrl --host <host> [..commands..]
 
 Main options:
- -h --host <hostname>       | Set device hostname.
+ -h --host <host>           | Set device host name.
  -p --port <port_number>    | Set device port (default: 9990).
 
 Commands:
  -i --info                  | Show full device info (default command).
-                            . This command is shows the equivallent of
+                            . This command is shows the equivalent of
                             .  running all --list-XXX commands.
  -m --monitor               | Display real-time config changes monitor.
  -b --backup                | Show the command line that will restore
@@ -68,7 +66,7 @@ Video input/output configuration:
  --vo-lock <out_X>          | Lock output port X.
  --vo-unlock <out_X>        | Unlock output port X.
 
-  NOTE: For <in_X/out_X/in_Y> you may use port number or port name.
+   For <in_X/out_X/in_Y> you may use port number or port name.
 
 Misc options:
  -d --debug                 | Increase logging verbosity.
@@ -84,11 +82,11 @@ The following environment variables are checked and used by the program
 if they are set:
 
  VIDEOHUB_HOST
-    Sets the device host name. It is equivallent to using -h / --host
+    Sets the device host name. It is equivalent to using -h / --host
     command line parameter.
 
  VIDEOHUB_PORT
-    Sets the device port. It is equivallent to using -p / --port command
+    Sets the device port. It is equivalent to using -p / --port command
     line parameter.
 
 
@@ -108,7 +106,7 @@ Example usage
 
 
  # Lock and then unlock output 16 (unlock assumes that the port is
- # named Output 16). The hostname is set via env variable.
+ # named Output 16). The host name is set via env variable.
 
    export VIDEOHUB_HOST=sdi
    videohubctrl --vo-lock 16
