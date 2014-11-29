@@ -1,4 +1,7 @@
 |-----------------------------------------------------------------------|
+2014-11-29 : Version 0.4-dev
+ * Add videohubctrl(1) man page.
+
 2014-11-28 : Version 0.3
  * Rename -v / --verbose parameter to -d / --debug.
  * Rename -h parameter (help) to -H.

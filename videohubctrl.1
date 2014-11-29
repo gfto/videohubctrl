@@ -1,0 +1,144 @@
+.TH VIDEOHUBCTRL "1" "November 2014" "videohubctrl" "User Commands"
+.SH NAME
+videohubctrl - Blackmagic Design Videohub SDI router control
+.SH SYNOPSIS
+.B videohubctrl --host <host> \fI..other options..\fR
+.SH DESCRIPTION
+videohubctrl implements the simple text based network protocol for
+controlling Blackmagic Design Videohub SDI router devices. The
+program is tested with Blackmagic Design Micro Videohub 16x16
+router and probably will work with other Videohub models.
+
+videohubctrl currently displays and can configure:
+  - Video input port names
+  - Video output port names
+  - Video output routing
+  - Video output locking
+.SH MAIN OPTIONS
+.PP
+.TP
+\fB\-h\fR, \fB\-\-host\fR <host>
+Set the device host name. It can be an IP address or host name. You
+can set \fBVIDEOHUB_HOST\fR environment variable instead of using
+this option.
+.TP
+\fB\-p\fR, \fB\-\-port\fR <port>
+Set the device port. You can set \fBVIDEOHUB_PORT\fR environment
+variable instead of using this option. The default port is \fB9990\fR.
+.SH COMMANDS
+.PP
+.TP
+\fB\-i\fR, \fB\-\-info\fR
+Show full device info. This is the default command if none is set.
+The command shows the equivalent of running all \-\-list-XXX commands.
+.TP
+\fB\-m\fR, \fB\-\-monitor\fR
+Display the Videohub configuration and updates it in real-time as it
+is changed. The monitor shows config changes immediately as they happen.
+The device is not being polled, instead the videohub protocol is designed
+in such way that every client receives changes on the fly.
+.TP
+\fB\-b\fR, \fB\-\-backup\fR
+Show the command line that will restore the device to it's configuration.
+.TP
+\fB\-\-list\-device\fR
+Display main device info including model, number of ports, etc.
+.TP
+\fB\-\-list\-vinputs\fR
+Display device video inputs and their names.
+.TP
+\fB\-\-list\-voutputs\fR
+Display device video outputs, their names, locking status and which
+input is routed to a given output. There are two locking statuses:
+  L - The port is locked by another IP address (user)
+  O - The port is locked by me (from my IP address)
+.SH VIDEO INPUT/OUTPUT CONFIGURATION
+.PP
+Everywhere where port number is accepted, you can use the port
+number or the port name.
+.TP
+\fB\-\-vi\-name\fR <in_X> <name>
+Set video input port X name.
+.TP
+\fB\-\-vo\-name\fR <out_X> <name>
+Set video output port X name.
+.TP
+\fB\-\-vo\-route\fR <out_X> <in_Y>
+Connect video output X to video input Y.
+.TP
+\fB\-\-vo\-lock\fR <out_X>
+Lock output port X.
+.TP
+\fB\-\-vo\-unlock\fR <out_X>
+Unlock output port X. If the port is locked by somebody else the
+port would be forcefully unlocked.
+.SH MISC OPTIONS
+.PP
+.TP
+\fB\-d\fR, \fB\-\-debug\fR
+Enable debugging output. Use this option more times to increase
+the verbosity.
+.TP
+\fB\-q\fR, \fB\-\-quiet\fR
+Suppress warnings about unsupported commands.
+.TP
+\fB\-V\fR, \fB\-\-version\fR
+Show program name and version.
+.TP
+\fB\-H\fR, \fB\-\-help\fR
+Show program usage text.
+.SH ENVIRONMENT VARIABLES
+.PP
+.TP
+\fBVIDEOHUB_HOST\fR
+Set the device host name.
+.TP
+\fBVIDEOHUB_PORT\fR
+Set the device port.
+.SH EXAMPLES
+.PP
+To get a quick start here are some example command lines.
+
+.nf
+ # Rename video output
+   videohubctrl -h sdi --vo-name 8 "Output 8 - test"
+   videohubctrl -h sdi --vo-name "Output 8 - test" "Output 8"
+
+ # Rename video input
+   videohubctrl -h sdi --vi-name 4 "Windows 4 HD"
+   videohubctrl -h sdi --vi-name "Windows 4 HD" "CPlay4"
+
+ # Lock and then unlock output 16 (unlock assumes that the port is
+ # named Output 16). The host name is set via env variable.
+   export VIDEOHUB_HOST=sdi
+   videohubctrl --vo-lock 16
+   videohubctrl --vo-unlock "Output 16"
+
+ # Set two outputs to receive from the same input using port names
+   videohubctrl -h sdi --vo-route "Output 8" "Windows 4 HD"
+   videohubctrl -h sdi --vo-route "Output 7" "Windows 4 HD"
+
+ # Run several commands at once
+ # Rename video input 11 and 12
+ # Rename video output 5,
+ # Set output 5 to receive from input 12
+ # Lock output 5
+   videohubctrl --host sdi \\
+                --vi-name 11 "Test input" \\
+                --vi-name 12 "Playout input" \\
+                --vo-name 5 "Encoder h264" \\
+                --vo-route 5 12 \\
+                --vo-lock 5
+.fi
+.SH SEE ALSO
+See the README file for more information. If you have questions,
+remarks, problems or you just want to contact the developer, write
+to:
+  \fIgeorgi@unixsol.org\fP
+.TP
+For more info, see the website at
+.I http://georgi.unixsol.org/programs/videohubctrl/
+.SH AUTHORS
+Written by Georgi Chorbadzhiyski <\fBgeorgi@unixsol.org\fR>
+.SH LICENSE
+videohubctrl is released under MIT license.
