@@ -13,6 +13,10 @@
 #include <string.h>
 #include <getopt.h>
 #include <unistd.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <unistd.h>
+#include <errno.h>
 
 #include "data.h"
 #include "cmd.h"
@@ -31,6 +35,7 @@ static int show_info = 1;
 static int show_monitor = 0;
 static int show_backup = 0;
 static int show_list = 0;
+static char *test_data;
 
 enum list_actions {
 	action_list_device		= (1 << 0),
@@ -40,11 +45,12 @@ enum list_actions {
 
 static const char *program_id = PROGRAM_NAME " Version: " VERSION " Git: " GIT_VER;
 
-static const char short_options[] = "h:p:qdHVimb";
+static const char short_options[] = "h:p:T:qdHVimb";
 
 static const struct option long_options[] = {
 	{ "host",				required_argument, NULL, 'h' },
 	{ "port",				required_argument, NULL, 'p' },
+	{ "test-input",			required_argument, NULL, 'T' },
 	{ "quiet",				no_argument,       NULL, 'q' },
 	{ "debug",				no_argument,       NULL, 'd' },
 	{ "help",				no_argument,       NULL, 'H' },
@@ -96,6 +102,7 @@ static void show_help(struct videohub_data *data) {
 	printf("   For <in_X/out_X/in_Y> you may use port number or port name.\n");
 	printf("\n");
 	printf("Misc options:\n");
+	printf(" -T --test-input <file>     | Read commands from <file>.\n");
 	printf(" -d --debug                 | Increase logging verbosity.\n");
 	printf(" -q --quiet                 | Suppress warnings.\n");
 	printf(" -H --help                  | Show help screen.\n");
@@ -127,6 +134,21 @@ static void parse_options(struct videohub_data *data, int argc, char **argv) {
 			case 'p': // --port
 				data->dev_port = optarg;
 				break;
+			case 'T': { // --test-input
+				struct stat st;
+				FILE *f;
+				if (stat(optarg, &st) != 0)
+					die("Can't stat %s: %s", optarg, strerror(errno));
+				f = fopen(optarg, "r");
+				if (!f)
+					die("Can't open %s: %s", optarg, strerror(errno));
+				test_data = xzalloc(st.st_size);
+				if (fread(test_data, st.st_size, 1, f) < 1)
+					die("Can't read from %s: %s", optarg, strerror(errno));
+				fclose(f);
+				data->dev_host = "sdi-matrix";
+				break;
+			}
 			case 'd': // --debug
 				debug++;
 				if (debug)
@@ -202,6 +224,8 @@ static void parse_options(struct videohub_data *data, int argc, char **argv) {
 static int read_device_command_stream(struct videohub_data *d) {
 	int ret, ncommands = 0;
 	char buf[8192 + 1];
+	if (test_data)
+		return 0;
 	memset(buf, 0, sizeof(buf));
 	while ((ret = fdread_ex(d->dev_fd, buf, sizeof(buf) - 1, 5, 0, 0)) >= 0) {
 		ncommands += parse_text_buffer(d, buf);
@@ -210,17 +234,27 @@ static int read_device_command_stream(struct videohub_data *d) {
 	return ncommands;
 }
 
+static void send_device_command(struct videohub_data *d, char *cmd_buffer) {
+	if (!test_data)
+		fdwrite(d->dev_fd, cmd_buffer, strlen(cmd_buffer));
+}
+
 int main(int argc, char **argv) {
 	struct videohub_data *data = &maindata;
 
 	parse_options(data, argc, argv);
 	set_log_io_errors(0);
 
-	data->dev_fd = connect_client(SOCK_STREAM, data->dev_host, data->dev_port);
-	if (data->dev_fd < 0)
-		exit(EXIT_FAILURE);
+	if (!test_data) {
+		data->dev_fd = connect_client(SOCK_STREAM, data->dev_host, data->dev_port);
+		if (data->dev_fd < 0)
+			exit(EXIT_FAILURE);
+	}
 
 	read_device_command_stream(data);
+
+	if (test_data)
+		parse_text_buffer(data, test_data);
 
 	if (!strlen(data->device.protocol_ver) || !strlen(data->device.model_name))
 		die("The device does not respond correctly. Is it Videohub?");
@@ -261,7 +295,7 @@ int main(int argc, char **argv) {
 			format_cmd_text(ve, cmd_buffer, sizeof(cmd_buffer));
 			if (strlen(cmd_buffer)) {
 				show_cmd(data, ve);
-				fdwrite(data->dev_fd, cmd_buffer, strlen(cmd_buffer));
+				send_device_command(data, cmd_buffer);
 				read_device_command_stream(data);
 			}
 		}
@@ -278,10 +312,8 @@ int main(int argc, char **argv) {
 			fflush(stdout);
 			do {
 				usleep(500000);
-				if (++sleeps >= 20) {
-					char *ping_cmd = "PING:\n\n";
-					fdwrite(data->dev_fd, ping_cmd, strlen(ping_cmd));
-				}
+				if (++sleeps >= 20)
+					send_device_command(data, "PING:\n\n");
 			} while (read_device_command_stream(data) == 0);
 		}
 	} else if (show_list) {
@@ -299,6 +331,7 @@ int main(int argc, char **argv) {
 	}
 
 	shutdown_fd(&data->dev_fd);
+	free(test_data);
 
 	return 0;
 }

@@ -69,6 +69,7 @@ Video input/output configuration:
    For <in_X/out_X/in_Y> you may use port number or port name.
 
 Misc options:
+ -T --test-input <file>     | Read commands from <file>.
  -d --debug                 | Increase logging verbosity.
  -q --quiet                 | Suppress warnings.
  -H --help                  | Show help screen.
@@ -136,10 +137,11 @@ Example usage
 Example output
 ==============
 
-Here is how videohubctrl output looks like:
+Here is how videohubctrl output looks like using the commands recorded
+in vh_test_commands.txt file.
 
 |----------------------------------------------------------------------|
-gf@gf:~/git/videohubctrl$ ./videohubctrl --host sdi-matrix
+$ videohubctrl --test vh_test_commands.txt
 Device info
   -----------------------------------------------------------
   | Device address             | sdi-matrix                 |
@@ -197,7 +199,6 @@ Video outputs
   | 16 | O | Loopback                 | Loopback                 |
   ----------------------------------------------------------------
 
-gf@gf:~/git/videohubctrl$
 |----------------------------------------------------------------------|
 
 Video outputs Legend
