@@ -24,6 +24,14 @@ endif
 
 DEFS += -D_FILE_OFFSET_BITS=64
 
+PREFIX ?= /usr/local
+
+INSTALL_PRG = videohubctrl
+INSTALL_PRG_DIR = $(subst //,/,$(DESTDIR)/$(PREFIX)/bin)
+
+INSTALL_DOC = videohubctrl.1
+INSTALL_DOC_DIR = $(subst //,/,$(DESTDIR)/$(PREFIX)/share/man/man1)
+
 FUNCS_DIR = libfuncs
 FUNCS_LIB = $(FUNCS_DIR)/libfuncs.a
 
@@ -39,7 +47,7 @@ videohubctrl_OBJS = $(FUNCS_LIB) $(videohubctrl_SRC:.c=.o)
 CLEAN_OBJS = videohubctrl $(videohubctrl_SRC:.c=.o) $(videohubctrl_SRC:.c=.d)
 DISTCLEAN_OBJS = version.h
 
-.PHONY: distclean clean version
+.PHONY: distclean clean version install uninstall
 
 PROGS=videohubctrl
 
@@ -50,6 +58,8 @@ version:
 videohubctrl: $(videohubctrl_OBJS)
 	$(Q)echo "  LINK	videohubctrl"
 	$(Q)$(CROSS)$(CC) $(CFLAGS) $(DEFS) $(videohubctrl_OBJS) $(videohubctrl_LIBS) $(LDFLAGS) -o videohubctrl
+
+all: version
 
 $(FUNCS_LIB): $(FUNCS_DIR)/libfuncs.h
 	$(Q)echo "  MAKE	$(FUNCS_LIB)"
@@ -74,3 +84,36 @@ distclean: clean
 	$(Q)echo "  RM	$(DISTCLEAN_OBJS)"
 	$(Q)$(RM) $(DISTCLEAN_OBJS)
 	$(Q)$(MAKE) -s -C $(FUNCS_DIR) clean
+
+install: all
+	@install -d "$(INSTALL_PRG_DIR)"
+	@install -d "$(INSTALL_DOC_DIR)"
+	@echo "INSTALL $(INSTALL_PRG) -> $(INSTALL_PRG_DIR)"
+	$(Q)-install $(INSTALL_PRG) "$(INSTALL_PRG_DIR)"
+	@echo "INSTALL $(INSTALL_DOC) -> $(INSTALL_DOC_DIR)"
+	$(Q)-install --mode 0644 $(INSTALL_DOC) "$(INSTALL_DOC_DIR)"
+
+uninstall:
+	@-for FILE in $(INSTALL_PRG); do \
+		echo "RM       $(INSTALL_PRG_DIR)/$$FILE"; \
+		rm "$(INSTALL_PRG_DIR)/$$FILE"; \
+	done
+	@-for FILE in $(INSTALL_DOC); do \
+		echo "RM       $(INSTALL_DOC_DIR)/$$FILE"; \
+		rm "$(INSTALL_DOC_DIR)/$$FILE"; \
+	done
+
+help:
+	$(Q)echo -e "\
+videohubctrl build\n\n\
+Build targets:\n\
+  all             - Build videohubctrl\n\
+  install         - Install videohubctrl in PREFIX: $(PREFIX)\n\
+  uninstall       - Uninstall videohubctrl from PREFIX\n\
+\n\
+Cleaning targets:\n\
+  clean           - Remove videohubctrl generated files.\n\
+  distclean       - Remove all generated files.\n\
+\n\
+  make V=1          Enable verbose build\n\
+  make PREFIX=dir   Set install prefix\n"

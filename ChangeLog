@@ -1,6 +1,7 @@
 |-----------------------------------------------------------------------|
 2014-11-29 : Version 0.4-dev
  * Add videohubctrl(1) man page.
+ * Add all, install, uninstall and help Makefile targets.
 
 2014-11-28 : Version 0.3
  * Rename -v / --verbose parameter to -d / --debug.
