@@ -46,6 +46,8 @@ void print_device_info(struct videohub_data *d) {
 
 void print_device_video_inputs(struct videohub_data *d) {
 	unsigned int i, len = 33;
+	if (!d->device.num_video_inputs)
+		return;
 	printf("Video inputs\n");
 	printf_line(len);
 	printf("  | ## | %-24s |\n", "Video input name");
@@ -62,6 +64,8 @@ void print_device_video_inputs(struct videohub_data *d) {
 
 void print_device_video_outputs(struct videohub_data *d) {
 	unsigned int i, len = 64;
+	if (!d->device.num_video_outputs)
+		return;
 	printf("Video outputs\n");
 	printf_line(len);
 	printf("  | ## | x | %-24s | %-24s |\n", "Video output name", "Connected video input");
