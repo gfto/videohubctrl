@@ -34,6 +34,12 @@ struct device_desc {
 	unsigned int	num_serial_ports;
 };
 
+enum port_lock {
+	PORT_UNLOCKED,
+	PORT_LOCKED,
+	PORT_LOCKED_OTHER,
+};
+
 struct input_desc {
 	char			name[MAX_NAME_LEN];
 	// Port statuses are supported only by Universal Videohub
@@ -43,10 +49,9 @@ struct input_desc {
 };
 
 struct output_desc {
+	enum port_lock	lock;
 	char			name[MAX_NAME_LEN];
 	unsigned int	routed_to;
-	bool			locked;
-	bool			locked_other;
 	char			status[8];
 };
 

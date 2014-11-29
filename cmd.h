@@ -39,7 +39,7 @@ struct vcmd_entry {
 	unsigned int	port_no1;
 	unsigned int	port_no2;
 	bool			do_lock;
-	bool			locked_other;
+	enum port_lock	lock;
 };
 
 void prepare_cmd_entry(struct videohub_data *d, struct vcmd_entry *e);

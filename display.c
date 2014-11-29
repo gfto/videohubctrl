@@ -94,6 +94,15 @@ void print_device_video_inputs(struct videohub_data *d) {
 	printf("\n");
 }
 
+static char port_lock_symbol(enum port_lock p) {
+	switch(p) {
+	case PORT_UNLOCKED    : return ' ';
+	case PORT_LOCKED      : return 'O';
+	case PORT_LOCKED_OTHER: return 'L';
+	}
+	return '?';
+}
+
 void print_device_video_outputs(struct videohub_data *d) {
 	unsigned int i, len = 68;
 	if (!d->device.num_video_outputs)
@@ -105,7 +114,7 @@ void print_device_video_outputs(struct videohub_data *d) {
 	for(i = 0; i < d->device.num_video_outputs; i++) {
 		printf("  | %2d | %c | %-24s | %-24s | %c |\n",
 			i + 1,
-			d->outputs[i].locked ? (d->outputs[i].locked_other ? 'L' : 'O') : ' ',
+			port_lock_symbol(d->outputs[i].lock),
 			d->outputs[i].name,
 			d->inputs[d->outputs[i].routed_to].name,
 			format_status(d->outputs[i].status)
@@ -125,7 +134,7 @@ void print_device_backup(struct videohub_data *d) {
 	for(i = 0; i < d->device.num_video_outputs; i++)
 		printf("  --vo-route %2d %2d \\\n", i + 1, d->outputs[i].routed_to + 1);
 	for(i = 0; i < d->device.num_video_outputs; i++) {
-		if (d->outputs[i].locked) {
+		if (d->outputs[i].lock != PORT_UNLOCKED) {
 			printf("  --vo-unlock %2d --vo-lock %2d%s\n", i + 1, i + 1,
 				i + 1 < d->device.num_video_outputs ? " \\" : "");
 		} else {

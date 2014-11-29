@@ -166,16 +166,10 @@ bool parse_command(struct videohub_data *data, char *cmd) {
 
 		case CMD_VIDEO_OUTPUT_LOCKS:
 			if (valid_slot) {
-				// L is lock owned by somebody else (set from other IP address)
-				// O is lock owned by us (set from our IP address)
-				if (slot_data[0] == 'L' || slot_data[0] == 'O') {
-					data->outputs[slot_pos].locked = true;
-					if (slot_data[0] == 'L')
-						data->outputs[slot_pos].locked_other = true;
-					else
-						data->outputs[slot_pos].locked_other = false;
-				} else {
-					data->outputs[slot_pos].locked = false;
+				switch (slot_data[0]) {
+				case 'O': data->outputs[slot_pos].lock = PORT_LOCKED; break;
+				case 'L': data->outputs[slot_pos].lock = PORT_LOCKED_OTHER; break;
+				default : data->outputs[slot_pos].lock = PORT_UNLOCKED; break;
 				}
 			}
 			break;
@@ -274,10 +268,8 @@ void prepare_cmd_entry(struct videohub_data *d, struct vcmd_entry *e) {
 			e->port_no1 = search_video_output_name(d, e->param1);
 			if (!e->port_no1)
 				die("Unknown output port number/name: %s", e->param1);
-			e->locked_other = d->outputs[e->port_no1 - 1].locked_other;
-		} else {
-			e->locked_other = d->outputs[e->port_no1 - 1].locked_other;
 		}
+		e->lock = d->outputs[e->port_no1 - 1].lock;
 		break;
 	case CMD_VIDEO_OUTPUT_ROUTING:
 		if (e->port_no1 == 0 || e->port_no1 > d->device.num_video_outputs) {
@@ -314,7 +306,7 @@ void format_cmd_text(struct vcmd_entry *e, char *buf, unsigned int bufsz) {
 		break;
 	case CMD_VIDEO_OUTPUT_LOCKS:
 		snprintf(buf, bufsz, "%s:\n%u %s\n\n", get_cmd_text(e->cmd),
-			e->port_no1 - 1, e->do_lock ? "O" : (e->locked_other ? "F" : "U"));
+			e->port_no1 - 1, e->do_lock ? "O" : (e->lock == PORT_LOCKED_OTHER ? "F" : "U"));
 		break;
 	case CMD_VIDEO_OUTPUT_ROUTING:
 		snprintf(buf, bufsz, "%s:\n%u %u\n\n", get_cmd_text(e->cmd),
@@ -351,7 +343,7 @@ void show_cmd(struct videohub_data *d, struct vcmd_entry *e) {
 	case CMD_VIDEO_OUTPUT_LOCKS:
 		printf("%s%s video output %d - \"%s\"\n",
 			prefix,
-			e->do_lock ? "lock" : (e->locked_other ? "force unlock" : "unlock"),
+			e->do_lock ? "lock" : (e->lock == PORT_LOCKED_OTHER ? "force unlock" : "unlock"),
 			e->port_no1, d->outputs[e->port_no1 - 1].name
 		);
 		break;
