@@ -95,7 +95,7 @@ install: all
 	$(SAY) "INSTALL $(INSTALL_PRG) -> $(INSTALL_PRG_DIR)"
 	$(Q)-install $(INSTALL_PRG) "$(INSTALL_PRG_DIR)"
 	$(SAY) "INSTALL $(INSTALL_DOC) -> $(INSTALL_DOC_DIR)"
-	$(Q)-install --mode 0644 $(INSTALL_DOC) "$(INSTALL_DOC_DIR)"
+	$(Q)-install -m 0644 $(INSTALL_DOC) "$(INSTALL_DOC_DIR)"
 
 uninstall:
 	@-for FILE in $(INSTALL_PRG); do \
