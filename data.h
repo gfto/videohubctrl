@@ -40,19 +40,14 @@ enum port_lock {
 	PORT_LOCKED_OTHER,
 };
 
-struct input_desc {
+struct port {
 	char			name[MAX_NAME_LEN];
 	// Port statuses are supported only by Universal Videohub
 	// The statuses (actually they are connection types) are:
 	//    BNC, Optical or None /missing port/
 	char			status[8];
-};
-
-struct output_desc {
-	enum port_lock	lock;
-	char			name[MAX_NAME_LEN];
 	unsigned int	routed_to;
-	char			status[8];
+	enum port_lock	lock;
 };
 
 struct videohub_data {
@@ -60,8 +55,8 @@ struct videohub_data {
 	char					*dev_port;
 	int						dev_fd;
 	struct device_desc		device;
-	struct input_desc		inputs[MAX_INPUTS];
-	struct output_desc		outputs[MAX_OUTPUTS];
+	struct port				inputs[MAX_INPUTS];
+	struct port				outputs[MAX_OUTPUTS];
 };
 
 extern int debug;
