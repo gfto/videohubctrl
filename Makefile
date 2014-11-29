@@ -5,8 +5,12 @@ MKDEP = $(CROSS)$(CC) -MP -MM -o $*.d $<
 RM = rm -f
 MV = mv -f
 
+# Setup quiet build
+Q =
+SAY = @true
 ifndef V
 Q = @
+SAY = @echo
 endif
 
 CFLAGS ?= -O2 -ggdb -pipe -ffunction-sections -fdata-sections \
@@ -56,41 +60,41 @@ version:
 	@$(MAKE) --no-print-directory videohubctrl
 
 videohubctrl: $(videohubctrl_OBJS)
-	$(Q)echo "  LINK	videohubctrl"
+	$(SAY) "  LINK	videohubctrl"
 	$(Q)$(CROSS)$(CC) $(CFLAGS) $(DEFS) $(videohubctrl_OBJS) $(videohubctrl_LIBS) $(LDFLAGS) -o videohubctrl
 
 all: version
 
 $(FUNCS_LIB): $(FUNCS_DIR)/libfuncs.h
-	$(Q)echo "  MAKE	$(FUNCS_LIB)"
+	$(SAY) "  MAKE	$(FUNCS_LIB)"
 	$(Q)$(MAKE) -s -C $(FUNCS_DIR)
 
 %.o: %.c Makefile RELEASE
 	@$(MKDEP)
-	$(Q)echo "  CC	videohubctrl	$<"
+	$(SAY) "  CC	videohubctrl	$<"
 	$(Q)$(CROSS)$(CC) $(CFLAGS) $(DEFS) -c $<
 
 -include $(videohubctrl_SRC:.c=.d)
 
 strip:
-	$(Q)echo "  STRIP	$(PROGS)"
+	$(SAY) "  STRIP	$(PROGS)"
 	$(Q)$(CROSS)$(STRIP) $(PROGS)
 
 clean:
-	$(Q)echo "  RM	$(CLEAN_OBJS)"
+	$(SAY) "  RM	$(CLEAN_OBJS)"
 	$(Q)$(RM) $(CLEAN_OBJS)
 
 distclean: clean
-	$(Q)echo "  RM	$(DISTCLEAN_OBJS)"
+	$(SAY) "  RM	$(DISTCLEAN_OBJS)"
 	$(Q)$(RM) $(DISTCLEAN_OBJS)
 	$(Q)$(MAKE) -s -C $(FUNCS_DIR) clean
 
 install: all
-	@install -d "$(INSTALL_PRG_DIR)"
-	@install -d "$(INSTALL_DOC_DIR)"
-	@echo "INSTALL $(INSTALL_PRG) -> $(INSTALL_PRG_DIR)"
+	$(Q)install -d "$(INSTALL_PRG_DIR)"
+	$(Q)install -d "$(INSTALL_DOC_DIR)"
+	$(SAY) "INSTALL $(INSTALL_PRG) -> $(INSTALL_PRG_DIR)"
 	$(Q)-install $(INSTALL_PRG) "$(INSTALL_PRG_DIR)"
-	@echo "INSTALL $(INSTALL_DOC) -> $(INSTALL_DOC_DIR)"
+	$(SAY) "INSTALL $(INSTALL_DOC) -> $(INSTALL_DOC_DIR)"
 	$(Q)-install --mode 0644 $(INSTALL_DOC) "$(INSTALL_DOC_DIR)"
 
 uninstall:
@@ -104,8 +108,8 @@ uninstall:
 	done
 
 help:
-	$(Q)echo -e "\
-videohubctrl build\n\n\
+	@printf "\
+videohubctrl build parameters\n\n\
 Build targets:\n\
   all             - Build videohubctrl\n\
   install         - Install videohubctrl in PREFIX: $(PREFIX)\n\
@@ -116,4 +120,4 @@ Cleaning targets:\n\
   distclean       - Remove all generated files.\n\
 \n\
   make V=1          Enable verbose build\n\
-  make PREFIX=dir   Set install prefix\n"
+  make PREFIX=dir   Set install prefix\n\n"
