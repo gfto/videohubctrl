@@ -18,21 +18,29 @@
 #include "cmd.h"
 #include "util.h"
 
+enum cmd_flags {
+	PARSE_NONE      = (1 << 0), /* The result if this command needs no parsing */
+	PARSE_CUSTOM    = (1 << 1), /* Use custom parser for this command */
+	PARSE_SLOT_TXT  = (1 << 2), /* Parse [slot_num] [slot_text] */
+	PARSE_SLOT_DEST = (1 << 3), /* Parse [slot_num] [dest_slot] */
+};
+
 static struct videohub_commands {
 	enum vcmd	cmd;
 	const char	*txt;
+	unsigned int	flags;
 } videohub_commands[] = {
-	{ CMD_PROTOCOL_PREAMBLE,       "PROTOCOL PREAMBLE" },
-	{ CMD_VIDEOHUB_DEVICE,         "VIDEOHUB DEVICE" },
-	{ CMD_INPUT_LABELS,            "INPUT LABELS" },
-	{ CMD_OUTPUT_LABELS,           "OUTPUT LABELS" },
-	{ CMD_VIDEO_OUTPUT_LOCKS,      "VIDEO OUTPUT LOCKS" },
-	{ CMD_VIDEO_OUTPUT_ROUTING,    "VIDEO OUTPUT ROUTING" },
-	{ CMD_VIDEO_INPUT_STATUS,      "VIDEO INPUT STATUS" },
-	{ CMD_VIDEO_OUTPUT_STATUS,     "VIDEO OUTPUT STATUS" },
-	{ CMD_PING,                    "PING" },
-	{ CMD_ACK,                     "ACK" },
-	{ CMD_NAK,                     "NAK" },
+	{ CMD_PROTOCOL_PREAMBLE,    "PROTOCOL PREAMBLE",    PARSE_CUSTOM },
+	{ CMD_VIDEOHUB_DEVICE,      "VIDEOHUB DEVICE",      PARSE_CUSTOM },
+	{ CMD_INPUT_LABELS,         "INPUT LABELS",         PARSE_SLOT_TXT },
+	{ CMD_OUTPUT_LABELS,        "OUTPUT LABELS",        PARSE_SLOT_TXT },
+	{ CMD_VIDEO_OUTPUT_LOCKS,   "VIDEO OUTPUT LOCKS",   PARSE_SLOT_TXT },
+	{ CMD_VIDEO_OUTPUT_ROUTING, "VIDEO OUTPUT ROUTING", PARSE_SLOT_DEST },
+	{ CMD_VIDEO_INPUT_STATUS,   "VIDEO INPUT STATUS",   PARSE_SLOT_TXT },
+	{ CMD_VIDEO_OUTPUT_STATUS,  "VIDEO OUTPUT STATUS",  PARSE_SLOT_TXT },
+	{ CMD_PING,                 "PING",                 PARSE_NONE },
+	{ CMD_ACK,                  "ACK",                  PARSE_NONE },
+	{ CMD_NAK,                  "NAK",                  PARSE_NONE },
 };
 
 static const char *get_cmd_text(enum vcmd cmd) {
@@ -85,28 +93,30 @@ bool parse_command(struct videohub_data *data, char *cmd) {
 	// Split line by line
 	char *line, *saveptr = NULL;
 	for(i = 0, line = strtok_r(cmd_data, "\n", &saveptr); line; line = strtok_r(NULL, "\n", &saveptr), i++) {
+
 		// Parse command data response looking like that: "[slot_pos] [slot_data]"
-		bool valid_slot = false;
-		unsigned int slot_pos = 0;
 		char *slot_data = NULL;
-		switch (v->cmd) {
-		case CMD_INPUT_LABELS:
-		case CMD_OUTPUT_LABELS:
-		case CMD_VIDEO_INPUT_STATUS:
-		case CMD_VIDEO_OUTPUT_STATUS:
-		case CMD_VIDEO_OUTPUT_LOCKS:
-		case CMD_VIDEO_OUTPUT_ROUTING:
+		unsigned int slot_pos = 0, dest_pos = 0;
+
+		if (v->flags & (PARSE_SLOT_TXT | PARSE_SLOT_DEST)) {
 			slot_data = strchr(line, ' ');
-			if (slot_data) {
-				slot_data[0] = '\0'; // Separate slot_pos from slot_data
-				slot_data++;
-				slot_pos = strtoul(line, NULL, 10);
-				if (slot_pos < ARRAY_SIZE(data->outputs))
-					valid_slot = true;
+			if (!slot_data)
+				continue;
+			slot_data[0] = '\0'; // Separate slot_pos from slot_data
+			slot_data++;
+			slot_pos = strtoul(line, NULL, 10);
+			if (slot_pos + 1 > data->device.num_video_outputs) {
+				q("WARNING: %s - invalid slot %u\n", v->txt, slot_pos);
+				continue;
 			}
-			break;
-		default:
-			break;
+		}
+
+		if (v->flags & PARSE_SLOT_DEST) {
+			dest_pos = strtoul(slot_data, NULL, 10);
+			if (dest_pos + 1 > data->device.num_video_inputs) {
+				q("WARNING: %s - invalid dest %u\n", v->txt, dest_pos);
+				continue;
+			}
 		}
 
 		// Parse commands
@@ -145,42 +155,31 @@ bool parse_command(struct videohub_data *data, char *cmd) {
 			break;
 
 		case CMD_INPUT_LABELS:
-			if (valid_slot)
-				snprintf(data->inputs[slot_pos].name, sizeof(data->inputs[slot_pos].name), "%s", slot_data);
+			snprintf(data->inputs[slot_pos].name, sizeof(data->inputs[slot_pos].name), "%s", slot_data);
 			break;
 
 		case CMD_OUTPUT_LABELS:
-			if (valid_slot)
-				snprintf(data->outputs[slot_pos].name, sizeof(data->inputs[slot_pos].name), "%s", slot_data);
+			snprintf(data->outputs[slot_pos].name, sizeof(data->outputs[slot_pos].name), "%s", slot_data);
 			break;
 
 		case CMD_VIDEO_INPUT_STATUS:
-			if (valid_slot)
-				snprintf(data->inputs[slot_pos].status, sizeof(data->inputs[slot_pos].status), "%s", slot_data);
+			snprintf(data->inputs[slot_pos].status, sizeof(data->inputs[slot_pos].status), "%s", slot_data);
 			break;
 
 		case CMD_VIDEO_OUTPUT_STATUS:
-			if (valid_slot)
-				snprintf(data->outputs[slot_pos].status, sizeof(data->outputs[slot_pos].status), "%s", slot_data);
+			snprintf(data->outputs[slot_pos].status, sizeof(data->outputs[slot_pos].status), "%s", slot_data);
 			break;
 
 		case CMD_VIDEO_OUTPUT_LOCKS:
-			if (valid_slot) {
-				switch (slot_data[0]) {
-				case 'O': data->outputs[slot_pos].lock = PORT_LOCKED; break;
-				case 'L': data->outputs[slot_pos].lock = PORT_LOCKED_OTHER; break;
-				default : data->outputs[slot_pos].lock = PORT_UNLOCKED; break;
-				}
+			switch (slot_data[0]) {
+			case 'O': data->outputs[slot_pos].lock = PORT_LOCKED; break;
+			case 'L': data->outputs[slot_pos].lock = PORT_LOCKED_OTHER; break;
+			default : data->outputs[slot_pos].lock = PORT_UNLOCKED; break;
 			}
 			break;
 
 		case CMD_VIDEO_OUTPUT_ROUTING:
-			if (valid_slot) {
-				unsigned int dest_pos = strtoul(slot_data, NULL, 10);
-				if (dest_pos < ARRAY_SIZE(data->inputs))
-					data->outputs[slot_pos].routed_to = dest_pos;
-			}
-			break;
+			data->outputs[slot_pos].routed_to = dest_pos;
 
 		case CMD_PING:
 		case CMD_ACK:
