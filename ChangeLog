@@ -5,6 +5,8 @@
  * Display where each input is being routed.
  * Add support for testing the program using pre-recorded commands
    in text file by using -T / --test-input option.
+ * Add support for port statuses (types) which are reported by
+   Universal Videohub.
 
 2014-11-28 : Version 0.3
  * Rename -v / --verbose parameter to -d / --debug.

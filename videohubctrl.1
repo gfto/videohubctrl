@@ -45,14 +45,32 @@ Show the command line that will restore the device to it's configuration.
 Display main device info including model, number of ports, etc.
 .TP
 \fB\-\-list\-vinputs\fR
-Display device video inputs and their names, how many outputs an input
-is being routed to and a list of the outputs.
+Display device video inputs, port numbers, names, how many outputs an
+input is being routed to, the list of the outputs and the port status
+(type).
+
+The port statuses (type) are reported by Universal Videohub and can be
+these:
+.nf
+     - Empty means that the device do not support port status.
+  x  - The port type is "None". This means that the port is not
+       installed in the device.
+  B  - The port type is "BNC".
+  o  - The port type is "Optical".
+.fi
 .TP
 \fB\-\-list\-voutputs\fR
-Display device video outputs, their names, locking status and which
-input is routed to a given output. There are two locking statuses:
+Display device video outputs, port numbers, names, locking status, which
+input is routed to a given output and the port status (type).
+
+There are two locking statuses:
+.nf
   L - The port is locked by another IP address (user)
   O - The port is locked by me (from my IP address)
+.fi
+
+The port status field (s) have the same format as input ports (described
+in \fB\-\-list\-vinputs\fR option).
 .SH VIDEO INPUT/OUTPUT CONFIGURATION
 .PP
 Everywhere where port number is accepted, you can use the port

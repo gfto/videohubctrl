@@ -82,3 +82,28 @@ VIDEO OUTPUT ROUTING:
 13 13
 14 14
 15 15
+
+VIDEO INPUT STATUS:
+0 BNC
+1 BNC
+2 BNC
+3 BNC
+4 Optical
+5 Optical
+6 Optical
+7 Optical
+13 None
+14 None
+
+VIDEO OUTPUT STATUS:
+4 None
+5 None
+6 None
+8 BNC
+9 BNC
+10 BNC
+11 BNC
+12 Optical
+13 Optical
+14 Optical
+15 Optical

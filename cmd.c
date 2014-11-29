@@ -28,6 +28,8 @@ static struct videohub_commands {
 	{ CMD_OUTPUT_LABELS,           "OUTPUT LABELS" },
 	{ CMD_VIDEO_OUTPUT_LOCKS,      "VIDEO OUTPUT LOCKS" },
 	{ CMD_VIDEO_OUTPUT_ROUTING,    "VIDEO OUTPUT ROUTING" },
+	{ CMD_VIDEO_INPUT_STATUS,      "VIDEO INPUT STATUS" },
+	{ CMD_VIDEO_OUTPUT_STATUS,     "VIDEO OUTPUT STATUS" },
 	{ CMD_PING,                    "PING" },
 	{ CMD_ACK,                     "ACK" },
 	{ CMD_NAK,                     "NAK" },
@@ -92,6 +94,8 @@ bool parse_command(struct videohub_data *data, char *cmd) {
 		switch (v->cmd) {
 		case CMD_INPUT_LABELS:
 		case CMD_OUTPUT_LABELS:
+		case CMD_VIDEO_INPUT_STATUS:
+		case CMD_VIDEO_OUTPUT_STATUS:
 		case CMD_VIDEO_OUTPUT_LOCKS:
 		case CMD_VIDEO_OUTPUT_ROUTING:
 			slot_data = strchr(line, ' ');
@@ -150,6 +154,16 @@ bool parse_command(struct videohub_data *data, char *cmd) {
 		case CMD_OUTPUT_LABELS:
 			if (valid_slot)
 				snprintf(data->outputs[slot_pos].name, sizeof(data->inputs[slot_pos].name), "%s", slot_data);
+			break;
+
+		case CMD_VIDEO_INPUT_STATUS:
+			if (valid_slot)
+				snprintf(data->inputs[slot_pos].status, sizeof(data->inputs[slot_pos].status), "%s", slot_data);
+			break;
+
+		case CMD_VIDEO_OUTPUT_STATUS:
+			if (valid_slot)
+				snprintf(data->outputs[slot_pos].status, sizeof(data->outputs[slot_pos].status), "%s", slot_data);
 			break;
 
 		case CMD_VIDEO_OUTPUT_LOCKS:
@@ -279,6 +293,8 @@ void prepare_cmd_entry(struct videohub_data *d, struct vcmd_entry *e) {
 				die("Unknown input port number/name: %s", e->param2);
 		}
 		break;
+	case CMD_VIDEO_INPUT_STATUS:
+	case CMD_VIDEO_OUTPUT_STATUS:
 	case CMD_PROTOCOL_PREAMBLE:
 	case CMD_VIDEOHUB_DEVICE:
 	case CMD_PING:
@@ -306,6 +322,8 @@ void format_cmd_text(struct vcmd_entry *e, char *buf, unsigned int bufsz) {
 		snprintf(buf, bufsz, "%s:\n%u %u\n\n", get_cmd_text(e->cmd),
 			e->port_no1 - 1, e->port_no2 - 1);
 		break;
+	case CMD_VIDEO_INPUT_STATUS:
+	case CMD_VIDEO_OUTPUT_STATUS:
 	case CMD_PROTOCOL_PREAMBLE:
 	case CMD_VIDEOHUB_DEVICE:
 	case CMD_PING:
@@ -346,6 +364,8 @@ void show_cmd(struct videohub_data *d, struct vcmd_entry *e) {
 			e->port_no2, d->inputs [e->port_no2 - 1].name
 		);
 		break;
+	case CMD_VIDEO_INPUT_STATUS:
+	case CMD_VIDEO_OUTPUT_STATUS:
 	case CMD_PROTOCOL_PREAMBLE:
 	case CMD_VIDEOHUB_DEVICE:
 	case CMD_PING:

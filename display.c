@@ -11,8 +11,10 @@
  */
 
 #include <stdio.h>
+#include <string.h>
 
 #include "data.h"
+#include "util.h"
 #include "display.h"
 
 static void printf_line(int len) {
@@ -21,6 +23,14 @@ static void printf_line(int len) {
 	for (i = 0; i < len; i++)
 		printf("-");
 	printf("\n");
+}
+
+static char format_status(char *status) {
+	if (!strlen(status))          return ' ';
+	if (streq(status, "BNC"))     return 'B';
+	if (streq(status, "Optical")) return 'o';
+	if (streq(status, "None"))    return 'x';
+	return '?';
 }
 
 void print_device_info(struct videohub_data *d) {
@@ -45,12 +55,12 @@ void print_device_info(struct videohub_data *d) {
 }
 
 void print_device_video_inputs(struct videohub_data *d) {
-	unsigned int i, r, len = 64;
+	unsigned int i, r, len = 68;
 	if (!d->device.num_video_inputs)
 		return;
 	printf("Video inputs\n");
 	printf_line(len);
-	printf("  | ## | %-24s | n | %-24s |\n", "Video input name", "Routed to output");
+	printf("  | ## | %-24s | n | %-24s | s |\n", "Video input name", "Routed to output");
 	printf_line(len);
 	for(i = 0; i < d->device.num_video_inputs; i++) {
 		unsigned int num_outputs = 0, routed_to = 0;
@@ -61,11 +71,12 @@ void print_device_video_inputs(struct videohub_data *d) {
 					routed_to = r; // The first output
 			}
 		}
-		printf("  | %2d | %-24s | %d | ", i + 1, d->inputs[i].name, num_outputs);
+		printf("  | %2d | %-24s | %d | ", i + 1, d->inputs[i].name,
+			 num_outputs);
 		if (num_outputs == 0) {
-			printf("%-24s |\n", "-");
+			printf("%-24s | %c |\n", "-", format_status(d->inputs[i].status));
 		} else {
-			printf("%-24s |\n", d->outputs[routed_to].name);
+			printf("%-24s | %c |\n", d->outputs[routed_to].name, format_status(d->inputs[i].status));
 			bool first_skipped = false;
 			for(r = 0; r < d->device.num_video_outputs; r++) {
 				if (d->outputs[r].routed_to == i) {
@@ -73,7 +84,8 @@ void print_device_video_inputs(struct videohub_data *d) {
 						first_skipped = true;
 						continue;
 					}
-					printf("  | %2s | %-24s | %s | %-24s |\n", " ", " ", ".", d->outputs[r].name);
+					printf("  | %2s | %-24s | %s | %-24s | %c |\n",
+						" ", " ", " ", d->outputs[r].name, ' ');
 				}
 			}
 		}
@@ -83,19 +95,20 @@ void print_device_video_inputs(struct videohub_data *d) {
 }
 
 void print_device_video_outputs(struct videohub_data *d) {
-	unsigned int i, len = 64;
+	unsigned int i, len = 68;
 	if (!d->device.num_video_outputs)
 		return;
 	printf("Video outputs\n");
 	printf_line(len);
-	printf("  | ## | x | %-24s | %-24s |\n", "Video output name", "Connected video input");
+	printf("  | ## | x | %-24s | %-24s | s |\n", "Video output name", "Connected video input");
 	printf_line(len);
 	for(i = 0; i < d->device.num_video_outputs; i++) {
-		printf("  | %2d | %c | %-24s | %-24s |\n",
+		printf("  | %2d | %c | %-24s | %-24s | %c |\n",
 			i + 1,
 			d->outputs[i].locked ? (d->outputs[i].locked_other ? 'L' : 'O') : ' ',
 			d->outputs[i].name,
-			d->inputs[d->outputs[i].routed_to].name
+			d->inputs[d->outputs[i].routed_to].name,
+			format_status(d->outputs[i].status)
 		);
 	}
 	printf_line(len);

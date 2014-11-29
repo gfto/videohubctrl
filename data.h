@@ -36,6 +36,10 @@ struct device_desc {
 
 struct input_desc {
 	char			name[MAX_NAME_LEN];
+	// Port statuses are supported only by Universal Videohub
+	// The statuses (actually they are connection types) are:
+	//    BNC, Optical or None /missing port/
+	char			status[8];
 };
 
 struct output_desc {
@@ -43,6 +47,7 @@ struct output_desc {
 	unsigned int	routed_to;
 	bool			locked;
 	bool			locked_other;
+	char			status[8];
 };
 
 struct videohub_data {
