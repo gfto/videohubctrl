@@ -68,6 +68,12 @@ extern int quiet;
 			printf("debug: " fmt, ## arguments); \
 	} while(0)
 
+#define q(fmt, arguments...) \
+	do { \
+		if (!quiet) \
+			fprintf(stderr, fmt, ## arguments); \
+	} while(0)
+
 #define ARRAY_SIZE(arr) (sizeof(arr) / sizeof((arr)[0]))
 #define MIN(a,b) (((a) < (b)) ? (a) : (b))
 #define UNUSED(x) UNUSED_ ## x __attribute__((unused))

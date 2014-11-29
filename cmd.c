@@ -68,14 +68,12 @@ bool parse_command(struct videohub_data *data, char *cmd) {
 	}
 
 	if (!v) {
-		if (!quiet) {
-			fprintf(stderr, "WARNING: Videohub sent unknown command!\n");
-			fprintf(stderr, "         Please report this command to author's email: georgi@unixsol.org\n");
-			fprintf(stderr, "         You may use -q or --quiet to suppress the message.\n");
-			fprintf(stderr, "---------8<-----------8<----------- cut here ---------8<------------8<---------\n");
-			fprintf(stderr, "%s\n", cmd);
-			fprintf(stderr, "---------8<-----------8<----------- cut here ---------8<------------8<---------\n");
-		}
+		q("WARNING: Videohub sent unknown command!\n");
+		q("         Please report this command to author's email: georgi@unixsol.org\n");
+		q("         You may use -q or --quiet to suppress the message.\n");
+		q("---------8<-----------8<----------- cut here ---------8<------------8<---------\n");
+		q("%s\n", cmd);
+		q("---------8<-----------8<----------- cut here ---------8<------------8<---------\n");
 		return false;
 	}
 
