@@ -152,26 +152,28 @@ Device info
   -----------------------------------------------------------
 
 Video inputs
-  ---------------------------------
-  | ## | Video input name         |
-  ---------------------------------
-  |  1 | Windows 1                |
-  |  2 | Windows 2                |
-  |  3 | Windows 3                |
-  |  4 | Windows 4 HD             |
-  |  5 | Input 5                  |
-  |  6 | Input 6                  |
-  |  7 | Input 7                  |
-  |  8 | Input 8                  |
-  |  9 | Input 9                  |
-  | 10 | Input 10                 |
-  | 11 | Input 11                 |
-  | 12 | DPlay1                   |
-  | 13 | DPlay2                   |
-  | 14 | Input 14                 |
-  | 15 | Input 15                 |
-  | 16 | Loopback                 |
-  ---------------------------------
+  ----------------------------------------------------------------
+  | ## | Video input name         | n | Routed to output         |
+  ----------------------------------------------------------------
+  |  1 | Windows 1                | 2 | Enc1 3                   |
+  |    |                          | . | Enc1 4                   |
+  |  2 | Windows 2                | 1 | Enc1 2                   |
+  |  3 | Windows 3                | 1 | Enc1 1                   |
+  |  4 | Windows 4 HD             | 2 | Output 8                 |
+  |    |                          | . | Enc2 1                   |
+  |  5 | Input 5                  | 1 | Output 5                 |
+  |  6 | Input 6                  | 1 | Output 6                 |
+  |  7 | Input 7                  | 1 | Output 7                 |
+  |  8 | Input 8                  | 0 | -                        |
+  |  9 | Input 9                  | 0 | -                        |
+  | 10 | Input 10                 | 1 | Output 10                |
+  | 11 | Input 11                 | 1 | Output 11                |
+  | 12 | DPlay1                   | 1 | Output 13                |
+  | 13 | DPlay2                   | 1 | Denc                     |
+  | 14 | Input 14                 | 1 | Output 14                |
+  | 15 | Input 15                 | 1 | Output 15                |
+  | 16 | Loopback                 | 1 | Loopback                 |
+  ----------------------------------------------------------------
 
 Video outputs
   ----------------------------------------------------------------
@@ -184,7 +186,7 @@ Video outputs
   |  5 |   | Output 5                 | Input 5                  |
   |  6 |   | Output 6                 | Input 6                  |
   |  7 |   | Output 7                 | Input 7                  |
-  |  8 |   | Output 8                 | Input 8                  |
+  |  8 |   | Output 8                 | Windows 4 HD             |
   |  9 | L | Enc2 1                   | Windows 4 HD             |
   | 10 |   | Output 10                | Input 10                 |
   | 11 |   | Output 11                | Input 11                 |

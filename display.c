@@ -45,18 +45,38 @@ void print_device_info(struct videohub_data *d) {
 }
 
 void print_device_video_inputs(struct videohub_data *d) {
-	unsigned int i, len = 33;
+	unsigned int i, r, len = 64;
 	if (!d->device.num_video_inputs)
 		return;
 	printf("Video inputs\n");
 	printf_line(len);
-	printf("  | ## | %-24s |\n", "Video input name");
+	printf("  | ## | %-24s | n | %-24s |\n", "Video input name", "Routed to output");
 	printf_line(len);
 	for(i = 0; i < d->device.num_video_inputs; i++) {
-		printf("  | %2d | %-24s |\n",
-			i + 1,
-			d->inputs[i].name
-		);
+		unsigned int num_outputs = 0, routed_to = 0;
+		for(r = 0; r < d->device.num_video_outputs; r++) {
+			if (d->outputs[r].routed_to == i) {
+				num_outputs++;
+				if (num_outputs == 1)
+					routed_to = r; // The first output
+			}
+		}
+		printf("  | %2d | %-24s | %d | ", i + 1, d->inputs[i].name, num_outputs);
+		if (num_outputs == 0) {
+			printf("%-24s |\n", "-");
+		} else {
+			printf("%-24s |\n", d->outputs[routed_to].name);
+			bool first_skipped = false;
+			for(r = 0; r < d->device.num_video_outputs; r++) {
+				if (d->outputs[r].routed_to == i) {
+					if (!first_skipped) {
+						first_skipped = true;
+						continue;
+					}
+					printf("  | %2s | %-24s | %s | %-24s |\n", " ", " ", ".", d->outputs[r].name);
+				}
+			}
+		}
 	}
 	printf_line(len);
 	printf("\n");
