@@ -169,8 +169,8 @@ bool parse_command(struct videohub_data *d, char *cmd) {
 				d->device.num_video_processing_units = strtoul(p, NULL, 10);
 			if ((p = parse_text(line, "Video outputs: ")))
 				d->outputs.num = strtoul(p, NULL, 10);
-			if ((p = parse_text(line, "Video monitoring output: ")))
-				d->device.num_video_monitoring_outputs = strtoul(p, NULL, 10);
+			if ((p = parse_text(line, "Video monitoring outputs: ")))
+				d->mon_outputs.num = strtoul(p, NULL, 10);
 			if ((p = parse_text(line, "Serial ports: ")))
 				d->device.num_serial_ports = strtoul(p, NULL, 10);
 			break;

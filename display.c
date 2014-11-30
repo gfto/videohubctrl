@@ -48,8 +48,8 @@ void print_device_info(struct videohub_data *d) {
 		printf("  | %-26s | %-26u |\n", "Serial ports", d->device.num_serial_ports);
 	if (d->device.num_video_processing_units)
 		printf("  | %-26s | %-26u |\n", "Video processing units", d->device.num_video_processing_units);
-	if (d->device.num_video_monitoring_outputs)
-		printf("  | %-26s | %-26u |\n", "Video monitoring outputs", d->device.num_video_monitoring_outputs);
+	if (d->mon_outputs.num)
+		printf("  | %-26s | %-26u |\n", "Video monitoring outputs", d->mon_outputs.num);
 	printf_line(len);
 	printf("\n");
 }
