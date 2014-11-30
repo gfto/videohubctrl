@@ -14,6 +14,7 @@
 #include <string.h>
 
 #include "data.h"
+#include "cmd.h"
 #include "util.h"
 #include "display.h"
 
@@ -124,23 +125,46 @@ void print_device_video_outputs(struct videohub_data *d) {
 	printf("\n");
 }
 
+static void __print_opt(struct videohub_data *d, enum vcmd vcmd) {
+	unsigned int i, last = 0;
+	struct videohub_commands *v = &videohub_commands[vcmd];
+	struct port_set *s_port = !v->ports1 ? NULL : (void *)d + v->ports1;
+	const char *p = v->opt_prefix;
+	for(i = 0; i < s_port->num; i++) {
+		switch (v->type) {
+		case PARSE_LABEL:
+			printf("  --%s-name %2d \"%s\" \\\n", p, i + 1, s_port->port[i].name);
+			break;
+		case PARSE_ROUTE:
+			printf("  --%s-route %2d %2d \\\n", p, i + 1, s_port->port[i].routed_to + 1);
+			break;
+		case PARSE_LOCK:
+			last = i + 1 < s_port->num;
+			if (s_port->port[i].lock != PORT_UNLOCKED) {
+				printf("  --%s-unlock %2d --%s-lock %2d%s\n",
+					p, i + 1, p, i + 1, last ? " \\" : "");
+			} else {
+				printf("  --%s-unlock %2d%s\n", p, i + 1, last ? " \\" : "");
+			}
+		default: break;
+		}
+	}
+}
+
 void print_device_backup(struct videohub_data *d) {
 	unsigned int i;
 	printf("videohubctrl \\\n");
-	for(i = 0; i < d->inputs.num; i++)
-		printf("  --vi-name %2d \"%s\" \\\n", i + 1, d->inputs.port[i].name);
-	for(i = 0; i < d->outputs.num; i++)
-		printf("  --vo-name %2d \"%s\" \\\n", i + 1, d->outputs.port[i].name);
-	for(i = 0; i < d->outputs.num; i++)
-		printf("  --vo-route %2d %2d \\\n", i + 1, d->outputs.port[i].routed_to + 1);
-	for(i = 0; i < d->outputs.num; i++) {
-		if (d->outputs.port[i].lock != PORT_UNLOCKED) {
-			printf("  --vo-unlock %2d --vo-lock %2d%s\n", i + 1, i + 1,
-				i + 1 < d->outputs.num ? " \\" : "");
-		} else {
-			printf("  --vo-unlock %2d%s\n", i + 1,
-				i + 1 < d->outputs.num ? " \\" : "");
-		}
+	for (i = 0; i < NUM_COMMANDS; i++) {
+		if (videohub_commands[i].type == PARSE_LABEL)
+			__print_opt(d, videohub_commands[i].cmd);
+	}
+	for (i = 0; i < NUM_COMMANDS; i++) {
+		if (videohub_commands[i].type == PARSE_ROUTE)
+			__print_opt(d, videohub_commands[i].cmd);
+	}
+	for (i = 0; i < NUM_COMMANDS; i++) {
+		if (videohub_commands[i].type == PARSE_LOCK)
+			__print_opt(d, videohub_commands[i].cmd);
 	}
 	printf("\n");
 }

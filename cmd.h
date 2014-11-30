@@ -47,6 +47,7 @@ struct videohub_commands {
 	size_t			ports2;
 	const char		*port_id1;
 	const char		*port_id2;
+	const char		*opt_prefix;
 };
 
 extern struct videohub_commands videohub_commands[NUM_COMMANDS];
