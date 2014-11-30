@@ -62,10 +62,10 @@ static const struct option long_options[] = {
 	{ "list-vinputs",		no_argument,       NULL, 902 },
 	{ "list-voutputs",		no_argument,       NULL, 903 },
 	{ "vi-name",			required_argument, NULL, 1001 },
-	{ "vo-name",			required_argument, NULL, 1002 },
-	{ "vo-route",			required_argument, NULL, 1011 },
-	{ "vo-lock",			required_argument, NULL, 1021 },
-	{ "vo-unlock",			required_argument, NULL, 1022 },
+	{ "vo-name",			required_argument, NULL, 2001 },
+	{ "vo-route",			required_argument, NULL, 2002 },
+	{ "vo-lock",			required_argument, NULL, 2003 },
+	{ "vo-unlock",			required_argument, NULL, 2004 },
 	{ 0, 0, 0, 0 }
 };
 
@@ -193,10 +193,10 @@ static void parse_options(struct videohub_data *data, int argc, char **argv) {
 			case 902: show_list |= action_list_vinputs; break; // --list-vinputs
 			case 903: show_list |= action_list_voutputs; break; // --list-voutputs
 			case 1001: parse_cmd2(argc, argv, CMD_INPUT_LABELS); break; // --vi-name
-			case 1002: parse_cmd2(argc, argv, CMD_OUTPUT_LABELS); break; // --vo-name
-			case 1011: parse_cmd2(argc, argv, CMD_VIDEO_OUTPUT_ROUTING); break; // --vo-route
-			case 1021: parse_cmd1(argc, argv, CMD_VIDEO_OUTPUT_LOCKS, true); break; // --vo-lock
-			case 1022: parse_cmd1(argc, argv, CMD_VIDEO_OUTPUT_LOCKS, false); break; // --vo-unlock
+			case 2001: parse_cmd2(argc, argv, CMD_OUTPUT_LABELS); break; // --vo-name
+			case 2002: parse_cmd2(argc, argv, CMD_VIDEO_OUTPUT_ROUTING); break; // --vo-route
+			case 2003: parse_cmd1(argc, argv, CMD_VIDEO_OUTPUT_LOCKS, true); break; // --vo-lock
+			case 2004: parse_cmd1(argc, argv, CMD_VIDEO_OUTPUT_LOCKS, false); break; // --vo-unlock
 			case 'H': // --help
 				show_help(data);
 				exit(EXIT_SUCCESS);
