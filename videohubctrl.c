@@ -243,6 +243,8 @@ static int read_device_command_stream(struct videohub_data *d) {
 static void send_device_command(struct videohub_data *d, char *cmd_buffer) {
 	if (!test_data)
 		fdwrite(d->dev_fd, cmd_buffer, strlen(cmd_buffer));
+	else
+		parse_text_buffer(d, cmd_buffer);
 }
 
 int main(int argc, char **argv) {
