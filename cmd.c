@@ -218,21 +218,11 @@ int parse_text_buffer(struct videohub_data *data, char *cmd_buffer) {
 	return ok_commands;
 }
 
-// Try to find input/output with certain name, return 0 on not found, pos + 1 is found
-static int search_video_output_name(struct videohub_data *d, char *name) {
+// Try to find port with certain name, return 0 on not found, pos + 1 is found
+static int get_port_by_name(struct port_set *p, char *name) {
 	unsigned int i;
-	for(i = 0; i < d->outputs.num; i++) {
-		if (streq(name, d->outputs.port[i].name)) {
-			return i + 1;
-		}
-	}
-	return 0;
-}
-
-static int search_video_input_name(struct videohub_data *d, char *name) {
-	unsigned int i;
-	for(i = 0; i < d->inputs.num; i++) {
-		if (streq(name, d->inputs.port[i].name)) {
+	for(i = 0; i < p->num; i++) {
+		if (streq(name, p->port[i].name)) {
 			return i + 1;
 		}
 	}
@@ -256,7 +246,7 @@ void prepare_cmd_entry(struct videohub_data *d, struct vcmd_entry *e) {
 	switch (e->cmd) {
 	case CMD_INPUT_LABELS:
 		if (e->port_no1 == 0 || e->port_no1 > d->inputs.num) {
-			e->port_no1 = search_video_input_name(d, e->param1);
+			e->port_no1 = get_port_by_name(&d->inputs, e->param1);
 			if (!e->port_no1)
 				die("Unknown input port number/name: %s", e->param1);
 		}
@@ -264,7 +254,7 @@ void prepare_cmd_entry(struct videohub_data *d, struct vcmd_entry *e) {
 	case CMD_OUTPUT_LABELS:
 	case CMD_VIDEO_OUTPUT_LOCKS:
 		if (e->port_no1 == 0 || e->port_no1 > d->outputs.num) {
-			e->port_no1 = search_video_output_name(d, e->param1);
+			e->port_no1 = get_port_by_name(&d->outputs, e->param1);
 			if (!e->port_no1)
 				die("Unknown output port number/name: %s", e->param1);
 		}
@@ -272,12 +262,12 @@ void prepare_cmd_entry(struct videohub_data *d, struct vcmd_entry *e) {
 		break;
 	case CMD_VIDEO_OUTPUT_ROUTING:
 		if (e->port_no1 == 0 || e->port_no1 > d->outputs.num) {
-			e->port_no1 = search_video_output_name(d, e->param1);
+			e->port_no1 = get_port_by_name(&d->outputs, e->param1);
 			if (!e->port_no1)
 				die("Unknown output port number/name: %s", e->param1);
 		}
 		if (e->port_no2 == 0 || e->port_no2 > d->inputs.num) {
-			e->port_no2 = search_video_input_name(d, e->param2);
+			e->port_no2 = get_port_by_name(&d->inputs, e->param2);
 			if (!e->port_no2)
 				die("Unknown input port number/name: %s", e->param2);
 		}
