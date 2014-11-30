@@ -12,45 +12,50 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <stddef.h>
 #include <string.h>
 
 #include "data.h"
 #include "cmd.h"
 #include "util.h"
 
-enum cmd_flags {
-	PARSE_NONE      = (1 << 0), /* The result if this command needs no parsing */
-	PARSE_CUSTOM    = (1 << 1), /* Use custom parser for this command */
-	PARSE_SLOT_TXT  = (1 << 2), /* Parse [slot_num] [slot_text] */
-	PARSE_SLOT_DEST = (1 << 3), /* Parse [slot_num] [dest_slot] */
+const char *videohub_commands_text[NUM_COMMANDS] = {
+	[CMD_PROTOCOL_PREAMBLE]    = "PROTOCOL PREAMBLE",
+	[CMD_VIDEOHUB_DEVICE]      = "VIDEOHUB DEVICE",
+	[CMD_INPUT_LABELS]         = "INPUT LABELS",
+	[CMD_OUTPUT_LABELS]        = "OUTPUT LABELS",
+	[CMD_VIDEO_OUTPUT_LOCKS]   = "VIDEO OUTPUT LOCKS",
+	[CMD_VIDEO_OUTPUT_ROUTING] = "VIDEO OUTPUT ROUTING",
+	[CMD_VIDEO_INPUT_STATUS]   = "VIDEO INPUT STATUS",
+	[CMD_VIDEO_OUTPUT_STATUS]  = "VIDEO OUTPUT STATUS",
+	[CMD_PING]                 = "PING",
+	[CMD_ACK]                  = "ACK",
+	[CMD_NAK]                  = "NAK",
 };
 
-static struct videohub_commands {
-	enum vcmd	cmd;
-	const char	*txt;
-	unsigned int	flags;
-} videohub_commands[] = {
-	{ CMD_PROTOCOL_PREAMBLE,    "PROTOCOL PREAMBLE",    PARSE_CUSTOM },
-	{ CMD_VIDEOHUB_DEVICE,      "VIDEOHUB DEVICE",      PARSE_CUSTOM },
-	{ CMD_INPUT_LABELS,         "INPUT LABELS",         PARSE_SLOT_TXT },
-	{ CMD_OUTPUT_LABELS,        "OUTPUT LABELS",        PARSE_SLOT_TXT },
-	{ CMD_VIDEO_OUTPUT_LOCKS,   "VIDEO OUTPUT LOCKS",   PARSE_SLOT_TXT },
-	{ CMD_VIDEO_OUTPUT_ROUTING, "VIDEO OUTPUT ROUTING", PARSE_SLOT_DEST },
-	{ CMD_VIDEO_INPUT_STATUS,   "VIDEO INPUT STATUS",   PARSE_SLOT_TXT },
-	{ CMD_VIDEO_OUTPUT_STATUS,  "VIDEO OUTPUT STATUS",  PARSE_SLOT_TXT },
-	{ CMD_PING,                 "PING",                 PARSE_NONE },
-	{ CMD_ACK,                  "ACK",                  PARSE_NONE },
-	{ CMD_NAK,                  "NAK",                  PARSE_NONE },
-};
+#define OFS(X) offsetof(struct videohub_data, X)
 
-static const char *get_cmd_text(enum vcmd cmd) {
-	unsigned int i;
-	for (i = 0; i < ARRAY_SIZE(videohub_commands); i++) {
-		if (videohub_commands[i].cmd == cmd)
-			return videohub_commands[i].txt;
-	}
-	return "";
-}
+struct videohub_commands videohub_commands[NUM_COMMANDS] = {
+	[CMD_PROTOCOL_PREAMBLE]    = { .cmd = CMD_PROTOCOL_PREAMBLE   , .type = PARSE_CUSTOM },
+	[CMD_VIDEOHUB_DEVICE]      = { .cmd = CMD_VIDEOHUB_DEVICE     , .type = PARSE_CUSTOM },
+	[CMD_INPUT_LABELS]         = { .cmd = CMD_INPUT_LABELS        , .type = PARSE_LABEL,
+		.ports1 = OFS(inputs),  .port_id1 = "video input",  },
+	[CMD_OUTPUT_LABELS]        = { .cmd = CMD_OUTPUT_LABELS       , .type = PARSE_LABEL,
+		.ports1 = OFS(outputs), .port_id1 = "video output", },
+	[CMD_VIDEO_OUTPUT_LOCKS]   = { .cmd = CMD_VIDEO_OUTPUT_LOCKS  , .type = PARSE_LOCK,
+		.ports1 = OFS(outputs), .port_id1 = "video output",  },
+	[CMD_VIDEO_OUTPUT_ROUTING] = { .cmd = CMD_VIDEO_OUTPUT_ROUTING, .type = PARSE_ROUTE,
+		.ports1   = OFS(outputs), .ports2 = OFS(inputs),
+		.port_id1 = "video output",     .port_id2 = "video input",
+	},
+	[CMD_VIDEO_INPUT_STATUS]   = { .cmd = CMD_VIDEO_INPUT_STATUS  , .type = PARSE_STATUS,
+		.ports1 = OFS(inputs),  .port_id1 = "video input",   },
+	[CMD_VIDEO_OUTPUT_STATUS]  = { .cmd = CMD_VIDEO_OUTPUT_STATUS , .type = PARSE_STATUS,
+		.ports1 = OFS(outputs), .port_id1 = "video output",  },
+	[CMD_PING]                 = { .cmd = CMD_PING                , .type = PARSE_NONE },
+	[CMD_ACK]                  = { .cmd = CMD_ACK                 , .type = PARSE_NONE },
+	[CMD_NAK]                  = { .cmd = CMD_NAK                 , .type = PARSE_NONE },
+};
 
 static char *parse_text(char *line, char *cmd) {
 	char *parsed_text = strstr(line, cmd);
@@ -60,17 +65,18 @@ static char *parse_text(char *line, char *cmd) {
 	return NULL;
 }
 
-bool parse_command(struct videohub_data *data, char *cmd) {
+bool parse_command(struct videohub_data *d, char *cmd) {
 	unsigned int i;
 	bool ret = true;
 	if (!strlen(cmd))
 		return false;
 	struct videohub_commands *v = NULL;
-	for (i = 0; i < ARRAY_SIZE(videohub_commands); i++) {
-		if (!videohub_commands[i].txt)
-			continue;
-		if (strstr(cmd, videohub_commands[i].txt) == cmd) {
+	const char *cmd_txt = NULL;
+	for (i = 0; i < NUM_COMMANDS; i++) {
+		const char *cmd_text = videohub_commands_text[i];
+		if (strstr(cmd, cmd_text) == cmd) {
 			v = &videohub_commands[i];
+			cmd_txt = videohub_commands_text[i];
 			break;
 		}
 	}
@@ -85,119 +91,103 @@ bool parse_command(struct videohub_data *data, char *cmd) {
 		return false;
 	}
 
-	d("debug: Got '%s' command.\n", v->txt);
+	d("debug: Got '%s' command.\n", cmd_txt);
 	if (debug > 1)
 		d("----\n%s\n----\n", cmd);
 
-	char *p, *cmd_data = xstrdup( cmd + strlen(v->txt) + 2 ); // +2 to compensate for :\n at the end of the command
+	struct port_set *s_port = !v->ports1 ? NULL : (void *)d + v->ports1;
+	struct port_set *d_port = !v->ports2 ? NULL : (void *)d + v->ports2;
+
+	char *p, *cmd_data = xstrdup( cmd + strlen(cmd_txt) + 2 ); // +2 to compensate for :\n at the end of the command
 	// Split line by line
 	char *line, *saveptr = NULL;
 	for(i = 0, line = strtok_r(cmd_data, "\n", &saveptr); line; line = strtok_r(NULL, "\n", &saveptr), i++) {
 
-		// Parse command data response looking like that: "[slot_pos] [slot_data]"
-		char *slot_data = NULL;
-		unsigned int slot_pos = 0, dest_pos = 0;
+		// Parse command data response
+		unsigned int port_num = 0;
+		unsigned int dest_port_num = 0;
+		char *port_data = NULL;
 
-		if (v->flags & (PARSE_SLOT_TXT | PARSE_SLOT_DEST)) {
-			slot_data = strchr(line, ' ');
-			if (!slot_data)
+		if (v->type != PARSE_NONE && v->type != PARSE_CUSTOM) {
+			port_data = strchr(line, ' ');
+			if (!port_data)
 				continue;
-			slot_data[0] = '\0'; // Separate slot_pos from slot_data
-			slot_data++;
-			slot_pos = strtoul(line, NULL, 10);
-			if (slot_pos + 1 > data->outputs.num) {
-				q("WARNING: %s - invalid slot %u\n", v->txt, slot_pos);
-				continue;
-			}
-		}
-
-		if (v->flags & PARSE_SLOT_DEST) {
-			dest_pos = strtoul(slot_data, NULL, 10);
-			if (dest_pos + 1 > data->inputs.num) {
-				q("WARNING: %s - invalid dest %u\n", v->txt, dest_pos);
+			port_data[0] = '\0'; // Separate port_num from port_data
+			port_data++;
+			port_num = strtoul(line, NULL, 10);
+			if (port_num + 1 > s_port->num) {
+				q("WARNING: %s: invalid %s port %u (valid 0..%u)\n", cmd_txt,
+				  v->port_id1, port_num, s_port->num - 1);
 				continue;
 			}
 		}
 
-		// Parse commands
+		switch (v->type) {
+		case PARSE_LABEL:
+			snprintf(s_port->port[port_num].name, sizeof(s_port->port[port_num].name), "%s", port_data);
+			break;
+		case PARSE_STATUS:
+			snprintf(s_port->port[port_num].status, sizeof(s_port->port[port_num].status), "%s", port_data);
+			break;
+		case PARSE_ROUTE:
+			dest_port_num = strtoul(port_data, NULL, 10);
+			if (dest_port_num + 1 > d_port->num) {
+				q("WARNING: %s: invalid %s port %u (valid 0..%u)\n", cmd_txt,
+				  v->port_id2, dest_port_num, d_port->num - 1);
+				continue;
+			}
+			s_port->port[port_num].routed_to = dest_port_num;
+			break;
+		case PARSE_LOCK:
+			switch (port_data[0]) {
+			case 'O': s_port->port[port_num].lock = PORT_LOCKED; break;
+			case 'L': s_port->port[port_num].lock = PORT_LOCKED_OTHER; break;
+			default : s_port->port[port_num].lock = PORT_UNLOCKED; break;
+			}
+			break;
+		default: break;
+		}
+
+		// Parse custom commands
 		switch (v->cmd) {
 		case CMD_PROTOCOL_PREAMBLE:
 			if ((p = parse_text(line, "Version: ")))
-				snprintf(data->device.protocol_ver, sizeof(data->device.protocol_ver), "%s", p);
+				snprintf(d->device.protocol_ver, sizeof(d->device.protocol_ver), "%s", p);
 			break;
-
 		case CMD_VIDEOHUB_DEVICE:
 			if ((p = parse_text(line, "Device present: "))) {
-				data->device.dev_present = streq(p, "true");
-				data->device.needs_fw_update = streq(p, "needs_update");
+				d->device.dev_present = streq(p, "true");
+				d->device.needs_fw_update = streq(p, "needs_update");
 			}
-
 			if ((p = parse_text(line, "Model name: ")))
-				snprintf(data->device.model_name, sizeof(data->device.model_name), "%s", p);
-
+				snprintf(d->device.model_name, sizeof(d->device.model_name), "%s", p);
 			if ((p = parse_text(line, "Unique ID: ")))
-				snprintf(data->device.unique_id, sizeof(data->device.unique_id) , "%s", p);
-
+				snprintf(d->device.unique_id, sizeof(d->device.unique_id) , "%s", p);
 			if ((p = parse_text(line, "Video inputs: ")))
-				data->inputs.num = strtoul(p, NULL, 10);
-
+				d->inputs.num = strtoul(p, NULL, 10);
 			if ((p = parse_text(line, "Video processing units: ")))
-				data->device.num_video_processing_units = strtoul(p, NULL, 10);
-
+				d->device.num_video_processing_units = strtoul(p, NULL, 10);
 			if ((p = parse_text(line, "Video outputs: ")))
-				data->outputs.num = strtoul(p, NULL, 10);
-
+				d->outputs.num = strtoul(p, NULL, 10);
 			if ((p = parse_text(line, "Video monitoring output: ")))
-				data->device.num_video_monitoring_outputs = strtoul(p, NULL, 10);
-
+				d->device.num_video_monitoring_outputs = strtoul(p, NULL, 10);
 			if ((p = parse_text(line, "Serial ports: ")))
-				data->device.num_serial_ports = strtoul(p, NULL, 10);
-			break;
-
-		case CMD_INPUT_LABELS:
-			snprintf(data->inputs.port[slot_pos].name, sizeof(data->inputs.port[slot_pos].name), "%s", slot_data);
-			break;
-
-		case CMD_OUTPUT_LABELS:
-			snprintf(data->outputs.port[slot_pos].name, sizeof(data->outputs.port[slot_pos].name), "%s", slot_data);
-			break;
-
-		case CMD_VIDEO_INPUT_STATUS:
-			snprintf(data->inputs.port[slot_pos].status, sizeof(data->inputs.port[slot_pos].status), "%s", slot_data);
-			break;
-
-		case CMD_VIDEO_OUTPUT_STATUS:
-			snprintf(data->outputs.port[slot_pos].status, sizeof(data->outputs.port[slot_pos].status), "%s", slot_data);
-			break;
-
-		case CMD_VIDEO_OUTPUT_LOCKS:
-			switch (slot_data[0]) {
-			case 'O': data->outputs.port[slot_pos].lock = PORT_LOCKED; break;
-			case 'L': data->outputs.port[slot_pos].lock = PORT_LOCKED_OTHER; break;
-			default : data->outputs.port[slot_pos].lock = PORT_UNLOCKED; break;
-			}
-			break;
-
-		case CMD_VIDEO_OUTPUT_ROUTING:
-			data->outputs.port[slot_pos].routed_to = dest_pos;
-
-		case CMD_PING:
-		case CMD_ACK:
-			// Do nothing
+				d->device.num_serial_ports = strtoul(p, NULL, 10);
 			break;
 		case CMD_NAK:
 			ret = false;
 			break;
+		default: break;
 		}
 	}
 	free(cmd_data);
 	return ret;
 }
 
-int parse_text_buffer(struct videohub_data *data, char *cmd_buffer) {
+int parse_text_buffer(struct videohub_data *d, char *cmd_buffer) {
 	// The buffer contains only one command, no splitting is needed
 	if (!strstr(cmd_buffer, "\n\n"))
-		return parse_command(data, cmd_buffer);
+		return parse_command(d, cmd_buffer);
 	// Split commands and parse them one by one
 	int ok_commands = 0;
 	char *buf_copy = xstrdup(cmd_buffer);
@@ -205,12 +195,12 @@ int parse_text_buffer(struct videohub_data *data, char *cmd_buffer) {
 	while(1) {
 		newcmd = strstr(cmd, "\n\n"); // Find next command
 		if (!newcmd) {
-			if (parse_command(data, cmd)) // Parse current command
+			if (parse_command(d, cmd)) // Parse current command
 				ok_commands++;
 			break;
 		}
 		newcmd[0] = '\0'; // Terminate previous command
-		if (parse_command(data, cmd)) // Parse previous command
+		if (parse_command(d, cmd)) // Parse previous command
 			ok_commands++;
 		cmd = newcmd + 2; // Advance cmd to the next command
 	}
@@ -241,115 +231,80 @@ static unsigned int my_atoi(char *txt) {
 }
 
 void prepare_cmd_entry(struct videohub_data *d, struct vcmd_entry *e) {
+	struct port_set *s_port = !e->cmd->ports1 ? NULL : (void *)d + e->cmd->ports1;
+	struct port_set *d_port = !e->cmd->ports2 ? NULL : (void *)d + e->cmd->ports2;
+
+	// All command types needs parsing of the "source port"
 	e->port_no1 = my_atoi(e->param1);
-	e->port_no2 = my_atoi(e->param2);
-	switch (e->cmd) {
-	case CMD_INPUT_LABELS:
-		if (e->port_no1 == 0 || e->port_no1 > d->inputs.num) {
-			e->port_no1 = get_port_by_name(&d->inputs, e->param1);
-			if (!e->port_no1)
-				die("Unknown input port number/name: %s", e->param1);
-		}
-		break;
-	case CMD_OUTPUT_LABELS:
-	case CMD_VIDEO_OUTPUT_LOCKS:
-		if (e->port_no1 == 0 || e->port_no1 > d->outputs.num) {
-			e->port_no1 = get_port_by_name(&d->outputs, e->param1);
-			if (!e->port_no1)
-				die("Unknown output port number/name: %s", e->param1);
-		}
-		e->lock = d->outputs.port[e->port_no1 - 1].lock;
-		break;
-	case CMD_VIDEO_OUTPUT_ROUTING:
-		if (e->port_no1 == 0 || e->port_no1 > d->outputs.num) {
-			e->port_no1 = get_port_by_name(&d->outputs, e->param1);
-			if (!e->port_no1)
-				die("Unknown output port number/name: %s", e->param1);
-		}
-		if (e->port_no2 == 0 || e->port_no2 > d->inputs.num) {
-			e->port_no2 = get_port_by_name(&d->inputs, e->param2);
+	if (e->port_no1 == 0 || e->port_no1 > s_port->num) {
+		e->port_no1 = get_port_by_name(s_port, e->param1);
+		if (!e->port_no1)
+			die("Unknown %s port number/name: %s", e->cmd->port_id1, e->param1);
+	}
+
+	// ROUTE type needs parsing of the "destination port"
+	if (e->cmd->type == PARSE_ROUTE) {
+		e->port_no2 = my_atoi(e->param2);
+		if (e->port_no2 == 0 || e->port_no2 > d_port->num) {
+			e->port_no2 = get_port_by_name(d_port, e->param2);
 			if (!e->port_no2)
-				die("Unknown input port number/name: %s", e->param2);
+				die("Unknown %s port number/name: %s", e->cmd->port_id2, e->param2);
 		}
-		break;
-	case CMD_VIDEO_INPUT_STATUS:
-	case CMD_VIDEO_OUTPUT_STATUS:
-	case CMD_PROTOCOL_PREAMBLE:
-	case CMD_VIDEOHUB_DEVICE:
-	case CMD_PING:
-	case CMD_ACK:
-	case CMD_NAK:
-		break;
+	}
+
+	if (e->cmd->type == PARSE_LOCK) {
+		e->lock = s_port->port[e->port_no1 - 1].lock;
 	}
 }
 
 void format_cmd_text(struct vcmd_entry *e, char *buf, unsigned int bufsz) {
-	switch (e->cmd) {
-	case CMD_INPUT_LABELS:
-		snprintf(buf, bufsz, "%s:\n%u %s\n\n", get_cmd_text(e->cmd),
+	switch (e->cmd->type) {
+	case PARSE_LABEL:
+		snprintf(buf, bufsz, "%s:\n%u %s\n\n", videohub_commands_text[e->cmd->cmd],
 			e->port_no1 - 1, e->param2);
 		break;
-	case CMD_OUTPUT_LABELS:
-		snprintf(buf, bufsz, "%s:\n%u %s\n\n", get_cmd_text(e->cmd),
-			e->port_no1 - 1, e->param2);
-		break;
-	case CMD_VIDEO_OUTPUT_LOCKS:
-		snprintf(buf, bufsz, "%s:\n%u %s\n\n", get_cmd_text(e->cmd),
+	case PARSE_LOCK:
+		snprintf(buf, bufsz, "%s:\n%u %s\n\n", videohub_commands_text[e->cmd->cmd],
 			e->port_no1 - 1, e->do_lock ? "O" : (e->lock == PORT_LOCKED_OTHER ? "F" : "U"));
 		break;
-	case CMD_VIDEO_OUTPUT_ROUTING:
-		snprintf(buf, bufsz, "%s:\n%u %u\n\n", get_cmd_text(e->cmd),
+	case PARSE_ROUTE:
+		snprintf(buf, bufsz, "%s:\n%u %u\n\n", videohub_commands_text[e->cmd->cmd],
 			e->port_no1 - 1, e->port_no2 - 1);
 		break;
-	case CMD_VIDEO_INPUT_STATUS:
-	case CMD_VIDEO_OUTPUT_STATUS:
-	case CMD_PROTOCOL_PREAMBLE:
-	case CMD_VIDEOHUB_DEVICE:
-	case CMD_PING:
-	case CMD_ACK:
-	case CMD_NAK:
-		break;
+	default: break;
 	}
 }
 
 void show_cmd(struct videohub_data *d, struct vcmd_entry *e) {
+	struct port_set *s_port = !e->cmd->ports1 ? NULL : (void *)d + e->cmd->ports1;
+	struct port_set *d_port = !e->cmd->ports2 ? NULL : (void *)d + e->cmd->ports2;
 	const char *prefix = "videohub: ";
-	switch (e->cmd) {
-	case CMD_INPUT_LABELS:
-		printf("%srename video input %d - \"%s\" to \"%s\"\n",
+	switch (e->cmd->type) {
+	case PARSE_LABEL:
+		printf("%srename %s %d \"%s\" to \"%s\"\n",
 			prefix,
-			e->port_no1, d->inputs.port[e->port_no1 - 1].name,
+			e->cmd->port_id1,
+			e->port_no1, s_port->port[e->port_no1 - 1].name,
 			e->param2
 		);
 		break;
-	case CMD_OUTPUT_LABELS:
-		printf("%srename video output %d - \"%s\" to \"%s\"\n",
-			prefix,
-			e->port_no1, d->outputs.port[e->port_no1 - 1].name,
-			e->param2
-		);
-		break;
-	case CMD_VIDEO_OUTPUT_LOCKS:
-		printf("%s%s video output %d - \"%s\"\n",
+	case PARSE_LOCK:
+		printf("%s%s %s %d \"%s\"\n",
 			prefix,
 			e->do_lock ? "lock" : (e->lock == PORT_LOCKED_OTHER ? "force unlock" : "unlock"),
-			e->port_no1, d->outputs.port[e->port_no1 - 1].name
+			e->cmd->port_id1,
+			e->port_no1, s_port->port[e->port_no1 - 1].name
 		);
 		break;
-	case CMD_VIDEO_OUTPUT_ROUTING:
-		printf("%sset video output %d \"%s\" to read from input %d \"%s\"\n",
+	case PARSE_ROUTE:
+		printf("%sset %s %d \"%s\" to read from %s %d \"%s\"\n",
 			prefix,
-			e->port_no1, d->outputs.port[e->port_no1 - 1].name,
-			e->port_no2, d->inputs.port [e->port_no2 - 1].name
+			e->cmd->port_id1,
+			e->port_no1, s_port->port[e->port_no1 - 1].name,
+			e->cmd->port_id2,
+			e->port_no2, d_port->port [e->port_no2 - 1].name
 		);
 		break;
-	case CMD_VIDEO_INPUT_STATUS:
-	case CMD_VIDEO_OUTPUT_STATUS:
-	case CMD_PROTOCOL_PREAMBLE:
-	case CMD_VIDEOHUB_DEVICE:
-	case CMD_PING:
-	case CMD_ACK:
-	case CMD_NAK:
-		break;
+	default: break;
 	}
 }

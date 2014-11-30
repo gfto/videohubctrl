@@ -15,6 +15,8 @@
 
 #include <stdbool.h>
 
+#define NUM_COMMANDS 11
+
 enum vcmd {
 	CMD_PROTOCOL_PREAMBLE,
 	CMD_VIDEOHUB_DEVICE,
@@ -26,14 +28,34 @@ enum vcmd {
 	CMD_VIDEO_OUTPUT_STATUS,
 	CMD_PING,
 	CMD_ACK,
-	CMD_NAK,
+	CMD_NAK = (NUM_COMMANDS - 1),
 };
+
+enum cmd_flags {
+	PARSE_NONE,   /* The result if this command needs no parsing */
+	PARSE_CUSTOM, /* Use custom parser for this command */
+	PARSE_LABEL,  /* Parse [port_num] [port_text] */
+	PARSE_STATUS, /* Parse [port_num] [port_status] */
+	PARSE_ROUTE,  /* Parse [port_num] [dest_port] */
+	PARSE_LOCK,   /* Parse [port_num] [dest_slot] */
+};
+
+struct videohub_commands {
+	enum vcmd		cmd;
+	enum cmd_flags	type;
+	size_t			ports1;
+	size_t			ports2;
+	const char		*port_id1;
+	const char		*port_id2;
+};
+
+extern struct videohub_commands videohub_commands[NUM_COMMANDS];
 
 bool parse_command(struct videohub_data *d, char *cmd);
 int parse_text_buffer(struct videohub_data *data, char *cmd_buffer);
 
 struct vcmd_entry {
-	enum vcmd		cmd;
+	struct videohub_commands *cmd;
 	char			*param1;
 	char			*param2;
 	unsigned int	port_no1;

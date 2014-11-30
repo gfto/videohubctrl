@@ -180,9 +180,9 @@ static void parse_options(struct videohub_data *data, int argc, char **argv) {
 					exit(EXIT_FAILURE);
 				}
 				switch (j) {
-				case 1001: c->cmd = CMD_INPUT_LABELS; break; // --vi-name
-				case 1002: c->cmd = CMD_OUTPUT_LABELS; break; // --vo-name
-				case 1011: c->cmd = CMD_VIDEO_OUTPUT_ROUTING; break; // --vo-route
+				case 1001: c->cmd = &videohub_commands[CMD_INPUT_LABELS]; break; // --vi-name
+				case 1002: c->cmd = &videohub_commands[CMD_OUTPUT_LABELS]; break; // --vo-name
+				case 1011: c->cmd = &videohub_commands[CMD_VIDEO_OUTPUT_ROUTING]; break; // --vo-route
 				}
 				c->param1 = argv[optind - 1];
 				c->param2 = argv[optind];
@@ -194,7 +194,7 @@ static void parse_options(struct videohub_data *data, int argc, char **argv) {
 			case 1022: // --vo-unlock
 				if (num_parsed_cmds == ARRAY_SIZE(parsed_cmds.entry))
 					die("No more than %u commands are supported.", num_parsed_cmds);
-				c->cmd = CMD_VIDEO_OUTPUT_LOCKS;
+				c->cmd = &videohub_commands[CMD_VIDEO_OUTPUT_LOCKS];
 				c->param1 = argv[optind - 1];
 				c->do_lock = (j == 1021);
 				c = &parsed_cmds.entry[++num_parsed_cmds];
