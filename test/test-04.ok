@@ -1,0 +1,70 @@
+videohub: rename video input 4 "Windows 4 HD" to "Windows 4 HighDef"
+videohub: rename video input 5 "Input 5" to "In 5"
+videohub: rename video input 6 "Input 6" to "Camera 6"
+videohub: rename video output 1 "Enc1 1" to "Encoder 1"
+videohub: rename video output 16 "Loopback" to "Dev-Lo"
+videohub: lock video output 6 "Output 6"
+videohub: lock video output 15 "Output 15"
+videohub: force unlock video output 12 "Denc"
+videohub: force unlock video output 9 "Enc2 1"
+videohub: set video output 5 "Output 5" to read from video input 1 "Windows 1"
+videohub: set video output 5 "Output 5" to read from video input 2 "Windows 2"
+videohub: set video output 5 "Output 5" to read from video input 3 "Windows 3"
+Device info
+  -----------------------------------------------------------
+  | Device address             | sdi-matrix                 |
+  | Device port                | 9990                       |
+  | Model name                 | Blackmagic Micro Videohub  |
+  | Unique ID                  | 7c2e0d021714               |
+  | Protocol                   | 2.4                        |
+  | Video inputs               | 16                         |
+  | Video outputs              | 16                         |
+  -----------------------------------------------------------
+
+Video inputs
+  --------------------------------------------------------------------
+  | ## | Video input name         | n | Routed to output         | s |
+  --------------------------------------------------------------------
+  |  1 | Windows 1                | 2 | Enc1 3                   | B |
+  |    |                          |   | Enc1 4                   |   |
+  |  2 | Windows 2                | 1 | Enc1 2                   | B |
+  |  3 | Windows 3                | 2 | Encoder 1                | B |
+  |    |                          |   | Output 5                 |   |
+  |  4 | Windows 4 HighDef        | 2 | Output 8                 | B |
+  |    |                          |   | Enc2 1                   |   |
+  |  5 | In 5                     | 0 | -                        | o |
+  |  6 | Camera 6                 | 1 | Output 6                 | o |
+  |  7 | Input 7                  | 1 | Output 7                 | o |
+  |  8 | Input 8                  | 0 | -                        | o |
+  |  9 | Input 9                  | 0 | -                        |   |
+  | 10 | Input 10                 | 1 | Output 10                |   |
+  | 11 | Input 11                 | 1 | Output 11                |   |
+  | 12 | DPlay1                   | 1 | Output 13                |   |
+  | 13 | DPlay2                   | 1 | Denc                     |   |
+  | 14 | Input 14                 | 1 | Output 14                | x |
+  | 15 | Input 15                 | 1 | Output 15                | x |
+  | 16 | Loopback                 | 1 | Dev-Lo                   |   |
+  --------------------------------------------------------------------
+
+Video outputs
+  --------------------------------------------------------------------
+  | ## | x | Video output name        | Connected video input    | s |
+  --------------------------------------------------------------------
+  |  1 | L | Encoder 1                | Windows 3                |   |
+  |  2 | L | Enc1 2                   | Windows 2                |   |
+  |  3 | L | Enc1 3                   | Windows 1                |   |
+  |  4 | L | Enc1 4                   | Windows 1                |   |
+  |  5 |   | Output 5                 | Windows 3                | x |
+  |  6 | O | Output 6                 | Camera 6                 | x |
+  |  7 |   | Output 7                 | Input 7                  | x |
+  |  8 |   | Output 8                 | Windows 4 HighDef        |   |
+  |  9 |   | Enc2 1                   | Windows 4 HighDef        | B |
+  | 10 |   | Output 10                | Input 10                 | B |
+  | 11 |   | Output 11                | Input 11                 | B |
+  | 12 |   | Denc                     | DPlay2                   | B |
+  | 13 | O | Output 13                | DPlay1                   | o |
+  | 14 |   | Output 14                | Input 14                 | o |
+  | 15 | O | Output 15                | Input 15                 | o |
+  | 16 | O | Dev-Lo                   | Loopback                 | o |
+  --------------------------------------------------------------------
+

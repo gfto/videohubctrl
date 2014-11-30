@@ -1,0 +1,93 @@
+#!/bin/sh
+# Simple test suite for videohubctrl functionality
+
+cd $(dirname $0)/..
+
+make
+
+ulimit -c unlimited
+
+export PATH=".:$PATH"
+
+check() {
+	if diff -u $1.ok $1.out
+	then
+		echo "OK    : $2"
+	else
+		echo "ERROR : $2"
+		exit 1
+	fi
+}
+
+videohubctrl --test-input test/input-00.txt $@ &> test/test-01.out
+check test/test-01 "Test parsing of test/input-00.txt"
+
+videohubctrl --test-input test/input-00.txt --backup $@ &> test/test-02.out
+check test/test-02 "Test --backup option output"
+
+(
+	sed -e 's|\\||g' < test/test-02.ok | tr -d '\n'
+	echo ' --test-input test/input-03.txt'
+) | sh &> test/test-03.out
+check test/test-03 "Test --backup restore"
+
+videohubctrl --test-input test/input-00.txt \
+	--vi-name "Windows 4 HD" "Windows 4 HighDef" \
+	--vi-name 5 "In 5" \
+	--vi-name "Input 6" "Camera 6" \
+	--vo-name "Enc1 1" "Encoder 1" \
+	--vo-name 16 Dev-Lo \
+	--vo-lock 6 \
+	--vo-lock "Output 15" \
+	--vo-unlock 12 \
+	--vo-unlock "Enc2 1" \
+	--vo-route "Output 5" "Windows 1" \
+	--vo-route 5 2 \
+	--vo-route 5 "Windows 3" \
+$@ &> test/test-04.out
+check test/test-04 "Test multiple configuration commands"
+
+grep -v ^videohub: < test/test-03.out > test/test-05.out
+sed -e 's,| L |,| O |,g' < test/test-01.ok > test/test-05.ok
+check test/test-05 "Test if --backup restored correct config."
+
+./videohubctrl --test-input test/input-00.txt --vi-name 0           "Test Input 0"   $@ &> test/test-06.out
+./videohubctrl --test-input test/input-00.txt --vi-name 18          "Test Input 18"  $@ &>> test/test-06.out
+./videohubctrl --test-input test/input-00.txt --vi-name "Input 18"  "Test Input 18"  $@ &>> test/test-06.out
+./videohubctrl --test-input test/input-00.txt --vo-name 18          "Test Output 18" $@ &>> test/test-06.out
+./videohubctrl --test-input test/input-00.txt --vo-name "Output 18" "Test Output 18" $@ &>> test/test-06.out
+./videohubctrl --test-input test/input-00.txt --vo-lock 18                           $@ &>> test/test-06.out
+./videohubctrl --test-input test/input-00.txt --vo-lock "Output 18"                  $@ &>> test/test-06.out
+./videohubctrl --test-input test/input-00.txt --vo-unlock 18                         $@ &>> test/test-06.out
+./videohubctrl --test-input test/input-00.txt --vo-unlock "Output 18"                $@ &>> test/test-06.out
+./videohubctrl --test-input test/input-00.txt --vo-route 0 0                         $@ &>> test/test-06.out
+./videohubctrl --test-input test/input-00.txt --vo-route 0 18                        $@ &>> test/test-06.out
+./videohubctrl --test-input test/input-00.txt --vo-route 18 0                        $@ &>> test/test-06.out
+./videohubctrl --test-input test/input-00.txt --vo-route 18 18                       $@ &>> test/test-06.out
+./videohubctrl --test-input test/input-00.txt --vo-route 1  18                       $@ &>> test/test-06.out
+./videohubctrl --test-input test/input-00.txt --vo-route 18 1                        $@ &>> test/test-06.out
+./videohubctrl --test-input test/input-00.txt --vo-route "Input 10" "Output 10"      $@ &>> test/test-06.out
+./videohubctrl --test-input test/input-00.txt --vo-route "Err Output" "Input 10"     $@ &>> test/test-06.out
+./videohubctrl --test-input test/input-00.txt --vo-route "Output 10" "Err Input"     $@ &>> test/test-06.out
+check test/test-06 "Test errors on commands with invalid ports."
+
+videohubctrl --test-input test/input-00.txt --list-device $@ &> test/test-07.out
+check test/test-07 "Test --list-device option output"
+
+videohubctrl --test-input test/input-00.txt --list-vinputs $@ &> test/test-08.out
+check test/test-08 "Test --list-vinputs option output"
+
+videohubctrl --test-input test/input-00.txt --list-voutputs $@ &> test/test-09.out
+check test/test-09 "Test --list-voutputs option output"
+
+videohubctrl --test-input test/input-10.txt $@ &> test/test-10.out
+check test/test-10 "Test invalid protocol"
+
+videohubctrl --test-input test/input-11.txt $@ &> test/test-11.out
+check test/test-11 "Test invalid number of ports"
+
+videohubctrl --test-input test/input-12.txt $@ &> test/test-12.out
+check test/test-12 "Test device-not_present check"
+
+videohubctrl --test-input test/input-14.txt $@ &> test/test-14.out
+check test/test-14 "Test buggy input"

@@ -2,3 +2,4 @@ videohubctrl
 version.h
 *.o
 *.d
+test/*.out

@@ -1,0 +1,24 @@
+Video inputs
+  --------------------------------------------------------------------
+  | ## | Video input name         | n | Routed to output         | s |
+  --------------------------------------------------------------------
+  |  1 | Windows 1                | 2 | Enc1 3                   | B |
+  |    |                          |   | Enc1 4                   |   |
+  |  2 | Windows 2                | 1 | Enc1 2                   | B |
+  |  3 | Windows 3                | 1 | Enc1 1                   | B |
+  |  4 | Windows 4 HD             | 2 | Output 8                 | B |
+  |    |                          |   | Enc2 1                   |   |
+  |  5 | Input 5                  | 1 | Output 5                 | o |
+  |  6 | Input 6                  | 1 | Output 6                 | o |
+  |  7 | Input 7                  | 1 | Output 7                 | o |
+  |  8 | Input 8                  | 0 | -                        | o |
+  |  9 | Input 9                  | 0 | -                        |   |
+  | 10 | Input 10                 | 1 | Output 10                |   |
+  | 11 | Input 11                 | 1 | Output 11                |   |
+  | 12 | DPlay1                   | 1 | Output 13                |   |
+  | 13 | DPlay2                   | 1 | Denc                     |   |
+  | 14 | Input 14                 | 1 | Output 14                | x |
+  | 15 | Input 15                 | 1 | Output 15                | x |
+  | 16 | Loopback                 | 1 | Loopback                 |   |
+  --------------------------------------------------------------------
+

@@ -1,0 +1,22 @@
+Video outputs
+  --------------------------------------------------------------------
+  | ## | x | Video output name        | Connected video input    | s |
+  --------------------------------------------------------------------
+  |  1 | L | Enc1 1                   | Windows 3                |   |
+  |  2 | L | Enc1 2                   | Windows 2                |   |
+  |  3 | L | Enc1 3                   | Windows 1                |   |
+  |  4 | L | Enc1 4                   | Windows 1                |   |
+  |  5 |   | Output 5                 | Input 5                  | x |
+  |  6 |   | Output 6                 | Input 6                  | x |
+  |  7 |   | Output 7                 | Input 7                  | x |
+  |  8 |   | Output 8                 | Windows 4 HD             |   |
+  |  9 | L | Enc2 1                   | Windows 4 HD             | B |
+  | 10 |   | Output 10                | Input 10                 | B |
+  | 11 |   | Output 11                | Input 11                 | B |
+  | 12 | L | Denc                     | DPlay2                   | B |
+  | 13 | O | Output 13                | DPlay1                   | o |
+  | 14 |   | Output 14                | Input 14                 | o |
+  | 15 |   | Output 15                | Input 15                 | o |
+  | 16 | O | Loopback                 | Loopback                 | o |
+  --------------------------------------------------------------------
+

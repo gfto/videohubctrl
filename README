@@ -135,10 +135,10 @@ Example output
 ==============
 
 Here is how videohubctrl output looks like using the commands recorded
-in vh_test_commands.txt file.
+in tests/input-00.txt file.
 
 |----------------------------------------------------------------------|
-$ videohubctrl --test vh_test_commands.txt
+$ videohubctrl --test tests/input-00.txt
 Device info
   -----------------------------------------------------------
   | Device address             | sdi-matrix                 |

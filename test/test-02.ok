@@ -1,0 +1,66 @@
+videohubctrl \
+  --vi-name  1 "Windows 1" \
+  --vi-name  2 "Windows 2" \
+  --vi-name  3 "Windows 3" \
+  --vi-name  4 "Windows 4 HD" \
+  --vi-name  5 "Input 5" \
+  --vi-name  6 "Input 6" \
+  --vi-name  7 "Input 7" \
+  --vi-name  8 "Input 8" \
+  --vi-name  9 "Input 9" \
+  --vi-name 10 "Input 10" \
+  --vi-name 11 "Input 11" \
+  --vi-name 12 "DPlay1" \
+  --vi-name 13 "DPlay2" \
+  --vi-name 14 "Input 14" \
+  --vi-name 15 "Input 15" \
+  --vi-name 16 "Loopback" \
+  --vo-name  1 "Enc1 1" \
+  --vo-name  2 "Enc1 2" \
+  --vo-name  3 "Enc1 3" \
+  --vo-name  4 "Enc1 4" \
+  --vo-name  5 "Output 5" \
+  --vo-name  6 "Output 6" \
+  --vo-name  7 "Output 7" \
+  --vo-name  8 "Output 8" \
+  --vo-name  9 "Enc2 1" \
+  --vo-name 10 "Output 10" \
+  --vo-name 11 "Output 11" \
+  --vo-name 12 "Denc" \
+  --vo-name 13 "Output 13" \
+  --vo-name 14 "Output 14" \
+  --vo-name 15 "Output 15" \
+  --vo-name 16 "Loopback" \
+  --vo-route  1  3 \
+  --vo-route  2  2 \
+  --vo-route  3  1 \
+  --vo-route  4  1 \
+  --vo-route  5  5 \
+  --vo-route  6  6 \
+  --vo-route  7  7 \
+  --vo-route  8  4 \
+  --vo-route  9  4 \
+  --vo-route 10 10 \
+  --vo-route 11 11 \
+  --vo-route 12 13 \
+  --vo-route 13 12 \
+  --vo-route 14 14 \
+  --vo-route 15 15 \
+  --vo-route 16 16 \
+  --vo-unlock  1 --vo-lock  1 \
+  --vo-unlock  2 --vo-lock  2 \
+  --vo-unlock  3 --vo-lock  3 \
+  --vo-unlock  4 --vo-lock  4 \
+  --vo-unlock  5 \
+  --vo-unlock  6 \
+  --vo-unlock  7 \
+  --vo-unlock  8 \
+  --vo-unlock  9 --vo-lock  9 \
+  --vo-unlock 10 \
+  --vo-unlock 11 \
+  --vo-unlock 12 --vo-lock 12 \
+  --vo-unlock 13 --vo-lock 13 \
+  --vo-unlock 14 \
+  --vo-unlock 15 \
+  --vo-unlock 16 --vo-lock 16
+

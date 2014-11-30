@@ -1,0 +1,37 @@
+PROTOCOL PREAMBLE:
+Version: 2.4
+
+VIDEOHUB DEVICE:
+Device present: true
+Model name: Blackmagic Micro Videohub
+Unique ID: 7c2e0d021714
+Video inputs: 16
+Video processing units: 0
+Video outputs: 16
+Video monitoring outputs: 0
+Serial ports: 0
+
+VIDEO INPUT STATUS:
+0 BNC
+1 BNC
+2 BNC
+3 BNC
+4 Optical
+5 Optical
+6 Optical
+7 Optical
+13 None
+14 None
+
+VIDEO OUTPUT STATUS:
+4 None
+5 None
+6 None
+8 BNC
+9 BNC
+10 BNC
+11 BNC
+12 Optical
+13 Optical
+14 Optical
+15 Optical

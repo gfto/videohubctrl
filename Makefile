@@ -48,7 +48,7 @@ videohubctrl_SRC = \
 videohubctrl_LIBS = -lpthread
 videohubctrl_OBJS = $(FUNCS_LIB) $(videohubctrl_SRC:.c=.o)
 
-CLEAN_OBJS = videohubctrl $(videohubctrl_SRC:.c=.o) $(videohubctrl_SRC:.c=.d)
+CLEAN_OBJS = videohubctrl $(videohubctrl_SRC:.c=.o) $(videohubctrl_SRC:.c=.d) test/*.out
 DISTCLEAN_OBJS = version.h
 
 .PHONY: distclean clean version install uninstall

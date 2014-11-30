@@ -1,0 +1,1 @@
+ERROR: The device supports 999 ports. Increase MAX_PORTS (288) and recompile the program.
