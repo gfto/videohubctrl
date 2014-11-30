@@ -71,13 +71,19 @@ There are two locking statuses:
 
 The port status field (s) have the same format as input ports (described
 in \fB\-\-list\-vinputs\fR option).
-.SH VIDEO INPUT/OUTPUT CONFIGURATION
+.SH CONFIGURATION COMMANDS
 .PP
-Everywhere where port number is accepted, you can use the port
-number or the port name.
+Everywhere where port needs to be set, you can use the port number or the
+port name. You can use only port names that were already configured in
+previous session. Trying to set a name and then reference it in the next
+command will fail. Using port numbers always works.
+.SH VIDEO INPUTS CONFIGURATION
+.PP
 .TP
 \fB\-\-vi\-name\fR <in_X> <name>
 Set video input port X name.
+.SH VIDEO OUTPUTS CONFIGURATION
+.PP
 .TP
 \fB\-\-vo\-name\fR <out_X> <name>
 Set video output port X name.
@@ -153,6 +159,11 @@ To get a quick start here are some example command lines.
                 --vo-name 5 "Encoder h264" \\
                 --vo-input 5 12 \\
                 --vo-lock 5
+
+ # This fails. It tries to use name that is not previously configured.
+   videohubctrl -h sdi --vo-name 1 "Test output" \\
+                       --vo-name "Test output" "Other name"
+
 .fi
 .SH SEE ALSO
 See the README file for more information. If you have questions,
