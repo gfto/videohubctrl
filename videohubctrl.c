@@ -227,6 +227,13 @@ static void check_number_of_ports(struct port_set *p) {
 			p->num, ARRAY_SIZE(p->port));
 }
 
+static void print_device_full(struct videohub_data *d) {
+	print_device_info(d);
+	print_device_video_inputs(d);
+	print_device_video_outputs(d);
+	fflush(stdout);
+}
+
 static int read_device_command_stream(struct videohub_data *d) {
 	int ret, ncommands = 0;
 	char buf[8192 + 1];
@@ -302,6 +309,9 @@ int main(int argc, char **argv) {
 				read_device_command_stream(data);
 			}
 		}
+		// Show the result after commands
+		if (test_data)
+			print_device_full(data);
 	} else if (show_monitor) {
 		while (1) {
 			int sleeps = 0;
@@ -327,10 +337,7 @@ int main(int argc, char **argv) {
 	} else if (show_backup) {
 		print_device_backup(data);
 	} else if (show_info) {
-		print_device_info(data);
-		print_device_video_inputs(data);
-		print_device_video_outputs(data);
-		fflush(stdout);
+		print_device_full(data);
 	}
 
 	shutdown_fd(&data->dev_fd);
