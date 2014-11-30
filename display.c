@@ -136,7 +136,7 @@ static void __print_opt(struct videohub_data *d, enum vcmd vcmd) {
 			printf("  --%s-name %2d \"%s\" \\\n", p, i + 1, s_port->port[i].name);
 			break;
 		case PARSE_ROUTE:
-			printf("  --%s-route %2d %2d \\\n", p, i + 1, s_port->port[i].routed_to + 1);
+			printf("  --%s-input %2d %2d \\\n", p, i + 1, s_port->port[i].routed_to + 1);
 			break;
 		case PARSE_LOCK:
 			last = i + 1 < s_port->num;

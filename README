@@ -54,16 +54,14 @@ Commands:
  --list-vinputs             | List device video inputs.
  --list-voutputs            | List device video outputs.
 
-Video input/output configuration:
+Video inputs configuration:
  --vi-name <in_X> <name>    | Set video input port X name.
+
+Video outputs configuration:
  --vo-name <out_X> <name>   | Set video output port X name.
-
- --vo-route <out_X> <in_Y>  | Connect video output X to video input Y
-
+ --vo-input <out_X> <in_Y>  | Connect video output X to video input Y
  --vo-lock <out_X>          | Lock output port X.
  --vo-unlock <out_X>        | Unlock output port X.
-
-   For <in_X/out_X/in_Y> you may use port number or port name.
 
 Misc options:
  -T --test-input <file>     | Read commands from <file>.
@@ -113,8 +111,8 @@ Example usage
 
  # Set two outputs to receive from the same input using port names
 
-   videohubctrl -h sdi --vo-route "Output 8" "Windows 4 HD"
-   videohubctrl -h sdi --vo-route "Output 7" "Windows 4 HD"
+   videohubctrl -h sdi --vo-input "Output 8" "Windows 4 HD"
+   videohubctrl -h sdi --vo-input "Output 7" "Windows 4 HD"
 
 
  # Run several commands at once
@@ -127,7 +125,7 @@ Example usage
                 --vi-name 11 "Test input" \
                 --vi-name 12 "Playout input" \
                 --vo-name 5 "Encoder h264" \
-                --vo-route 5 12 \
+                --vo-input 5 12 \
                 --vo-lock 5
 
 

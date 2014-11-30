@@ -82,7 +82,7 @@ Set video input port X name.
 \fB\-\-vo\-name\fR <out_X> <name>
 Set video output port X name.
 .TP
-\fB\-\-vo\-route\fR <out_X> <in_Y>
+\fB\-\-vo\-input\fR <out_X> <in_Y>
 Connect video output X to video input Y.
 .TP
 \fB\-\-vo\-lock\fR <out_X>
@@ -139,8 +139,8 @@ To get a quick start here are some example command lines.
    videohubctrl --vo-unlock "Output 16"
 
  # Set two outputs to receive from the same input using port names
-   videohubctrl -h sdi --vo-route "Output 8" "Windows 4 HD"
-   videohubctrl -h sdi --vo-route "Output 7" "Windows 4 HD"
+   videohubctrl -h sdi --vo-input "Output 8" "Windows 4 HD"
+   videohubctrl -h sdi --vo-input "Output 7" "Windows 4 HD"
 
  # Run several commands at once
  # Rename video input 11 and 12
@@ -151,7 +151,7 @@ To get a quick start here are some example command lines.
                 --vi-name 11 "Test input" \\
                 --vi-name 12 "Playout input" \\
                 --vo-name 5 "Encoder h264" \\
-                --vo-route 5 12 \\
+                --vo-input 5 12 \\
                 --vo-lock 5
 .fi
 .SH SEE ALSO

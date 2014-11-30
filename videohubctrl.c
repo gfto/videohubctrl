@@ -63,7 +63,8 @@ static const struct option long_options[] = {
 	{ "list-voutputs",		no_argument,       NULL, 903 },
 	{ "vi-name",			required_argument, NULL, 1001 },
 	{ "vo-name",			required_argument, NULL, 2001 },
-	{ "vo-route",			required_argument, NULL, 2002 },
+	{ "vo-input",			required_argument, NULL, 2002 },
+	{ "vo-route",			required_argument, NULL, 2002 }, // Alias of --vo-input
 	{ "vo-lock",			required_argument, NULL, 2003 },
 	{ "vo-unlock",			required_argument, NULL, 2004 },
 	{ 0, 0, 0, 0 }
@@ -90,16 +91,14 @@ static void show_help(struct videohub_data *data) {
 	printf(" --list-vinputs             | List device video inputs.\n");
 	printf(" --list-voutputs            | List device video outputs.\n");
 	printf("\n");
-	printf("Video input/output configuration:\n");
+	printf("Video inputs configuration:\n");
 	printf(" --vi-name <in_X> <name>    | Set video input port X name.\n");
+	printf("\n");
+	printf("Video outputs configuration:\n");
 	printf(" --vo-name <out_X> <name>   | Set video output port X name.\n");
-	printf("\n");
-	printf(" --vo-route <out_X> <in_Y>  | Connect video output X to video input Y\n");
-	printf("\n");
+	printf(" --vo-input <out_X> <in_Y>  | Connect video output X to video input Y\n");
 	printf(" --vo-lock <out_X>          | Lock output port X.\n");
 	printf(" --vo-unlock <out_X>        | Unlock output port X.\n");
-	printf("\n");
-	printf("   For <in_X/out_X/in_Y> you may use port number or port name.\n");
 	printf("\n");
 	printf("Misc options:\n");
 	printf(" -T --test-input <file>     | Read commands from <file>.\n");
@@ -194,7 +193,7 @@ static void parse_options(struct videohub_data *data, int argc, char **argv) {
 			case 903: show_list |= action_list_voutputs; break; // --list-voutputs
 			case 1001: parse_cmd2(argc, argv, CMD_INPUT_LABELS); break; // --vi-name
 			case 2001: parse_cmd2(argc, argv, CMD_OUTPUT_LABELS); break; // --vo-name
-			case 2002: parse_cmd2(argc, argv, CMD_VIDEO_OUTPUT_ROUTING); break; // --vo-route
+			case 2002: parse_cmd2(argc, argv, CMD_VIDEO_OUTPUT_ROUTING); break; // --vo-input
 			case 2003: parse_cmd1(argc, argv, CMD_VIDEO_OUTPUT_LOCKS, true); break; // --vo-lock
 			case 2004: parse_cmd1(argc, argv, CMD_VIDEO_OUTPUT_LOCKS, false); break; // --vo-unlock
 			case 'H': // --help

@@ -41,9 +41,9 @@ videohubctrl --test-input test/input-00.txt \
 	--vo-lock "Output 15" \
 	--vo-unlock 12 \
 	--vo-unlock "Enc2 1" \
-	--vo-route "Output 5" "Windows 1" \
-	--vo-route 5 2 \
-	--vo-route 5 "Windows 3" \
+	--vo-input "Output 5" "Windows 1" \
+	--vo-input 5 2 \
+	--vo-input 5 "Windows 3" \
 $@ &> test/test-04.out
 check test/test-04 "Test multiple configuration commands"
 
@@ -60,15 +60,15 @@ check test/test-05 "Test if --backup restored correct config."
 ./videohubctrl --test-input test/input-00.txt --vo-lock "Output 18"                  $@ &>> test/test-06.out
 ./videohubctrl --test-input test/input-00.txt --vo-unlock 18                         $@ &>> test/test-06.out
 ./videohubctrl --test-input test/input-00.txt --vo-unlock "Output 18"                $@ &>> test/test-06.out
-./videohubctrl --test-input test/input-00.txt --vo-route 0 0                         $@ &>> test/test-06.out
-./videohubctrl --test-input test/input-00.txt --vo-route 0 18                        $@ &>> test/test-06.out
-./videohubctrl --test-input test/input-00.txt --vo-route 18 0                        $@ &>> test/test-06.out
-./videohubctrl --test-input test/input-00.txt --vo-route 18 18                       $@ &>> test/test-06.out
-./videohubctrl --test-input test/input-00.txt --vo-route 1  18                       $@ &>> test/test-06.out
-./videohubctrl --test-input test/input-00.txt --vo-route 18 1                        $@ &>> test/test-06.out
-./videohubctrl --test-input test/input-00.txt --vo-route "Input 10" "Output 10"      $@ &>> test/test-06.out
-./videohubctrl --test-input test/input-00.txt --vo-route "Err Output" "Input 10"     $@ &>> test/test-06.out
-./videohubctrl --test-input test/input-00.txt --vo-route "Output 10" "Err Input"     $@ &>> test/test-06.out
+./videohubctrl --test-input test/input-00.txt --vo-input 0 0                         $@ &>> test/test-06.out
+./videohubctrl --test-input test/input-00.txt --vo-input 0 18                        $@ &>> test/test-06.out
+./videohubctrl --test-input test/input-00.txt --vo-input 18 0                        $@ &>> test/test-06.out
+./videohubctrl --test-input test/input-00.txt --vo-input 18 18                       $@ &>> test/test-06.out
+./videohubctrl --test-input test/input-00.txt --vo-input 1  18                       $@ &>> test/test-06.out
+./videohubctrl --test-input test/input-00.txt --vo-input 18 1                        $@ &>> test/test-06.out
+./videohubctrl --test-input test/input-00.txt --vo-input "Input 10" "Output 10"      $@ &>> test/test-06.out
+./videohubctrl --test-input test/input-00.txt --vo-input "Err Output" "Input 10"     $@ &>> test/test-06.out
+./videohubctrl --test-input test/input-00.txt --vo-input "Output 10" "Err Input"     $@ &>> test/test-06.out
 check test/test-06 "Test errors on commands with invalid ports."
 
 videohubctrl --test-input test/input-00.txt --list-device $@ &> test/test-07.out
