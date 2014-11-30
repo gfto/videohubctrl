@@ -1,5 +1,5 @@
 |-----------------------------------------------------------------------|
-2014-11-29 : Version 0.4-dev
+2014-11-30 : Version 0.4
  * Add videohubctrl(1) man page.
  * Add all, install, uninstall and help Makefile targets.
  * Display where each input is being routed.
