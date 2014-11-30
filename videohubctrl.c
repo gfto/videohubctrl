@@ -221,6 +221,12 @@ static void parse_options(struct videohub_data *data, int argc, char **argv) {
 	d("Device address: %s:%s\n", data->dev_host, data->dev_port);
 }
 
+static void check_number_of_ports(struct port_set *p) {
+	if (p->num > ARRAY_SIZE(p->port))
+		die("The device supports %d ports. Increase MAX_PORTS (%lu) and recompile the program.",
+			p->num, ARRAY_SIZE(p->port));
+}
+
 static int read_device_command_stream(struct videohub_data *d) {
 	int ret, ncommands = 0;
 	char buf[8192 + 1];
@@ -270,13 +276,8 @@ int main(int argc, char **argv) {
 		die("Device reports that it is not present.");
 	}
 
-	if (data->device.num_video_inputs > ARRAY_SIZE(data->inputs))
-		die("Device supports %d inputs. Recompile the program with more MAX_INPUTS (currently %d)",
-			data->device.num_video_inputs, MAX_INPUTS);
-
-	if (data->device.num_video_outputs > ARRAY_SIZE(data->outputs))
-		die("Device supports %d outputs. Recompile the program with more MAX_OUTPUTS (currently %d)\n",
-			data->device.num_video_outputs, MAX_OUTPUTS);
+	check_number_of_ports(&data->inputs);
+	check_number_of_ports(&data->outputs);
 
 	if (num_parsed_cmds) {
 		unsigned int i;
