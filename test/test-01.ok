@@ -7,6 +7,7 @@ Device info
   | Protocol                   | 2.4                        |
   | Video inputs               | 16                         |
   | Video outputs              | 16                         |
+  | Video monitoring outputs   | 4                          |
   -----------------------------------------------------------
 
 Video inputs
@@ -54,4 +55,14 @@ Video outputs
   | 15 |   | Output 15                | Input 15                 | o |
   | 16 | O | Loopback                 | Loopback                 | o |
   --------------------------------------------------------------------
+
+Monitoring outputs
+  ----------------------------------------------------------------
+  | ## | x | Monitoring output name   | Connected video input    |
+  ----------------------------------------------------------------
+  |  1 |   | Monitor 1                | Windows 1                |
+  |  2 | O | Monitor 2                | Windows 2                |
+  |  3 | L | Monitor 3                | Windows 3                |
+  |  4 |   | Monitor 4                | Windows 4 HD             |
+  ----------------------------------------------------------------
 

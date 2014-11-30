@@ -125,6 +125,26 @@ void print_device_video_outputs(struct videohub_data *d) {
 	printf("\n");
 }
 
+void print_device_monitoring_outputs(struct videohub_data *d) {
+	unsigned int i, len = 64;
+	if (!d->mon_outputs.num)
+		return;
+	printf("Monitoring outputs\n");
+	printf_line(len);
+	printf("  | ## | x | %-24s | %-24s |\n", "Monitoring output name", "Connected video input");
+	printf_line(len);
+	for(i = 0; i < d->mon_outputs.num; i++) {
+		printf("  | %2d | %c | %-24s | %-24s |\n",
+			i + 1,
+			port_lock_symbol(d->mon_outputs.port[i].lock),
+			d->mon_outputs.port[i].name,
+			d->inputs.port[d->mon_outputs.port[i].routed_to].name
+		);
+	}
+	printf_line(len);
+	printf("\n");
+}
+
 static void __print_opt(struct videohub_data *d, enum vcmd vcmd) {
 	unsigned int i, last = 0;
 	struct videohub_commands *v = &videohub_commands[vcmd];

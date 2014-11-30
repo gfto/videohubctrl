@@ -44,6 +44,12 @@ videohubctrl --test-input test/input-00.txt \
 	--vo-input "Output 5" "Windows 1" \
 	--vo-input 5 2 \
 	--vo-input 5 "Windows 3" \
+	--mo-name 1 "PC 1 Mon" \
+	--mo-name "Monitor 4" "Decklink" \
+	--mo-unlock 2 \
+	--mo-lock 4 \
+	--mo-name 3 "Loopback" \
+	--mo-input 3 16 \
 $@ &> test/test-04.out
 check test/test-04 "Test multiple configuration commands"
 
@@ -69,6 +75,12 @@ check test/test-05 "Test if --backup restored correct config."
 ./videohubctrl --test-input test/input-00.txt --vo-input "Input 10" "Output 10"      $@ &>> test/test-06.out
 ./videohubctrl --test-input test/input-00.txt --vo-input "Err Output" "Input 10"     $@ &>> test/test-06.out
 ./videohubctrl --test-input test/input-00.txt --vo-input "Output 10" "Err Input"     $@ &>> test/test-06.out
+./videohubctrl --test-input test/input-00.txt --mo-name 18          "Test Output 18" $@ &>> test/test-06.out
+./videohubctrl --test-input test/input-00.txt --mo-name "Output 18" "Test Output 18" $@ &>> test/test-06.out
+./videohubctrl --test-input test/input-00.txt --mo-lock 18                           $@ &>> test/test-06.out
+./videohubctrl --test-input test/input-00.txt --mo-lock "Output 18"                  $@ &>> test/test-06.out
+./videohubctrl --test-input test/input-00.txt --mo-unlock 18                         $@ &>> test/test-06.out
+./videohubctrl --test-input test/input-00.txt --mo-unlock "Output 18"                $@ &>> test/test-06.out
 check test/test-06 "Test errors on commands with invalid ports."
 
 videohubctrl --test-input test/input-00.txt --list-device $@ &> test/test-07.out
@@ -91,3 +103,6 @@ check test/test-12 "Test device-not_present check"
 
 videohubctrl --test-input test/input-14.txt $@ &> test/test-14.out
 check test/test-14 "Test buggy input"
+
+videohubctrl --test-input test/input-00.txt --list-moutputs $@ &> test/test-15.out
+check test/test-15 "Test --list-moutputs option output"

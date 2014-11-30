@@ -10,6 +10,12 @@ videohub: force unlock video output 9 "Enc2 1"
 videohub: set video output 5 "Output 5" to read from video input 1 "Windows 1"
 videohub: set video output 5 "Output 5" to read from video input 2 "Windows 2"
 videohub: set video output 5 "Output 5" to read from video input 3 "Windows 3"
+videohub: rename monitoring output 1 "Monitor 1" to "PC 1 Mon"
+videohub: rename monitoring output 4 "Monitor 4" to "Decklink"
+videohub: unlock monitoring output 2 "Monitor 2"
+videohub: lock monitoring output 4 "Decklink"
+videohub: rename monitoring output 3 "Monitor 3" to "Loopback"
+videohub: set monitoring output 3 "Loopback" to read from video input 16 "Loopback"
 Device info
   -----------------------------------------------------------
   | Device address             | sdi-matrix                 |
@@ -19,6 +25,7 @@ Device info
   | Protocol                   | 2.4                        |
   | Video inputs               | 16                         |
   | Video outputs              | 16                         |
+  | Video monitoring outputs   | 4                          |
   -----------------------------------------------------------
 
 Video inputs
@@ -67,4 +74,14 @@ Video outputs
   | 15 | O | Output 15                | Input 15                 | o |
   | 16 | O | Dev-Lo                   | Loopback                 | o |
   --------------------------------------------------------------------
+
+Monitoring outputs
+  ----------------------------------------------------------------
+  | ## | x | Monitoring output name   | Connected video input    |
+  ----------------------------------------------------------------
+  |  1 |   | PC 1 Mon                 | Windows 1                |
+  |  2 |   | Monitor 2                | Windows 2                |
+  |  3 | L | Loopback                 | Loopback                 |
+  |  4 | O | Decklink                 | Windows 4 HighDef        |
+  ----------------------------------------------------------------
 

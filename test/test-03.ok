@@ -30,6 +30,10 @@ videohub: rename video output 13 "" to "Output 13"
 videohub: rename video output 14 "" to "Output 14"
 videohub: rename video output 15 "" to "Output 15"
 videohub: rename video output 16 "" to "Loopback"
+videohub: rename monitoring output 1 "" to "Monitor 1"
+videohub: rename monitoring output 2 "" to "Monitor 2"
+videohub: rename monitoring output 3 "" to "Monitor 3"
+videohub: rename monitoring output 4 "" to "Monitor 4"
 videohub: set video output 1 "Enc1 1" to read from video input 3 "Windows 3"
 videohub: set video output 2 "Enc1 2" to read from video input 2 "Windows 2"
 videohub: set video output 3 "Enc1 3" to read from video input 1 "Windows 1"
@@ -46,6 +50,10 @@ videohub: set video output 13 "Output 13" to read from video input 12 "DPlay1"
 videohub: set video output 14 "Output 14" to read from video input 14 "Input 14"
 videohub: set video output 15 "Output 15" to read from video input 15 "Input 15"
 videohub: set video output 16 "Loopback" to read from video input 16 "Loopback"
+videohub: set monitoring output 1 "Monitor 1" to read from video input 1 "Windows 1"
+videohub: set monitoring output 2 "Monitor 2" to read from video input 2 "Windows 2"
+videohub: set monitoring output 3 "Monitor 3" to read from video input 3 "Windows 3"
+videohub: set monitoring output 4 "Monitor 4" to read from video input 4 "Windows 4 HD"
 videohub: unlock video output 1 "Enc1 1"
 videohub: lock video output 1 "Enc1 1"
 videohub: unlock video output 2 "Enc1 2"
@@ -70,6 +78,12 @@ videohub: unlock video output 14 "Output 14"
 videohub: unlock video output 15 "Output 15"
 videohub: unlock video output 16 "Loopback"
 videohub: lock video output 16 "Loopback"
+videohub: unlock monitoring output 1 "Monitor 1"
+videohub: unlock monitoring output 2 "Monitor 2"
+videohub: lock monitoring output 2 "Monitor 2"
+videohub: unlock monitoring output 3 "Monitor 3"
+videohub: lock monitoring output 3 "Monitor 3"
+videohub: unlock monitoring output 4 "Monitor 4"
 Device info
   -----------------------------------------------------------
   | Device address             | sdi-matrix                 |
@@ -79,6 +93,7 @@ Device info
   | Protocol                   | 2.4                        |
   | Video inputs               | 16                         |
   | Video outputs              | 16                         |
+  | Video monitoring outputs   | 4                          |
   -----------------------------------------------------------
 
 Video inputs
@@ -126,4 +141,14 @@ Video outputs
   | 15 |   | Output 15                | Input 15                 | o |
   | 16 | O | Loopback                 | Loopback                 | o |
   --------------------------------------------------------------------
+
+Monitoring outputs
+  ----------------------------------------------------------------
+  | ## | x | Monitoring output name   | Connected video input    |
+  ----------------------------------------------------------------
+  |  1 |   | Monitor 1                | Windows 1                |
+  |  2 | O | Monitor 2                | Windows 2                |
+  |  3 | O | Monitor 3                | Windows 3                |
+  |  4 |   | Monitor 4                | Windows 4 HD             |
+  ----------------------------------------------------------------
 

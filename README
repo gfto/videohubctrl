@@ -9,16 +9,14 @@ router and probably will work with other Videohub models.
 videohubctrl currently displays and can configure:
 
   - Video input port names
-  - Video output port names
-  - Video output routing
-  - Video output locking
+  - Video output port names, routing and locking
   - Input/Output port statuses
+  - Monitoring video output port names, routing and locking
 
 The following features found in bigger Videohub models are currently
 not supported (I don't have the hardware):
 
   - Configuration of video processing units
-  - Configuration of Video monitoring outputs
   - Configuration of Serial ports
 
 Configuration of Videohub's network settings can be made using
@@ -62,6 +60,12 @@ Video outputs configuration:
  --vo-input <out_X> <in_Y>  | Connect video output X to video input Y
  --vo-lock <out_X>          | Lock output port X.
  --vo-unlock <out_X>        | Unlock output port X.
+
+Monitoring outputs configuration:
+ --mo-name <mout_X> <name>  | Set monitoring port X name.
+ --mo-route <mout_X> <in_Y> | Connect monitoring X to video input Y
+ --mo-lock <mout_X>         | Lock monitoring port X.
+ --mo-unlock <mout_X>       | Unlock monitoring port X.
 
 Misc options:
  -T --test-input <file>     | Read commands from <file>.
@@ -198,6 +202,16 @@ Video outputs
   | 15 |   | Output 15                | Input 15                 | o |
   | 16 | O | Loopback                 | Loopback                 | o |
   --------------------------------------------------------------------
+
+Monitoring outputs
+  ----------------------------------------------------------------
+  | ## | x | Monitoring output name   | Connected video input    |
+  ----------------------------------------------------------------
+  |  1 |   | Monitor 1                | Windows 1                |
+  |  2 | O | Monitor 2                | Windows 2                |
+  |  3 | L | Monitor 3                | Windows 3                |
+  |  4 |   | Monitor 4                | Windows 4 HD             |
+  ----------------------------------------------------------------
 
 |----------------------------------------------------------------------|
 

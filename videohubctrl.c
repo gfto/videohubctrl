@@ -41,6 +41,7 @@ enum list_actions {
 	action_list_device		= (1 << 0),
 	action_list_vinputs		= (1 << 1),
 	action_list_voutputs	= (1 << 2),
+	action_list_moutputs	= (1 << 3),
 };
 
 static const char *program_id = PROGRAM_NAME " Version: " VERSION " Git: " GIT_VER;
@@ -61,12 +62,18 @@ static const struct option long_options[] = {
 	{ "list-device",		no_argument,       NULL, 901 },
 	{ "list-vinputs",		no_argument,       NULL, 902 },
 	{ "list-voutputs",		no_argument,       NULL, 903 },
+	{ "list-moutputs",		no_argument,       NULL, 904 },
 	{ "vi-name",			required_argument, NULL, 1001 },
 	{ "vo-name",			required_argument, NULL, 2001 },
 	{ "vo-input",			required_argument, NULL, 2002 },
 	{ "vo-route",			required_argument, NULL, 2002 }, // Alias of --vo-input
 	{ "vo-lock",			required_argument, NULL, 2003 },
 	{ "vo-unlock",			required_argument, NULL, 2004 },
+	{ "mo-name",			required_argument, NULL, 3001 },
+	{ "mo-input",			required_argument, NULL, 3002 },
+	{ "mo-route",			required_argument, NULL, 3002 }, // Alias of --mo-input
+	{ "mo-lock",			required_argument, NULL, 3003 },
+	{ "mo-unlock",			required_argument, NULL, 3004 },
 	{ 0, 0, 0, 0 }
 };
 
@@ -90,6 +97,7 @@ static void show_help(struct videohub_data *data) {
 	printf(" --list-device              | Display device info.\n");
 	printf(" --list-vinputs             | List device video inputs.\n");
 	printf(" --list-voutputs            | List device video outputs.\n");
+	printf(" --list-moutputs            | List device monitoring outputs.\n");
 	printf("\n");
 	printf("Video inputs configuration:\n");
 	printf(" --vi-name <in_X> <name>    | Set video input port X name.\n");
@@ -99,6 +107,12 @@ static void show_help(struct videohub_data *data) {
 	printf(" --vo-input <out_X> <in_Y>  | Connect video output X to video input Y\n");
 	printf(" --vo-lock <out_X>          | Lock output port X.\n");
 	printf(" --vo-unlock <out_X>        | Unlock output port X.\n");
+	printf("\n");
+	printf("Monitoring outputs configuration:\n");
+	printf(" --mo-name <mout_X> <name>  | Set monitoring port X name.\n");
+	printf(" --mo-route <mout_X> <in_Y> | Connect monitoring X to video input Y\n");
+	printf(" --mo-lock <mout_X>         | Lock monitoring port X.\n");
+	printf(" --mo-unlock <mout_X>       | Unlock monitoring port X.\n");
 	printf("\n");
 	printf("Misc options:\n");
 	printf(" -T --test-input <file>     | Read commands from <file>.\n");
@@ -191,11 +205,16 @@ static void parse_options(struct videohub_data *data, int argc, char **argv) {
 			case 901: show_list |= action_list_device; break; // --list-device
 			case 902: show_list |= action_list_vinputs; break; // --list-vinputs
 			case 903: show_list |= action_list_voutputs; break; // --list-voutputs
+			case 904: show_list |= action_list_moutputs; break; // --list-moutputs
 			case 1001: parse_cmd2(argc, argv, CMD_INPUT_LABELS); break; // --vi-name
 			case 2001: parse_cmd2(argc, argv, CMD_OUTPUT_LABELS); break; // --vo-name
 			case 2002: parse_cmd2(argc, argv, CMD_VIDEO_OUTPUT_ROUTING); break; // --vo-input
 			case 2003: parse_cmd1(argc, argv, CMD_VIDEO_OUTPUT_LOCKS, true); break; // --vo-lock
 			case 2004: parse_cmd1(argc, argv, CMD_VIDEO_OUTPUT_LOCKS, false); break; // --vo-unlock
+			case 3001: parse_cmd2(argc, argv, CMD_MONITORING_OUTPUT_LABELS); break; // --mo-name
+			case 3002: parse_cmd2(argc, argv, CMD_MONITORING_OUTPUT_ROUTING); break; // --mo-route
+			case 3003: parse_cmd1(argc, argv, CMD_MONITORING_OUTPUT_LOCKS, true); break; // --mo-lock
+			case 3004: parse_cmd1(argc, argv, CMD_MONITORING_OUTPUT_LOCKS, false); break; // --mo-unlock
 			case 'H': // --help
 				show_help(data);
 				exit(EXIT_SUCCESS);
@@ -228,6 +247,7 @@ static void print_device_full(struct videohub_data *d) {
 	print_device_info(d);
 	print_device_video_inputs(d);
 	print_device_video_outputs(d);
+	print_device_monitoring_outputs(d);
 	fflush(stdout);
 }
 
@@ -330,6 +350,7 @@ int main(int argc, char **argv) {
 		if (show_list & action_list_device)		print_device_info(data);
 		if (show_list & action_list_vinputs)	print_device_video_inputs(data);
 		if (show_list & action_list_voutputs)	print_device_video_outputs(data);
+		if (show_list & action_list_moutputs)	print_device_monitoring_outputs(data);
 		fflush(stdout);
 	} else if (show_backup) {
 		print_device_backup(data);

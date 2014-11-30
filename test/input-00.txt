@@ -8,7 +8,7 @@ Unique ID: 7c2e0d021714
 Video inputs: 16
 Video processing units: 0
 Video outputs: 16
-Video monitoring outputs: 0
+Video monitoring outputs: 4
 Serial ports: 0
 
 INPUT LABELS:
@@ -107,3 +107,21 @@ VIDEO OUTPUT STATUS:
 13 Optical
 14 Optical
 15 Optical
+
+MONITORING OUTPUT LABELS:
+0 Monitor 1
+1 Monitor 2
+2 Monitor 3
+3 Monitor 4
+
+VIDEO MONITORING OUTPUT ROUTING:
+0 0
+1 1
+2 2
+3 3
+
+MONITORING OUTPUT LOCKS:
+0 U
+1 O
+2 L
+3 U

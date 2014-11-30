@@ -8,7 +8,7 @@ Unique ID: 7c2e0d021714
 Video inputs: 16
 Video processing units: 0
 Video outputs: 16
-Video monitoring outputs: 0
+Video monitoring outputs: 4
 Serial ports: 0
 
 VIDEO INPUT STATUS:
