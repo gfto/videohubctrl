@@ -304,6 +304,7 @@ int main(int argc, char **argv) {
 
 	check_number_of_ports(&data->inputs);
 	check_number_of_ports(&data->outputs);
+	check_number_of_ports(&data->mon_outputs);
 
 	if (num_parsed_cmds) {
 		unsigned int i;
