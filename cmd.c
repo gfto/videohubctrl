@@ -201,8 +201,8 @@ bool parse_command(struct videohub_data *d, char *cmd) {
 			break;
 		case PARSE_DIR:
 			s_port->port[port_num].direction = DIR_AUTO;
-			if (streq("control", port_data)) s_port->port[port_num].direction = DIR_CONTROL;
-			if (streq("slave", port_data))   s_port->port[port_num].direction = DIR_SLAVE;
+			if (streq("control", port_data))      s_port->port[port_num].direction = DIR_CONTROL;
+			else if (streq("slave", port_data))   s_port->port[port_num].direction = DIR_SLAVE;
 			break;
 		case PARSE_ROUTE:
 			dest_port_num = strtoul(port_data, NULL, 10);
