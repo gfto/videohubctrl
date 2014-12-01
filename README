@@ -12,12 +12,12 @@ videohubctrl currently displays and can configure:
   - Video output port names, routing and locking
   - Input/Output port statuses
   - Monitoring video output port names, routing and locking
+  - Serial ports names, routing, locking and directions
 
 The following features found in bigger Videohub models are currently
 not supported (I don't have the hardware):
 
   - Configuration of video processing units
-  - Configuration of Serial ports
 
 Configuration of Videohub's network settings can be made using
 Blackmagic's Windows program when the device is connected via USB.
