@@ -78,7 +78,7 @@ static const struct option long_options[] = {
 	{ "mo-unlock",			required_argument, NULL, 3004 },
 	{ "se-name",			required_argument, NULL, 4001 },
 	{ "se-input",			required_argument, NULL, 4002 },
-	{ "se-route",			required_argument, NULL, 4002 }, // Alias of --mo-input
+	{ "se-route",			required_argument, NULL, 4002 }, // Alias of --se-input
 	{ "se-lock",			required_argument, NULL, 4003 },
 	{ "se-unlock",			required_argument, NULL, 4004 },
 	{ "se-dir",				required_argument, NULL, 4005 },
@@ -113,19 +113,19 @@ static void show_help(struct videohub_data *data) {
 	printf("\n");
 	printf("Video outputs configuration:\n");
 	printf(" --vo-name <out_X> <name>   | Set video output port X name.\n");
-	printf(" --vo-input <out_X> <in_Y>  | Connect video output X to video input Y\n");
+	printf(" --vo-input <out_X> <in_Y>  | Connect video output X to video input Y.\n");
 	printf(" --vo-lock <out_X>          | Lock output port X.\n");
 	printf(" --vo-unlock <out_X>        | Unlock output port X.\n");
 	printf("\n");
 	printf("Monitoring outputs configuration:\n");
 	printf(" --mo-name <mout_X> <name>  | Set monitoring port X name.\n");
-	printf(" --mo-route <mout_X> <in_Y> | Connect monitoring X to video input Y\n");
+	printf(" --mo-input <mout_X> <in_Y> | Connect monitoring X to video input Y.\n");
 	printf(" --mo-lock <mout_X>         | Lock monitoring port X.\n");
 	printf(" --mo-unlock <mout_X>       | Unlock monitoring port X.\n");
 	printf("\n");
 	printf("Serial ports configuration:\n");
 	printf(" --se-name <ser_X> <name>   | Set serial port X name.\n");
-	printf(" --se-route <ser_X> <ser_Y> | Connect serial X to serial Y\n");
+	printf(" --se-input <ser_X> <ser_Y> | Connect serial X to serial Y.\n");
 	printf(" --se-lock <ser_X>          | Lock serial port X.\n");
 	printf(" --se-unlock <ser_X>        | Unlock serial port X.\n");
 	printf(" --se-dir <ser_X> <dir>     | Set serial port X direction.\n");

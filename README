@@ -59,19 +59,19 @@ Video inputs configuration:
 
 Video outputs configuration:
  --vo-name <out_X> <name>   | Set video output port X name.
- --vo-input <out_X> <in_Y>  | Connect video output X to video input Y
+ --vo-input <out_X> <in_Y>  | Connect video output X to video input Y.
  --vo-lock <out_X>          | Lock output port X.
  --vo-unlock <out_X>        | Unlock output port X.
 
 Monitoring outputs configuration:
  --mo-name <mout_X> <name>  | Set monitoring port X name.
- --mo-route <mout_X> <in_Y> | Connect monitoring X to video input Y
+ --mo-input <mout_X> <in_Y> | Connect monitoring X to video input Y.
  --mo-lock <mout_X>         | Lock monitoring port X.
  --mo-unlock <mout_X>       | Unlock monitoring port X.
 
 Serial ports configuration:
  --se-name <ser_X> <name>   | Set serial port X name.
- --se-route <ser_X> <ser_Y> | Connect serial X to serial Y
+ --se-input <ser_X> <ser_Y> | Connect serial X to serial Y.
  --se-lock <ser_X>          | Lock serial port X.
  --se-unlock <ser_X>        | Unlock serial port X.
  --se-dir <ser_X> <dir>     | Set serial port X direction.
