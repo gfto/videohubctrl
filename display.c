@@ -26,12 +26,14 @@ static void printf_line(int len) {
 	printf("\n");
 }
 
-static char format_status(char *status) {
-	if (!strlen(status))          return ' ';
-	if (streq(status, "BNC"))     return 'B';
-	if (streq(status, "Optical")) return 'o';
-	if (streq(status, "None"))    return 'x';
-	if (streq(status, "RS422"))   return '4'; // For serial ports
+static char format_status(enum port_status status) {
+	switch (status) {
+	case S_UNKNOWN: return ' ';
+	case S_BNC    : return 'B';
+	case S_OPTICAL: return 'o';
+	case S_NONE   : return 'x';
+	case S_RS422  : return '4'; // For serial ports
+	}
 	return '?';
 }
 

@@ -28,6 +28,14 @@ struct device_desc {
 	unsigned int	num_video_processing_units;
 };
 
+enum port_status {
+	S_UNKNOWN,
+	S_NONE,
+	S_BNC,
+	S_OPTICAL,
+	S_RS422,
+};
+
 enum port_lock {
 	PORT_UNLOCKED,
 	PORT_LOCKED,
@@ -46,7 +54,7 @@ struct port {
 	// The statuses (actually they are connection types) are:
 	//  BNC, Optical or None /missing port/ - for input/output
 	//  RS422, None                         - for serial ports
-	char			status[8];
+	enum port_status	status;
 	// For serial ports.
 	// The values are:
 	//    control - In (Workstation)
