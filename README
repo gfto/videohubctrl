@@ -51,6 +51,7 @@ Commands:
  --list-device              | Display device info.
  --list-vinputs             | List device video inputs.
  --list-voutputs            | List device video outputs.
+ --list-moutputs            | List device monitoring outputs.
 
 Video inputs configuration:
  --vi-name <in_X> <name>    | Set video input port X name.

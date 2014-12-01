@@ -45,7 +45,7 @@ Show the command line that will restore the device to it's configuration.
 Display main device info including model, number of ports, etc.
 .TP
 \fB\-\-list\-vinputs\fR
-Display device video inputs, port numbers, names, how many outputs an
+Display device video inputs. Port numbers, names, how many outputs an
 input is being routed to, the list of the outputs and the port status
 (type).
 
@@ -60,7 +60,7 @@ these:
 .fi
 .TP
 \fB\-\-list\-voutputs\fR
-Display device video outputs, port numbers, names, locking status, which
+Display device video outputs. Port numbers, names, locking status, which
 input is routed to a given output and the port status (type).
 
 There are two locking statuses:
@@ -71,6 +71,11 @@ There are two locking statuses:
 
 The port status field (s) have the same format as input ports (described
 in \fB\-\-list\-vinputs\fR option).
+.TP
+\fB\-\-list\-moutputs\fR
+Display device monitoring outputs. Port numbers, names, locking status and
+which input is routed to a given output. The locking statuses are the
+same as video input and output ports.
 .SH CONFIGURATION COMMANDS
 .PP
 Everywhere where port needs to be set, you can use the port number or the
