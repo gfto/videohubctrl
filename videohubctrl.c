@@ -239,11 +239,11 @@ static void parse_options(struct videohub_data *data, int argc, char **argv) {
 			case 2003: parse_cmd1(argc, argv, CMD_VIDEO_OUTPUT_LOCKS, true); break; // --vo-lock
 			case 2004: parse_cmd1(argc, argv, CMD_VIDEO_OUTPUT_LOCKS, false); break; // --vo-unlock
 			case 3001: parse_cmd2(argc, argv, CMD_MONITORING_OUTPUT_LABELS); break; // --mo-name
-			case 3002: parse_cmd2(argc, argv, CMD_MONITORING_OUTPUT_ROUTING); break; // --mo-route
+			case 3002: parse_cmd2(argc, argv, CMD_MONITORING_OUTPUT_ROUTING); break; // --mo-input
 			case 3003: parse_cmd1(argc, argv, CMD_MONITORING_OUTPUT_LOCKS, true); break; // --mo-lock
 			case 3004: parse_cmd1(argc, argv, CMD_MONITORING_OUTPUT_LOCKS, false); break; // --mo-unlock
 			case 4001: parse_cmd2(argc, argv, CMD_SERIAL_PORT_LABELS); break; // --se-name
-			case 4002: parse_cmd2(argc, argv, CMD_SERIAL_PORT_ROUTING); break; // --se-route
+			case 4002: parse_cmd2(argc, argv, CMD_SERIAL_PORT_ROUTING); break; // --se-input
 			case 4003: parse_cmd1(argc, argv, CMD_SERIAL_PORT_LOCKS, true); break; // --se-lock
 			case 4004: parse_cmd1(argc, argv, CMD_SERIAL_PORT_LOCKS, false); break; // --se-unlock
 			case 4005: parse_cmd2(argc, argv, CMD_SERIAL_PORT_DIRECTIONS); break; // --se-dir
