@@ -12,7 +12,7 @@ xxxx-xx-xx : Version 0.5-dev
    Universal Videohub.
  * Rename --vo-route parameter to --vo-input.
  * Add support for video monitoring outputs (names, routing and locks),
-    --mo-name, mo-input, --mo-lock and --mo-unlock.
+    --mo-name, --mo-input, --mo-lock and --mo-unlock.
 
 2014-11-28 : Version 0.3
  * Rename -v / --verbose parameter to -d / --debug.
