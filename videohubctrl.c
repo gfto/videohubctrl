@@ -42,6 +42,7 @@ enum list_actions {
 	action_list_vinputs		= (1 << 1),
 	action_list_voutputs	= (1 << 2),
 	action_list_moutputs	= (1 << 3),
+	action_list_serial		= (1 << 4),
 };
 
 static const char *program_id = PROGRAM_NAME " Version: " VERSION " Git: " GIT_VER;
@@ -63,6 +64,7 @@ static const struct option long_options[] = {
 	{ "list-vinputs",		no_argument,       NULL, 902 },
 	{ "list-voutputs",		no_argument,       NULL, 903 },
 	{ "list-moutputs",		no_argument,       NULL, 904 },
+	{ "list-serial",		no_argument,       NULL, 905 },
 	{ "vi-name",			required_argument, NULL, 1001 },
 	{ "vo-name",			required_argument, NULL, 2001 },
 	{ "vo-input",			required_argument, NULL, 2002 },
@@ -74,6 +76,12 @@ static const struct option long_options[] = {
 	{ "mo-route",			required_argument, NULL, 3002 }, // Alias of --mo-input
 	{ "mo-lock",			required_argument, NULL, 3003 },
 	{ "mo-unlock",			required_argument, NULL, 3004 },
+	{ "se-name",			required_argument, NULL, 4001 },
+	{ "se-input",			required_argument, NULL, 4002 },
+	{ "se-route",			required_argument, NULL, 4002 }, // Alias of --mo-input
+	{ "se-lock",			required_argument, NULL, 4003 },
+	{ "se-unlock",			required_argument, NULL, 4004 },
+	{ "se-dir",				required_argument, NULL, 4005 },
 	{ 0, 0, 0, 0 }
 };
 
@@ -98,6 +106,7 @@ static void show_help(struct videohub_data *data) {
 	printf(" --list-vinputs             | List device video inputs.\n");
 	printf(" --list-voutputs            | List device video outputs.\n");
 	printf(" --list-moutputs            | List device monitoring outputs.\n");
+	printf(" --list-serial              | List device serial ports.\n");
 	printf("\n");
 	printf("Video inputs configuration:\n");
 	printf(" --vi-name <in_X> <name>    | Set video input port X name.\n");
@@ -114,6 +123,14 @@ static void show_help(struct videohub_data *data) {
 	printf(" --mo-lock <mout_X>         | Lock monitoring port X.\n");
 	printf(" --mo-unlock <mout_X>       | Unlock monitoring port X.\n");
 	printf("\n");
+	printf("Serial ports configuration:\n");
+	printf(" --se-name <ser_X> <name>   | Set serial port X name.\n");
+	printf(" --se-route <ser_X> <ser_Y> | Connect serial X to serial Y\n");
+	printf(" --se-lock <ser_X>          | Lock serial port X.\n");
+	printf(" --se-unlock <ser_X>        | Unlock serial port X.\n");
+	printf(" --se-dir <ser_X> <dir>     | Set serial port X direction.\n");
+	printf("                            . <dir> can be 'auto', 'in' or 'out'.\n");
+	printf("\n");
 	printf("Misc options:\n");
 	printf(" -T --test-input <file>     | Read commands from <file>.\n");
 	printf(" -d --debug                 | Increase logging verbosity.\n");
@@ -128,10 +145,14 @@ static struct run_cmds {
 	struct vcmd_entry	entry[MAX_RUN_CMDS];
 } parsed_cmds;
 
-static void parse_cmd2(int argc, char **argv, enum vcmd vcmd) {
-	struct vcmd_entry *c = &parsed_cmds.entry[num_parsed_cmds];
+static void check_num_parsed_cmds(void) {
 	if (num_parsed_cmds == ARRAY_SIZE(parsed_cmds.entry))
 		die("No more than %u commands are supported.", num_parsed_cmds);
+}
+
+static void parse_cmd2(int argc, char **argv, enum vcmd vcmd) {
+	check_num_parsed_cmds();
+	struct vcmd_entry *c = &parsed_cmds.entry[num_parsed_cmds];
 	if (optind == argc || argv[optind - 1][0] == '-' || argv[optind][0] == '-') {
 		fprintf(stderr, "%s: option '%s' requires two arguments\n", argv[0], argv[optind - 2]);
 		exit(EXIT_FAILURE);
@@ -139,13 +160,18 @@ static void parse_cmd2(int argc, char **argv, enum vcmd vcmd) {
 	c->cmd = &videohub_commands[vcmd];
 	c->param1 = argv[optind - 1];
 	c->param2 = argv[optind];
+	if (vcmd == CMD_SERIAL_PORT_DIRECTIONS) {
+		if (strcasecmp("in", c->param2) == 0)        c->direction = DIR_CONTROL;
+		else if (strcasecmp("out", c->param2) == 0)  c->direction = DIR_SLAVE;
+		else if (strcasecmp("auto", c->param2) == 0) c->direction = DIR_AUTO;
+		else die("Invalid serial port direction '%s'. Allowed are: in, out, auto.", c->param2);
+	}
 	num_parsed_cmds++;
 }
 
 static void parse_cmd1(int argc, char **argv, enum vcmd vcmd, bool do_lock) {
+	check_num_parsed_cmds();
 	struct vcmd_entry *c = &parsed_cmds.entry[num_parsed_cmds];
-	if (num_parsed_cmds == ARRAY_SIZE(parsed_cmds.entry))
-		die("No more than %u commands are supported.", num_parsed_cmds);
 	c->cmd = &videohub_commands[vcmd];
 	c->param1 = argv[optind - 1];
 	c->do_lock = do_lock;
@@ -206,6 +232,7 @@ static void parse_options(struct videohub_data *data, int argc, char **argv) {
 			case 902: show_list |= action_list_vinputs; break; // --list-vinputs
 			case 903: show_list |= action_list_voutputs; break; // --list-voutputs
 			case 904: show_list |= action_list_moutputs; break; // --list-moutputs
+			case 905: show_list |= action_list_serial; break; // --list-serial
 			case 1001: parse_cmd2(argc, argv, CMD_INPUT_LABELS); break; // --vi-name
 			case 2001: parse_cmd2(argc, argv, CMD_OUTPUT_LABELS); break; // --vo-name
 			case 2002: parse_cmd2(argc, argv, CMD_VIDEO_OUTPUT_ROUTING); break; // --vo-input
@@ -215,6 +242,11 @@ static void parse_options(struct videohub_data *data, int argc, char **argv) {
 			case 3002: parse_cmd2(argc, argv, CMD_MONITORING_OUTPUT_ROUTING); break; // --mo-route
 			case 3003: parse_cmd1(argc, argv, CMD_MONITORING_OUTPUT_LOCKS, true); break; // --mo-lock
 			case 3004: parse_cmd1(argc, argv, CMD_MONITORING_OUTPUT_LOCKS, false); break; // --mo-unlock
+			case 4001: parse_cmd2(argc, argv, CMD_SERIAL_PORT_LABELS); break; // --se-name
+			case 4002: parse_cmd2(argc, argv, CMD_SERIAL_PORT_ROUTING); break; // --se-route
+			case 4003: parse_cmd1(argc, argv, CMD_SERIAL_PORT_LOCKS, true); break; // --se-lock
+			case 4004: parse_cmd1(argc, argv, CMD_SERIAL_PORT_LOCKS, false); break; // --se-unlock
+			case 4005: parse_cmd2(argc, argv, CMD_SERIAL_PORT_DIRECTIONS); break; // --se-dir
 			case 'H': // --help
 				show_help(data);
 				exit(EXIT_SUCCESS);
@@ -248,6 +280,7 @@ static void print_device_full(struct videohub_data *d) {
 	print_device_video_inputs(d);
 	print_device_video_outputs(d);
 	print_device_monitoring_outputs(d);
+	print_device_serial_ports(d);
 	fflush(stdout);
 }
 
@@ -353,6 +386,7 @@ int main(int argc, char **argv) {
 		if (show_list & action_list_vinputs)	print_device_video_inputs(data);
 		if (show_list & action_list_voutputs)	print_device_video_outputs(data);
 		if (show_list & action_list_moutputs)	print_device_monitoring_outputs(data);
+		if (show_list & action_list_serial)		print_device_serial_ports(data);
 		fflush(stdout);
 	} else if (show_backup) {
 		print_device_backup(data);

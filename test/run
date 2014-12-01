@@ -50,6 +50,14 @@ videohubctrl --test-input test/input-00.txt \
 	--mo-lock 4 \
 	--mo-name 3 "Loopback" \
 	--mo-input 3 16 \
+	--se-name 1 "Ren Ctrl 1" \
+	--se-name "Deck 3" "Ren Deck 3" \
+	--se-unlock 1 \
+	--se-lock 2 \
+	--se-input 2 1 \
+	--se-dir 6 in \
+	--se-dir 7 out \
+	--se-dir 8 out --se-dir 8 auto \
 $@ &> test/test-04.out
 check test/test-04 "Test multiple configuration commands"
 
@@ -81,6 +89,14 @@ check test/test-05 "Test if --backup restored correct config."
 ./videohubctrl --test-input test/input-00.txt --mo-lock "Output 18"                  $@ &>> test/test-06.out
 ./videohubctrl --test-input test/input-00.txt --mo-unlock 18                         $@ &>> test/test-06.out
 ./videohubctrl --test-input test/input-00.txt --mo-unlock "Output 18"                $@ &>> test/test-06.out
+./videohubctrl --test-input test/input-00.txt --se-name 18          "Test Serial 18" $@ &>> test/test-06.out
+./videohubctrl --test-input test/input-00.txt --se-name "Serial 18" "Test Serial 18" $@ &>> test/test-06.out
+./videohubctrl --test-input test/input-00.txt --se-lock 18                           $@ &>> test/test-06.out
+./videohubctrl --test-input test/input-00.txt --se-lock "Serial 18"                  $@ &>> test/test-06.out
+./videohubctrl --test-input test/input-00.txt --se-unlock 18                         $@ &>> test/test-06.out
+./videohubctrl --test-input test/input-00.txt --se-unlock "Serial 18"                $@ &>> test/test-06.out
+./videohubctrl --test-input test/input-00.txt --se-dir 1 err-dir                     $@ &>> test/test-06.out
+./videohubctrl --test-input test/input-00.txt --se-dir "Serial 5" err-dir            $@ &>> test/test-06.out
 check test/test-06 "Test errors on commands with invalid ports."
 
 videohubctrl --test-input test/input-00.txt --list-device $@ &> test/test-07.out
@@ -106,3 +122,6 @@ check test/test-14 "Test buggy input"
 
 videohubctrl --test-input test/input-00.txt --list-moutputs $@ &> test/test-15.out
 check test/test-15 "Test --list-moutputs option output"
+
+videohubctrl --test-input test/input-00.txt --list-serial $@ &> test/test-16.out
+check test/test-16 "Test --list-serial option output"

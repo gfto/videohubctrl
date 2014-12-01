@@ -9,7 +9,7 @@ Video inputs: 16
 Video processing units: 0
 Video outputs: 16
 Video monitoring outputs: 4
-Serial ports: 0
+Serial ports: 8
 
 VIDEO INPUT STATUS:
 0 BNC
@@ -35,3 +35,11 @@ VIDEO OUTPUT STATUS:
 13 Optical
 14 Optical
 15 Optical
+
+SERIAL PORT STATUS:
+0 RS422
+1 RS422
+2 RS422
+3 RS422
+6 None
+7 None

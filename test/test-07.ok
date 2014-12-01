@@ -7,6 +7,7 @@ Device info
   | Protocol                   | 2.4                        |
   | Video inputs               | 16                         |
   | Video outputs              | 16                         |
+  | Serial ports               | 8                          |
   | Video monitoring outputs   | 4                          |
   -----------------------------------------------------------
 

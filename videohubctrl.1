@@ -76,6 +76,11 @@ in \fB\-\-list\-vinputs\fR option).
 Display device monitoring outputs. Port numbers, names, locking status and
 which input is routed to a given output. The locking statuses are the
 same as video input and output ports.
+.TP
+\fB\-\-list\-serial\fR
+Display device serial ports. Port numbers, names, locking status, directions
+and how serial ports are routed. The locking statuses are the same as video
+input, output ports and monitoring ports.
 .SH CONFIGURATION COMMANDS
 .PP
 Everywhere where port needs to be set, you can use the port number or the
@@ -117,6 +122,28 @@ Lock monitoring output port X.
 \fB\-\-mo\-unlock\fR <mout_X>
 Unlock monitoring output port X. If the port is locked by somebody
 else the port would be forcefully unlocked.
+.SH SERIAL PORTS CONFIGURATION
+.PP
+.TP
+\fB\-\-se\-name\fR <ser_X> <name>
+Set serial port X name.
+.TP
+\fB\-\-se\-input\fR <ser_X> <ser_Y>
+Connect serial port X to serial port Y.
+.TP
+\fB\-\-se\-lock\fR <ser_X>
+Lock serial port X.
+.TP
+\fB\-\-se\-unlock\fR <ser_X>
+Unlock serial port X. If the port is locked by somebody else the
+port would be forcefully unlocked.
+.TP
+\fB\-\-se\-dir\fR <set_X> <in|out|auto>
+Set serial port X direction. There are three possible settings for
+each port:
+ \fBin\fR   - input/control/Workstation
+ \fBout\fR  - output/slave/Deck
+ \fBauto\fR - Automatic in/out
 .SH MISC OPTIONS
 .PP
 .TP

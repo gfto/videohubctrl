@@ -1,6 +1,8 @@
 |-----------------------------------------------------------------------|
 xxxx-xx-xx : Version 0.5-dev
  * Add missing documentation for --list-moutputs parameter.
+ * Add support for serial ports (names, routing, locks and directions),
+    --se-name, --se-input, --se-lock, --se-unlock and --se-dir.
 
 2014-11-30 : Version 0.4
  * Add videohubctrl(1) man page.

@@ -9,7 +9,7 @@ Video inputs: 16
 Video processing units: 0
 Video outputs: 16
 Video monitoring outputs: 4
-Serial ports: 0
+Serial ports: 8
 
 INPUT LABELS:
 0 Windows 1
@@ -125,3 +125,41 @@ MONITORING OUTPUT LOCKS:
 1 O
 2 L
 3 U
+
+SERIAL PORT LABELS:
+0 Serial Ctrl 1
+1 Serial Ctrl 2
+2 Deck 3
+3 Deck 4
+4 Serial 5
+5 Serial 6
+6 Serial 7
+7 Serial 8
+
+SERIAL PORT ROUTING:
+0 2
+1 3
+
+SERIAL PORT LOCKS:
+0 O
+1 U
+2 L
+3 U
+
+SERIAL PORT STATUS:
+0 RS422
+1 RS422
+2 RS422
+3 RS422
+6 None
+7 None
+
+SERIAL PORT DIRECTIONS:
+0 control
+1 auto
+2 slave
+3 auto
+4 auto
+5 auto
+6 control
+7 slave

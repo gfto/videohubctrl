@@ -15,7 +15,7 @@
 
 #include <stdbool.h>
 
-#define NUM_COMMANDS 14
+#define NUM_COMMANDS 19
 
 enum vcmd {
 	CMD_PROTOCOL_PREAMBLE,
@@ -29,6 +29,11 @@ enum vcmd {
 	CMD_MONITORING_OUTPUT_LABELS,
 	CMD_MONITORING_OUTPUT_LOCKS,
 	CMD_MONITORING_OUTPUT_ROUTING,
+	CMD_SERIAL_PORT_LABELS,
+	CMD_SERIAL_PORT_LOCKS,
+	CMD_SERIAL_PORT_ROUTING,
+	CMD_SERIAL_PORT_STATUS,
+	CMD_SERIAL_PORT_DIRECTIONS,
 	CMD_PING,
 	CMD_ACK,
 	CMD_NAK = (NUM_COMMANDS - 1),
@@ -41,6 +46,7 @@ enum cmd_flags {
 	PARSE_STATUS, /* Parse [port_num] [port_status] */
 	PARSE_ROUTE,  /* Parse [port_num] [dest_port] */
 	PARSE_LOCK,   /* Parse [port_num] [dest_slot] */
+	PARSE_DIR,    /* Parse [port_num] [port_direction]  - for serial ports */
 };
 
 struct videohub_commands {
@@ -66,6 +72,7 @@ struct vcmd_entry {
 	unsigned int	port_no2;
 	bool			do_lock;
 	enum port_lock	lock;
+	enum serial_dir	direction;
 };
 
 void prepare_cmd_entry(struct videohub_data *d, struct vcmd_entry *e);

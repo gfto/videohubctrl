@@ -52,6 +52,7 @@ Commands:
  --list-vinputs             | List device video inputs.
  --list-voutputs            | List device video outputs.
  --list-moutputs            | List device monitoring outputs.
+ --list-serial              | List device serial ports.
 
 Video inputs configuration:
  --vi-name <in_X> <name>    | Set video input port X name.
@@ -67,6 +68,14 @@ Monitoring outputs configuration:
  --mo-route <mout_X> <in_Y> | Connect monitoring X to video input Y
  --mo-lock <mout_X>         | Lock monitoring port X.
  --mo-unlock <mout_X>       | Unlock monitoring port X.
+
+Serial ports configuration:
+ --se-name <ser_X> <name>   | Set serial port X name.
+ --se-route <ser_X> <ser_Y> | Connect serial X to serial Y
+ --se-lock <ser_X>          | Lock serial port X.
+ --se-unlock <ser_X>        | Unlock serial port X.
+ --se-dir <ser_X> <dir>     | Set serial port X direction.
+                            . <dir> can be 'auto', 'in' or 'out'.
 
 Misc options:
  -T --test-input <file>     | Read commands from <file>.
@@ -156,6 +165,7 @@ Device info
   | Protocol                   | 2.4                        |
   | Video inputs               | 16                         |
   | Video outputs              | 16                         |
+  | Serial ports               | 8                          |
   | Video monitoring outputs   | 4                          |
   -----------------------------------------------------------
 
@@ -215,6 +225,20 @@ Monitoring outputs
   |  4 |   | Monitor 4                | Windows 4 HD             |
   ----------------------------------------------------------------
 
+Serial ports
+  ---------------------------------------------------------------
+  | ## | x | Dir  | Serial port        | Connected serial   | s |
+  ---------------------------------------------------------------
+  |  1 | O |   in | Serial Ctrl 1      | Deck 3             | 4 |
+  |  2 |   | auto | Serial Ctrl 2      | Deck 4             | 4 |
+  |  3 | L |  out | Deck 3             |                    | 4 |
+  |  4 |   | auto | Deck 4             |                    | 4 |
+  |  5 |   | auto | Serial 5           |                    |   |
+  |  6 |   | auto | Serial 6           |                    |   |
+  |  7 |   |   in | Serial 7           |                    | x |
+  |  8 |   |  out | Serial 8           |                    | x |
+  ---------------------------------------------------------------
+
 |----------------------------------------------------------------------|
 
 
@@ -245,6 +269,25 @@ Video outputs Legend
  Column 3      - Output port names
  Column 4      - Which input port is routed to this output
  Column 5 (s)  - Port status /type/. Same format as in input ports.
+
+
+Serial ports Legend
+===================
+
+ Column 1 (##)  - Serial port number
+ Column 2 (x)   - Serial port lock status
+ Column 3 (Dir) - Serial port direction.
+                   in   - Input/Control (Workstation) port
+                   out  - Output/Slave (Deck) port
+                   auto - Automatic in/out
+ Column 4       - Serial port name
+ Column 5       - Which serial port is connected here.
+ Column 5 (s)   - Port status /type/. Same format as in input ports.
+                     - Empty means that the device do not support port
+                       status.
+                   x - The port type is "None". This means that the
+                       port is not installed.
+                   4 - The port type is "RS422".
 
 
 Development

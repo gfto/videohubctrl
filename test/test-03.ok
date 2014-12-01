@@ -34,6 +34,14 @@ videohub: rename monitoring output 1 "" to "Monitor 1"
 videohub: rename monitoring output 2 "" to "Monitor 2"
 videohub: rename monitoring output 3 "" to "Monitor 3"
 videohub: rename monitoring output 4 "" to "Monitor 4"
+videohub: rename serial 1 "" to "Serial Ctrl 1"
+videohub: rename serial 2 "" to "Serial Ctrl 2"
+videohub: rename serial 3 "" to "Deck 3"
+videohub: rename serial 4 "" to "Deck 4"
+videohub: rename serial 5 "" to "Serial 5"
+videohub: rename serial 6 "" to "Serial 6"
+videohub: rename serial 7 "" to "Serial 7"
+videohub: rename serial 8 "" to "Serial 8"
 videohub: set video output 1 "Enc1 1" to read from video input 3 "Windows 3"
 videohub: set video output 2 "Enc1 2" to read from video input 2 "Windows 2"
 videohub: set video output 3 "Enc1 3" to read from video input 1 "Windows 1"
@@ -54,6 +62,16 @@ videohub: set monitoring output 1 "Monitor 1" to read from video input 1 "Window
 videohub: set monitoring output 2 "Monitor 2" to read from video input 2 "Windows 2"
 videohub: set monitoring output 3 "Monitor 3" to read from video input 3 "Windows 3"
 videohub: set monitoring output 4 "Monitor 4" to read from video input 4 "Windows 4 HD"
+videohub: set serial 1 "Serial Ctrl 1" to read from serial 3 "Deck 3"
+videohub: set serial 2 "Serial Ctrl 2" to read from serial 4 "Deck 4"
+videohub: set serial 1 "Serial Ctrl 1" direction to IN (Workstation)
+videohub: set serial 2 "Serial Ctrl 2" direction to AUTO
+videohub: set serial 3 "Deck 3" direction to OUT (Deck)
+videohub: set serial 4 "Deck 4" direction to AUTO
+videohub: set serial 5 "Serial 5" direction to AUTO
+videohub: set serial 6 "Serial 6" direction to AUTO
+videohub: set serial 7 "Serial 7" direction to IN (Workstation)
+videohub: set serial 8 "Serial 8" direction to OUT (Deck)
 videohub: unlock video output 1 "Enc1 1"
 videohub: lock video output 1 "Enc1 1"
 videohub: unlock video output 2 "Enc1 2"
@@ -84,6 +102,16 @@ videohub: lock monitoring output 2 "Monitor 2"
 videohub: unlock monitoring output 3 "Monitor 3"
 videohub: lock monitoring output 3 "Monitor 3"
 videohub: unlock monitoring output 4 "Monitor 4"
+videohub: unlock serial 1 "Serial Ctrl 1"
+videohub: lock serial 1 "Serial Ctrl 1"
+videohub: unlock serial 2 "Serial Ctrl 2"
+videohub: unlock serial 3 "Deck 3"
+videohub: lock serial 3 "Deck 3"
+videohub: unlock serial 4 "Deck 4"
+videohub: unlock serial 5 "Serial 5"
+videohub: unlock serial 6 "Serial 6"
+videohub: unlock serial 7 "Serial 7"
+videohub: unlock serial 8 "Serial 8"
 Device info
   -----------------------------------------------------------
   | Device address             | sdi-matrix                 |
@@ -93,6 +121,7 @@ Device info
   | Protocol                   | 2.4                        |
   | Video inputs               | 16                         |
   | Video outputs              | 16                         |
+  | Serial ports               | 8                          |
   | Video monitoring outputs   | 4                          |
   -----------------------------------------------------------
 
@@ -151,4 +180,18 @@ Monitoring outputs
   |  3 | O | Monitor 3                | Windows 3                |
   |  4 |   | Monitor 4                | Windows 4 HD             |
   ----------------------------------------------------------------
+
+Serial ports
+  ---------------------------------------------------------------
+  | ## | x | Dir  | Serial port        | Connected serial   | s |
+  ---------------------------------------------------------------
+  |  1 | O |   in | Serial Ctrl 1      | Deck 3             | 4 |
+  |  2 |   | auto | Serial Ctrl 2      | Deck 4             | 4 |
+  |  3 | O |  out | Deck 3             |                    | 4 |
+  |  4 |   | auto | Deck 4             |                    | 4 |
+  |  5 |   | auto | Serial 5           |                    |   |
+  |  6 |   | auto | Serial 6           |                    |   |
+  |  7 |   |   in | Serial 7           |                    | x |
+  |  8 |   |  out | Serial 8           |                    | x |
+  ---------------------------------------------------------------
 

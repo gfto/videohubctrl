@@ -31,6 +31,11 @@ const char *videohub_commands_text[NUM_COMMANDS] = {
 	[CMD_MONITORING_OUTPUT_LABELS]  = "MONITORING OUTPUT LABELS",
 	[CMD_MONITORING_OUTPUT_LOCKS]   = "MONITORING OUTPUT LOCKS",
 	[CMD_MONITORING_OUTPUT_ROUTING] = "VIDEO MONITORING OUTPUT ROUTING",
+	[CMD_SERIAL_PORT_LABELS]     = "SERIAL PORT LABELS",
+	[CMD_SERIAL_PORT_ROUTING]    = "SERIAL PORT ROUTING",
+	[CMD_SERIAL_PORT_LOCKS]      = "SERIAL PORT LOCKS",
+	[CMD_SERIAL_PORT_STATUS]     = "SERIAL PORT STATUS",
+	[CMD_SERIAL_PORT_DIRECTIONS] = "SERIAL PORT DIRECTIONS",
 	[CMD_PING]                 = "PING",
 	[CMD_ACK]                  = "ACK",
 	[CMD_NAK]                  = "NAK",
@@ -89,6 +94,33 @@ struct videohub_commands videohub_commands[NUM_COMMANDS] = {
 		.port_id1 = "monitoring output",
 		.port_id2 = "video input",
 		.opt_prefix = "mo",
+	},
+	[CMD_SERIAL_PORT_LABELS]  = { .cmd = CMD_SERIAL_PORT_LABELS, .type = PARSE_LABEL,
+		.ports1 = OFS(serial),
+		.port_id1 = "serial",
+		.opt_prefix = "se",
+	},
+	[CMD_SERIAL_PORT_LOCKS]   = { .cmd = CMD_SERIAL_PORT_LOCKS  , .type = PARSE_LOCK,
+		.ports1 = OFS(serial),
+		.port_id1 = "serial",
+		.opt_prefix = "se",
+	},
+	[CMD_SERIAL_PORT_ROUTING] = { .cmd = CMD_SERIAL_PORT_ROUTING, .type = PARSE_ROUTE,
+		.ports1 = OFS(serial),
+		.ports2 = OFS(serial),
+		.port_id1 = "serial",
+		.port_id2 = "serial",
+		.opt_prefix = "se",
+	},
+	[CMD_SERIAL_PORT_STATUS]  = { .cmd = CMD_SERIAL_PORT_STATUS , .type = PARSE_STATUS,
+		.ports1 = OFS(serial),
+		.port_id1 = "serial",
+		.opt_prefix = "se",
+	},
+	[CMD_SERIAL_PORT_DIRECTIONS] = { .cmd = CMD_SERIAL_PORT_DIRECTIONS, .type = PARSE_DIR,
+		.ports1 = OFS(serial),
+		.port_id1 = "serial",
+		.opt_prefix = "se",
 	},
 	[CMD_PING]                 = { .cmd = CMD_PING                , .type = PARSE_NONE },
 	[CMD_ACK]                  = { .cmd = CMD_ACK                 , .type = PARSE_NONE },
@@ -167,6 +199,11 @@ bool parse_command(struct videohub_data *d, char *cmd) {
 		case PARSE_STATUS:
 			snprintf(s_port->port[port_num].status, sizeof(s_port->port[port_num].status), "%s", port_data);
 			break;
+		case PARSE_DIR:
+			s_port->port[port_num].direction = DIR_AUTO;
+			if (streq("control", port_data)) s_port->port[port_num].direction = DIR_CONTROL;
+			if (streq("slave", port_data))   s_port->port[port_num].direction = DIR_SLAVE;
+			break;
 		case PARSE_ROUTE:
 			dest_port_num = strtoul(port_data, NULL, 10);
 			if (dest_port_num + 1 > d_port->num) {
@@ -175,6 +212,7 @@ bool parse_command(struct videohub_data *d, char *cmd) {
 				continue;
 			}
 			s_port->port[port_num].routed_to = dest_port_num;
+			s_port->port[port_num].routed_to_set = true;
 			break;
 		case PARSE_LOCK:
 			switch (port_data[0]) {
@@ -295,6 +333,24 @@ void prepare_cmd_entry(struct videohub_data *d, struct vcmd_entry *e) {
 	}
 }
 
+static char *dir2cmd(enum serial_dir dir) {
+	switch (dir) {
+	case DIR_CONTROL: return "control";
+	case DIR_SLAVE  : return "slave";
+	case DIR_AUTO   : return "auto";
+	}
+	return "auto";
+}
+
+static char *dir2txt(enum serial_dir dir) {
+	switch (dir) {
+	case DIR_CONTROL: return "IN (Workstation)";
+	case DIR_SLAVE  : return "OUT (Deck)";
+	case DIR_AUTO   : return "AUTO";
+	}
+	return "AUTO";
+}
+
 void format_cmd_text(struct vcmd_entry *e, char *buf, unsigned int bufsz) {
 	switch (e->cmd->type) {
 	case PARSE_LABEL:
@@ -308,6 +364,10 @@ void format_cmd_text(struct vcmd_entry *e, char *buf, unsigned int bufsz) {
 	case PARSE_ROUTE:
 		snprintf(buf, bufsz, "%s:\n%u %u\n\n", videohub_commands_text[e->cmd->cmd],
 			e->port_no1 - 1, e->port_no2 - 1);
+		break;
+	case PARSE_DIR:
+		snprintf(buf, bufsz, "%s:\n%u %s\n\n", videohub_commands_text[e->cmd->cmd],
+			e->port_no1 - 1, dir2cmd(e->direction));
 		break;
 	default: break;
 	}
@@ -341,6 +401,14 @@ void show_cmd(struct videohub_data *d, struct vcmd_entry *e) {
 			e->port_no1, s_port->port[e->port_no1 - 1].name,
 			e->cmd->port_id2,
 			e->port_no2, d_port->port [e->port_no2 - 1].name
+		);
+		break;
+	case PARSE_DIR:
+		printf("%sset %s %d \"%s\" direction to %s\n",
+			prefix,
+			e->cmd->port_id1,
+			e->port_no1, s_port->port[e->port_no1 - 1].name,
+			dir2txt(e->direction)
 		);
 		break;
 	default: break;

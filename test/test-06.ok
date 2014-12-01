@@ -22,3 +22,11 @@ ERROR: Unknown monitoring output port number/name: 18
 ERROR: Unknown monitoring output port number/name: Output 18
 ERROR: Unknown monitoring output port number/name: 18
 ERROR: Unknown monitoring output port number/name: Output 18
+ERROR: Unknown serial port number/name: 18
+ERROR: Unknown serial port number/name: Serial 18
+ERROR: Unknown serial port number/name: 18
+ERROR: Unknown serial port number/name: Serial 18
+ERROR: Unknown serial port number/name: 18
+ERROR: Unknown serial port number/name: Serial 18
+ERROR: Invalid serial port direction 'err-dir'. Allowed are: in, out, auto.
+ERROR: Invalid serial port direction 'err-dir'. Allowed are: in, out, auto.

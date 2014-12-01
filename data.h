@@ -34,13 +34,27 @@ enum port_lock {
 	PORT_LOCKED_OTHER,
 };
 
+enum serial_dir {
+	DIR_CONTROL,
+	DIR_SLAVE,
+	DIR_AUTO,
+};
+
 struct port {
 	char			name[MAX_NAME_LEN];
 	// Port statuses are supported only by Universal Videohub
 	// The statuses (actually they are connection types) are:
-	//    BNC, Optical or None /missing port/
+	//  BNC, Optical or None /missing port/ - for input/output
+	//  RS422, None                         - for serial ports
 	char			status[8];
+	// For serial ports.
+	// The values are:
+	//    control - In (Workstation)
+	//      slave - Out (Deck)
+	//       auto - Automatic
+	enum serial_dir	direction;
 	unsigned int	routed_to;
+	bool			routed_to_set; // For serial ports
 	enum port_lock	lock;
 };
 

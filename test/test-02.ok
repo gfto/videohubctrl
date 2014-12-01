@@ -35,6 +35,14 @@ videohubctrl \
   --mo-name  2 "Monitor 2" \
   --mo-name  3 "Monitor 3" \
   --mo-name  4 "Monitor 4" \
+  --se-name  1 "Serial Ctrl 1" \
+  --se-name  2 "Serial Ctrl 2" \
+  --se-name  3 "Deck 3" \
+  --se-name  4 "Deck 4" \
+  --se-name  5 "Serial 5" \
+  --se-name  6 "Serial 6" \
+  --se-name  7 "Serial 7" \
+  --se-name  8 "Serial 8" \
   --vo-input  1  3 \
   --vo-input  2  2 \
   --vo-input  3  1 \
@@ -55,6 +63,16 @@ videohubctrl \
   --mo-input  2  2 \
   --mo-input  3  3 \
   --mo-input  4  4 \
+  --se-input  1  3 \
+  --se-input  2  4 \
+  --se-dir  1 in \
+  --se-dir  2 auto \
+  --se-dir  3 out \
+  --se-dir  4 auto \
+  --se-dir  5 auto \
+  --se-dir  6 auto \
+  --se-dir  7 in \
+  --se-dir  8 out \
   --vo-unlock  1 --vo-lock  1 \
   --vo-unlock  2 --vo-lock  2 \
   --vo-unlock  3 --vo-lock  3 \
@@ -75,4 +93,12 @@ videohubctrl \
   --mo-unlock  2 --mo-lock  2 \
   --mo-unlock  3 --mo-lock  3 \
   --mo-unlock  4
+  --se-unlock  1 --se-lock  1 \
+  --se-unlock  2 \
+  --se-unlock  3 --se-lock  3 \
+  --se-unlock  4 \
+  --se-unlock  5 \
+  --se-unlock  6 \
+  --se-unlock  7 \
+  --se-unlock  8
 

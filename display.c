@@ -31,6 +31,7 @@ static char format_status(char *status) {
 	if (streq(status, "BNC"))     return 'B';
 	if (streq(status, "Optical")) return 'o';
 	if (streq(status, "None"))    return 'x';
+	if (streq(status, "RS422"))   return '4'; // For serial ports
 	return '?';
 }
 
@@ -145,6 +146,42 @@ void print_device_monitoring_outputs(struct videohub_data *d) {
 	printf("\n");
 }
 
+static char *dir2opt(enum serial_dir dir) {
+	switch (dir) {
+	case DIR_CONTROL: return "in";
+	case DIR_SLAVE  : return "out";
+	case DIR_AUTO   : return "auto";
+	}
+	return "auto";
+}
+
+void print_device_serial_ports(struct videohub_data *d) {
+	unsigned char port_seen[MAX_PORTS];
+	unsigned int i, len = 63;
+	if (!d->serial.num)
+		return;
+	memset(port_seen, 0, sizeof(port_seen));
+	printf("Serial ports\n");
+	printf_line(len);
+	printf("  | ## | x | Dir  | %-18s | %-18s | s |\n", "Serial port", "Connected serial");
+	printf_line(len);
+	for(i = 0; i < d->serial.num; i++) {
+		printf("  | %2d | %c | %4s | %-18s | %-18s | %c |\n",
+			i + 1,
+			port_lock_symbol(d->serial.port[i].lock),
+			dir2opt(d->serial.port[i].direction),
+			d->serial.port[i].name,
+			(d->serial.port[i].routed_to_set && !port_seen[d->serial.port[i].routed_to]
+				? d->serial.port[d->serial.port[i].routed_to].name
+				: ""),
+			format_status(d->serial.port[i].status)
+		);
+		port_seen[d->serial.port[i].routed_to]++;
+	}
+	printf_line(len);
+	printf("\n");
+}
+
 static void __print_opt(struct videohub_data *d, enum vcmd vcmd) {
 	unsigned int i, last = 0;
 	struct videohub_commands *v = &videohub_commands[vcmd];
@@ -156,6 +193,8 @@ static void __print_opt(struct videohub_data *d, enum vcmd vcmd) {
 			printf("  --%s-name %2d \"%s\" \\\n", p, i + 1, s_port->port[i].name);
 			break;
 		case PARSE_ROUTE:
+			if (v->cmd == CMD_SERIAL_PORT_ROUTING && !s_port->port[i].routed_to_set)
+				continue;
 			printf("  --%s-input %2d %2d \\\n", p, i + 1, s_port->port[i].routed_to + 1);
 			break;
 		case PARSE_LOCK:
@@ -166,6 +205,10 @@ static void __print_opt(struct videohub_data *d, enum vcmd vcmd) {
 			} else {
 				printf("  --%s-unlock %2d%s\n", p, i + 1, last ? " \\" : "");
 			}
+			break;
+		case PARSE_DIR:
+			printf("  --%s-dir %2d %s \\\n", p, i + 1, dir2opt(s_port->port[i].direction));
+			break;
 		default: break;
 		}
 	}
@@ -180,6 +223,10 @@ void print_device_backup(struct videohub_data *d) {
 	}
 	for (i = 0; i < NUM_COMMANDS; i++) {
 		if (videohub_commands[i].type == PARSE_ROUTE)
+			__print_opt(d, videohub_commands[i].cmd);
+	}
+	for (i = 0; i < NUM_COMMANDS; i++) {
+		if (videohub_commands[i].type == PARSE_DIR)
 			__print_opt(d, videohub_commands[i].cmd);
 	}
 	for (i = 0; i < NUM_COMMANDS; i++) {
