@@ -66,37 +66,37 @@ sed -e 's,| L |,| O |,g' < test/test-01.ok > test/test-05.ok
 check test/test-05 "Test if --backup restored correct config."
 
 ./videohubctrl --test-input test/input-00.txt --vi-name 0           "Test Input 0"   $@ &> test/test-06.out
-./videohubctrl --test-input test/input-00.txt --vi-name 18          "Test Input 18"  $@ &>> test/test-06.out
-./videohubctrl --test-input test/input-00.txt --vi-name "Input 18"  "Test Input 18"  $@ &>> test/test-06.out
-./videohubctrl --test-input test/input-00.txt --vo-name 18          "Test Output 18" $@ &>> test/test-06.out
-./videohubctrl --test-input test/input-00.txt --vo-name "Output 18" "Test Output 18" $@ &>> test/test-06.out
-./videohubctrl --test-input test/input-00.txt --vo-lock 18                           $@ &>> test/test-06.out
-./videohubctrl --test-input test/input-00.txt --vo-lock "Output 18"                  $@ &>> test/test-06.out
-./videohubctrl --test-input test/input-00.txt --vo-unlock 18                         $@ &>> test/test-06.out
-./videohubctrl --test-input test/input-00.txt --vo-unlock "Output 18"                $@ &>> test/test-06.out
-./videohubctrl --test-input test/input-00.txt --vo-input 0 0                         $@ &>> test/test-06.out
-./videohubctrl --test-input test/input-00.txt --vo-input 0 18                        $@ &>> test/test-06.out
-./videohubctrl --test-input test/input-00.txt --vo-input 18 0                        $@ &>> test/test-06.out
-./videohubctrl --test-input test/input-00.txt --vo-input 18 18                       $@ &>> test/test-06.out
-./videohubctrl --test-input test/input-00.txt --vo-input 1  18                       $@ &>> test/test-06.out
-./videohubctrl --test-input test/input-00.txt --vo-input 18 1                        $@ &>> test/test-06.out
-./videohubctrl --test-input test/input-00.txt --vo-input "Input 10" "Output 10"      $@ &>> test/test-06.out
-./videohubctrl --test-input test/input-00.txt --vo-input "Err Output" "Input 10"     $@ &>> test/test-06.out
-./videohubctrl --test-input test/input-00.txt --vo-input "Output 10" "Err Input"     $@ &>> test/test-06.out
-./videohubctrl --test-input test/input-00.txt --mo-name 18          "Test Output 18" $@ &>> test/test-06.out
-./videohubctrl --test-input test/input-00.txt --mo-name "Output 18" "Test Output 18" $@ &>> test/test-06.out
-./videohubctrl --test-input test/input-00.txt --mo-lock 18                           $@ &>> test/test-06.out
-./videohubctrl --test-input test/input-00.txt --mo-lock "Output 18"                  $@ &>> test/test-06.out
-./videohubctrl --test-input test/input-00.txt --mo-unlock 18                         $@ &>> test/test-06.out
-./videohubctrl --test-input test/input-00.txt --mo-unlock "Output 18"                $@ &>> test/test-06.out
-./videohubctrl --test-input test/input-00.txt --se-name 18          "Test Serial 18" $@ &>> test/test-06.out
-./videohubctrl --test-input test/input-00.txt --se-name "Serial 18" "Test Serial 18" $@ &>> test/test-06.out
-./videohubctrl --test-input test/input-00.txt --se-lock 18                           $@ &>> test/test-06.out
-./videohubctrl --test-input test/input-00.txt --se-lock "Serial 18"                  $@ &>> test/test-06.out
-./videohubctrl --test-input test/input-00.txt --se-unlock 18                         $@ &>> test/test-06.out
-./videohubctrl --test-input test/input-00.txt --se-unlock "Serial 18"                $@ &>> test/test-06.out
-./videohubctrl --test-input test/input-00.txt --se-dir 1 err-dir                     $@ &>> test/test-06.out
-./videohubctrl --test-input test/input-00.txt --se-dir "Serial 5" err-dir            $@ &>> test/test-06.out
+./videohubctrl --test-input test/input-00.txt --vi-name 18          "Test Input 18"  $@ >> test/test-06.out 2>&1
+./videohubctrl --test-input test/input-00.txt --vi-name "Input 18"  "Test Input 18"  $@ >> test/test-06.out 2>&1
+./videohubctrl --test-input test/input-00.txt --vo-name 18          "Test Output 18" $@ >> test/test-06.out 2>&1
+./videohubctrl --test-input test/input-00.txt --vo-name "Output 18" "Test Output 18" $@ >> test/test-06.out 2>&1
+./videohubctrl --test-input test/input-00.txt --vo-lock 18                           $@ >> test/test-06.out 2>&1
+./videohubctrl --test-input test/input-00.txt --vo-lock "Output 18"                  $@ >> test/test-06.out 2>&1
+./videohubctrl --test-input test/input-00.txt --vo-unlock 18                         $@ >> test/test-06.out 2>&1
+./videohubctrl --test-input test/input-00.txt --vo-unlock "Output 18"                $@ >> test/test-06.out 2>&1
+./videohubctrl --test-input test/input-00.txt --vo-input 0 0                         $@ >> test/test-06.out 2>&1
+./videohubctrl --test-input test/input-00.txt --vo-input 0 18                        $@ >> test/test-06.out 2>&1
+./videohubctrl --test-input test/input-00.txt --vo-input 18 0                        $@ >> test/test-06.out 2>&1
+./videohubctrl --test-input test/input-00.txt --vo-input 18 18                       $@ >> test/test-06.out 2>&1
+./videohubctrl --test-input test/input-00.txt --vo-input 1  18                       $@ >> test/test-06.out 2>&1
+./videohubctrl --test-input test/input-00.txt --vo-input 18 1                        $@ >> test/test-06.out 2>&1
+./videohubctrl --test-input test/input-00.txt --vo-input "Input 10" "Output 10"      $@ >> test/test-06.out 2>&1
+./videohubctrl --test-input test/input-00.txt --vo-input "Err Output" "Input 10"     $@ >> test/test-06.out 2>&1
+./videohubctrl --test-input test/input-00.txt --vo-input "Output 10" "Err Input"     $@ >> test/test-06.out 2>&1
+./videohubctrl --test-input test/input-00.txt --mo-name 18          "Test Output 18" $@ >> test/test-06.out 2>&1
+./videohubctrl --test-input test/input-00.txt --mo-name "Output 18" "Test Output 18" $@ >> test/test-06.out 2>&1
+./videohubctrl --test-input test/input-00.txt --mo-lock 18                           $@ >> test/test-06.out 2>&1
+./videohubctrl --test-input test/input-00.txt --mo-lock "Output 18"                  $@ >> test/test-06.out 2>&1
+./videohubctrl --test-input test/input-00.txt --mo-unlock 18                         $@ >> test/test-06.out 2>&1
+./videohubctrl --test-input test/input-00.txt --mo-unlock "Output 18"                $@ >> test/test-06.out 2>&1
+./videohubctrl --test-input test/input-00.txt --se-name 18          "Test Serial 18" $@ >> test/test-06.out 2>&1
+./videohubctrl --test-input test/input-00.txt --se-name "Serial 18" "Test Serial 18" $@ >> test/test-06.out 2>&1
+./videohubctrl --test-input test/input-00.txt --se-lock 18                           $@ >> test/test-06.out 2>&1
+./videohubctrl --test-input test/input-00.txt --se-lock "Serial 18"                  $@ >> test/test-06.out 2>&1
+./videohubctrl --test-input test/input-00.txt --se-unlock 18                         $@ >> test/test-06.out 2>&1
+./videohubctrl --test-input test/input-00.txt --se-unlock "Serial 18"                $@ >> test/test-06.out 2>&1
+./videohubctrl --test-input test/input-00.txt --se-dir 1 err-dir                     $@ >> test/test-06.out 2>&1
+./videohubctrl --test-input test/input-00.txt --se-dir "Serial 5" err-dir            $@ >> test/test-06.out 2>&1
 check test/test-06 "Test errors on commands with invalid ports."
 
 videohubctrl --test-input test/input-00.txt --list-device $@ &> test/test-07.out
