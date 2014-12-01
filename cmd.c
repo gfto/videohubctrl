@@ -210,7 +210,7 @@ bool parse_command(struct videohub_data *d, char *cmd) {
 			if ((p = parse_text(line, "Video monitoring outputs: ")))
 				d->mon_outputs.num = strtoul(p, NULL, 10);
 			if ((p = parse_text(line, "Serial ports: ")))
-				d->device.num_serial_ports = strtoul(p, NULL, 10);
+				d->serial.num = strtoul(p, NULL, 10);
 			break;
 		case CMD_NAK:
 			ret = false;
