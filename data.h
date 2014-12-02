@@ -34,6 +34,7 @@ enum port_status {
 	S_NONE,
 	S_BNC,
 	S_OPTICAL,
+	S_THUNDERBOLT,
 	S_RS422,
 };
 

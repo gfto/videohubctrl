@@ -202,6 +202,7 @@ bool parse_command(struct videohub_data *d, char *cmd) {
 			else if (streq("Optical", port_data)) s_port->port[port_num].status = S_OPTICAL;
 			else if (streq("RS422", port_data))   s_port->port[port_num].status = S_RS422;
 			else if (streq("None", port_data))    s_port->port[port_num].status = S_NONE;
+			else if (streq("Thunderbolt", port_data)) s_port->port[port_num].status = S_THUNDERBOLT;
 			break;
 		case PARSE_DIR:
 			s_port->port[port_num].direction = DIR_AUTO;

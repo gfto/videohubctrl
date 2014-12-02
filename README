@@ -258,6 +258,7 @@ Video inputs Legend
                        port is not installed.
                   B  - The port type is "BNC".
                   o  - The port type is "Optical".
+                  T  - The port type is "Thunderbolt".
 
 
 Video outputs Legend

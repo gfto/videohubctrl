@@ -4,6 +4,7 @@ xxxx-xx-xx : Version 0.5-dev
  * Add support for serial ports (names, routing, locks and directions),
     --se-name, --se-connect, --se-clear, --se-lock, --se-unlock,
     --se-dir and --list-serial.
+ * Add support for undocumented "Thunderbolt" port status/type.
 
 2014-11-30 : Version 0.4
  * Add videohubctrl(1) man page.

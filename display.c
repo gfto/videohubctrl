@@ -31,6 +31,7 @@ static char format_status(enum port_status status) {
 	case S_UNKNOWN: return ' ';
 	case S_BNC    : return 'B';
 	case S_OPTICAL: return 'o';
+	case S_THUNDERBOLT: return 'T';
 	case S_NONE   : return 'x';
 	case S_RS422  : return '4'; // For serial ports
 	}
