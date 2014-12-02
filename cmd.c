@@ -266,6 +266,8 @@ bool parse_command(struct videohub_data *d, char *cmd) {
 			}
 			else if ((p = parse_text(line, "Model name: ")))
 				snprintf(d->device.model_name, sizeof(d->device.model_name), "%s", p);
+			else if ((p = parse_text(line, "Friendly name: ")))
+				snprintf(d->device.friendly_name, sizeof(d->device.friendly_name), "%s", p);
 			else if ((p = parse_text(line, "Unique ID: ")))
 				snprintf(d->device.unique_id, sizeof(d->device.unique_id) , "%s", p);
 			else if ((p = parse_text(line, "Video inputs: ")))

@@ -45,6 +45,8 @@ void print_device_info(struct videohub_data *d) {
 	printf("  | %-26s | %-34s |\n", "Device address", d->dev_host);
 	printf("  | %-26s | %-34s |\n", "Device port", d->dev_port);
 	printf("  | %-26s | %-34s |\n", "Model name", d->device.model_name);
+	if (d->device.friendly_name[0])
+		printf("  | %-26s | %-34s |\n", "Friendly name", d->device.friendly_name);
 	printf("  | %-26s | %-34s |\n", "Unique ID", d->device.unique_id);
 	printf("  | %-26s | %-34s |\n", "Protocol", d->device.protocol_ver);
 	printf("  | %-26s | %-34u |\n", "Video inputs", d->inputs.num);

@@ -25,6 +25,7 @@ struct device_desc {
 	bool			needs_fw_update;
 	char			protocol_ver[16];
 	char			model_name[MAX_NAME_LEN];
+	char			friendly_name[MAX_NAME_LEN];
 	char			unique_id[MAX_NAME_LEN];
 	unsigned int	num_video_processing_units;
 };

@@ -1,5 +1,3 @@
-WARNING: VIDEOHUB DEVICE command sent unknown line: 'Friendly name: SDI router on the 5th floor'
-Please report this line to author's email: georgi@unixsol.org
 WARNING: VIDEOHUB DEVICE command sent unknown line: 'Debug mode: true'
 Please report this line to author's email: georgi@unixsol.org
 WARNING: VIDEOHUB DEVICE command sent unknown line: 'Debug mode: yes'
@@ -96,6 +94,7 @@ Device info
   | Device address             | sdi-matrix                         |
   | Device port                | 9990                               |
   | Model name                 | Blackmagic Workgroup Videohub      |
+  | Friendly name              | SDI router on the 5th floor        |
   | Unique ID                  | 465647757584                       |
   | Protocol                   | 2.4                                |
   | Video inputs               | 16                                 |
