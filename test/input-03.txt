@@ -43,3 +43,4 @@ SERIAL PORT STATUS:
 3 RS422
 6 None
 7 None
+

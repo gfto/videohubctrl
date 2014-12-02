@@ -4,3 +4,4 @@ Version: 2.3
 VIDEOHUB DEVICE:
 Device present: needs_update
 Model name: Blackmagic Micro Videohub
+
