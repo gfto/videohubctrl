@@ -339,6 +339,24 @@ command line which you used and describe what you think the videohubctrl
 does wrong.
 
 
+TODO list
+=========
+
+Help is very much welcome for these tasks:
+
+ - Find out what these undocumented commands do:
+    ALARM STATUS:
+    END PRELUDE:
+    ENGINEERING:
+
+ - Find out what these device options do:
+    Debug mode:
+    Power:
+
+ - Test the program with Universal Videohub (statuses, serial ports,
+   monitoring) and Workgroup Videohub (Frames, Processing).
+
+
 Releases
 ========
 
