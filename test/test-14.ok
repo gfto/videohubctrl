@@ -3,6 +3,26 @@ WARNING: OUTPUT LABELS: invalid video output port 17 (valid 0..15)
 WARNING: VIDEO OUTPUT LOCKS: invalid video output port 19 (valid 0..15)
 WARNING: VIDEO OUTPUT ROUTING: invalid video output port 66 (valid 0..15)
 WARNING: VIDEO OUTPUT ROUTING: invalid video input port 99 (valid 0..15)
+WARNING: VIDEO OUTPUT STATUS command returned unknown status: 'Something unknown'
+Please report this line to author's email: georgi@unixsol.org
+WARNING: VIDEO OUTPUT STATUS command returned unknown status: 'RS422'
+Please report this line to author's email: georgi@unixsol.org
+WARNING: SERIAL PORT DIRECTIONS command returned unknown direction: 'Wrong direction'
+Please report this line to author's email: georgi@unixsol.org
+WARNING: Videohub sent unknown command!
+         Please report this command to author's email: georgi@unixsol.org
+         You may use -q or --quiet to suppress the message.
+---------8<-----------8<----------- cut here ---------8<------------8<---------
+UNKNOWN COMMAND:
+0 Something
+1 Something Else
+---------8<-----------8<----------- cut here ---------8<------------8<---------
+WARNING: SERIAL PORT STATUS command returned unknown status: 'BNC'
+Please report this line to author's email: georgi@unixsol.org
+WARNING: SERIAL PORT STATUS command returned unknown status: 'Optical'
+Please report this line to author's email: georgi@unixsol.org
+WARNING: SERIAL PORT STATUS command returned unknown status: 'Thunderbolt'
+Please report this line to author's email: georgi@unixsol.org
 Device info
   -----------------------------------------------------------
   | Device address             | sdi-matrix                 |
@@ -12,6 +32,7 @@ Device info
   | Protocol                   | 2.4                        |
   | Video inputs               | 16                         |
   | Video outputs              | 16                         |
+  | Serial ports               | 4                          |
   -----------------------------------------------------------
 
 Video inputs
@@ -44,10 +65,10 @@ Video outputs
   --------------------------------------------------------------------
   | ## | x | Video output name        | Connected video input    | s |
   --------------------------------------------------------------------
-  |  1 | L | Enc1 1                   | Windows 3                |   |
-  |  2 | L | Enc1 2                   | Windows 2                |   |
-  |  3 | L | Enc1 3                   | Windows 1                |   |
-  |  4 | L | Enc1 4                   | Windows 1                |   |
+  |  1 | L | Enc1 1                   | Windows 3                | B |
+  |  2 | L | Enc1 2                   | Windows 2                | x |
+  |  3 | L | Enc1 3                   | Windows 1                | o |
+  |  4 | L | Enc1 4                   | Windows 1                | T |
   |  5 |   | Output 5                 | Input 5                  |   |
   |  6 |   | Output 6                 | Input 6                  |   |
   |  7 |   | Output 7                 | Windows 1                |   |
@@ -61,4 +82,14 @@ Video outputs
   | 15 |   | Output 15                | Input 15                 |   |
   | 16 |   | Loopback                 | Loopback                 |   |
   --------------------------------------------------------------------
+
+Serial ports
+  ---------------------------------------------------------------
+  | ## | x | Dir  | Serial port        | Connected serial   | s |
+  ---------------------------------------------------------------
+  |  1 |   | auto | Remote 1           |                    |   |
+  |  2 |   |   in | Remote 2           |                    |   |
+  |  3 |   |  out | Remote 3           |                    |   |
+  |  4 |   | auto | Remote 4           |                    | 4 |
+  ---------------------------------------------------------------
 

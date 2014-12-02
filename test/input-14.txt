@@ -9,7 +9,7 @@ Video inputs: 16
 Video processing units: 0
 Video outputs: 16
 Video monitoring outputs: 0
-Serial ports: 0
+Serial ports: 4
 
 INPUT LABELS:
 0 Windows 1
@@ -82,4 +82,34 @@ VIDEO OUTPUT ROUTING:
 13 -1
 14 -1
 15 15
+
+VIDEO OUTPUT STATUS:
+0 BNC
+1 None
+2 Optical
+3 Thunderbolt
+4 Something unknown
+5 RS422
+
+SERIAL PORT LABELS:
+0 Remote 1
+1 Remote 2
+2 Remote 3
+3 Remote 4
+
+SERIAL PORT DIRECTIONS:
+0 auto
+1 control
+2 slave
+3 Wrong direction
+
+UNKNOWN COMMAND:
+0 Something
+1 Something Else
+
+SERIAL PORT STATUS:
+0 BNC
+1 Optical
+2 Thunderbolt
+3 RS422
 

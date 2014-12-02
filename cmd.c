@@ -198,16 +198,32 @@ bool parse_command(struct videohub_data *d, char *cmd) {
 			break;
 		case PARSE_STATUS:
 			s_port->port[port_num].status = S_UNKNOWN;
-			if (streq("BNC", port_data))          s_port->port[port_num].status = S_BNC;
-			else if (streq("Optical", port_data)) s_port->port[port_num].status = S_OPTICAL;
-			else if (streq("RS422", port_data))   s_port->port[port_num].status = S_RS422;
-			else if (streq("None", port_data))    s_port->port[port_num].status = S_NONE;
-			else if (streq("Thunderbolt", port_data)) s_port->port[port_num].status = S_THUNDERBOLT;
+			bool invalid_status = false;
+			if (v->cmd == CMD_SERIAL_PORT_STATUS) {
+				if (streq("RS422", port_data))        s_port->port[port_num].status = S_RS422;
+				else if (streq("None", port_data))    s_port->port[port_num].status = S_NONE;
+				else invalid_status = true;
+			} else {
+				if (streq("BNC", port_data))          s_port->port[port_num].status = S_BNC;
+				else if (streq("Optical", port_data)) s_port->port[port_num].status = S_OPTICAL;
+				else if (streq("None", port_data))    s_port->port[port_num].status = S_NONE;
+				else if (streq("Thunderbolt", port_data)) s_port->port[port_num].status = S_THUNDERBOLT;
+				else invalid_status = true;
+			}
+			if (invalid_status) {
+				q("WARNING: %s command returned unknown status: '%s'\n", cmd_txt, port_data);
+				q("Please report this line to author's email: georgi@unixsol.org\n");
+			}
 			break;
 		case PARSE_DIR:
 			s_port->port[port_num].direction = DIR_AUTO;
 			if (streq("control", port_data))      s_port->port[port_num].direction = DIR_CONTROL;
 			else if (streq("slave", port_data))   s_port->port[port_num].direction = DIR_SLAVE;
+			else if (streq("auto", port_data))    s_port->port[port_num].direction = DIR_AUTO;
+			else {
+				q("WARNING: %s command returned unknown direction: '%s'\n", cmd_txt, port_data);
+				q("Please report this line to author's email: georgi@unixsol.org\n");
+			}
 			break;
 		case PARSE_ROUTE:
 			dest_port_num = strtoul(port_data, NULL, 10);
