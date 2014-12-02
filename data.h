@@ -18,6 +18,7 @@
 #define MAX_PORTS 288
 #define MAX_NAME_LEN 32
 #define MAX_RUN_CMDS (288 * 5)
+#define NO_PORT ((unsigned int) -1)
 
 struct device_desc {
 	bool			dev_present;
@@ -62,7 +63,6 @@ struct port {
 	//       auto - Automatic
 	enum serial_dir	direction;
 	unsigned int	routed_to;
-	bool			routed_to_set; // For serial ports
 	enum port_lock	lock;
 };
 

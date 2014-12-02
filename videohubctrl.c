@@ -275,6 +275,12 @@ static void check_number_of_ports(struct port_set *p) {
 			p->num, ARRAY_SIZE(p->port));
 }
 
+static void reset_routed_to(struct port_set *p) {
+	unsigned int i;
+	for (i = 0; i < ARRAY_SIZE(p->port); i++)
+		p->port[i].routed_to = NO_PORT;
+}
+
 static void print_device_full(struct videohub_data *d) {
 	print_device_info(d);
 	print_device_video_inputs(d);
@@ -316,6 +322,7 @@ int main(int argc, char **argv) {
 			exit(EXIT_FAILURE);
 	}
 
+	reset_routed_to(&data->serial);
 	read_device_command_stream(data);
 
 	if (test_data)

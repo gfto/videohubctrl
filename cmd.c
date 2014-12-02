@@ -210,13 +210,21 @@ bool parse_command(struct videohub_data *d, char *cmd) {
 			break;
 		case PARSE_ROUTE:
 			dest_port_num = strtoul(port_data, NULL, 10);
+			if (dest_port_num == NO_PORT) {
+				// Only serial port routing can be disabled with -1
+				if (v->cmd == CMD_SERIAL_PORT_ROUTING) {
+					s_port->port[port_num].routed_to = dest_port_num;
+					continue;
+				} else {
+					dest_port_num = port_num;
+				}
+			}
 			if (dest_port_num + 1 > d_port->num) {
 				q("WARNING: %s: invalid %s port %u (valid 0..%u)\n", cmd_txt,
 				  v->port_id2, dest_port_num, d_port->num - 1);
 				continue;
 			}
 			s_port->port[port_num].routed_to = dest_port_num;
-			s_port->port[port_num].routed_to_set = true;
 			break;
 		case PARSE_LOCK:
 			switch (port_data[0]) {

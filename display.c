@@ -80,7 +80,10 @@ void print_device_video_inputs(struct videohub_data *d) {
 		if (num_outputs == 0) {
 			printf("%-24s | %c |\n", "-", format_status(d->inputs.port[i].status));
 		} else {
-			printf("%-24s | %c |\n", d->outputs.port[routed_to].name, format_status(d->inputs.port[i].status));
+			printf("%-24s | %c |\n",
+				routed_to == NO_PORT ? "" : d->outputs.port[routed_to].name,
+				format_status(d->inputs.port[i].status)
+			);
 			bool first_skipped = false;
 			for(r = 0; r < d->outputs.num; r++) {
 				if (d->outputs.port[r].routed_to == i) {
@@ -120,7 +123,7 @@ void print_device_video_outputs(struct videohub_data *d) {
 			i + 1,
 			port_lock_symbol(d->outputs.port[i].lock),
 			d->outputs.port[i].name,
-			d->inputs.port[d->outputs.port[i].routed_to].name,
+			d->outputs.port[i].routed_to == NO_PORT ? "" : d->inputs.port[d->outputs.port[i].routed_to].name,
 			format_status(d->outputs.port[i].status)
 		);
 	}
@@ -141,7 +144,7 @@ void print_device_monitoring_outputs(struct videohub_data *d) {
 			i + 1,
 			port_lock_symbol(d->mon_outputs.port[i].lock),
 			d->mon_outputs.port[i].name,
-			d->inputs.port[d->mon_outputs.port[i].routed_to].name
+			d->mon_outputs.port[i].routed_to == NO_PORT ? "" : d->inputs.port[d->mon_outputs.port[i].routed_to].name
 		);
 	}
 	printf_line(len);
@@ -158,11 +161,9 @@ static char *dir2opt(enum serial_dir dir) {
 }
 
 void print_device_serial_ports(struct videohub_data *d) {
-	unsigned char port_seen[MAX_PORTS];
 	unsigned int i, len = 63;
 	if (!d->serial.num)
 		return;
-	memset(port_seen, 0, sizeof(port_seen));
 	printf("Serial ports\n");
 	printf_line(len);
 	printf("  | ## | x | Dir  | %-18s | %-18s | s |\n", "Serial port", "Connected serial");
@@ -173,12 +174,9 @@ void print_device_serial_ports(struct videohub_data *d) {
 			port_lock_symbol(d->serial.port[i].lock),
 			dir2opt(d->serial.port[i].direction),
 			d->serial.port[i].name,
-			(d->serial.port[i].routed_to_set && !port_seen[d->serial.port[i].routed_to]
-				? d->serial.port[d->serial.port[i].routed_to].name
-				: ""),
+			d->serial.port[i].routed_to == NO_PORT ? "" : d->serial.port[d->serial.port[i].routed_to].name,
 			format_status(d->serial.port[i].status)
 		);
-		port_seen[d->serial.port[i].routed_to]++;
 	}
 	printf_line(len);
 	printf("\n");
@@ -195,7 +193,7 @@ static void __print_opt(struct videohub_data *d, enum vcmd vcmd) {
 			printf("  --%s-name %2d \"%s\" \\\n", p, i + 1, s_port->port[i].name);
 			break;
 		case PARSE_ROUTE:
-			if (v->cmd == CMD_SERIAL_PORT_ROUTING && !s_port->port[i].routed_to_set)
+			if (s_port->port[i].routed_to == NO_PORT)
 				continue;
 			printf("  --%s-input %2d %2d \\\n", p, i + 1, s_port->port[i].routed_to + 1);
 			break;
