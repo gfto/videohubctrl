@@ -62,8 +62,8 @@ videohub: set monitoring output 1 "Monitor 1" to read from video input 1 "Window
 videohub: set monitoring output 2 "Monitor 2" to read from video input 2 "Windows 2"
 videohub: set monitoring output 3 "Monitor 3" to read from video input 3 "Windows 3"
 videohub: set monitoring output 4 "Monitor 4" to read from video input 4 "Windows 4 HD"
-videohub: set serial 1 "Serial Ctrl 1" to read from serial 3 "Deck 3"
-videohub: set serial 2 "Serial Ctrl 2" to read from serial 4 "Deck 4"
+videohub: connect serial 1 "Serial Ctrl 1" to serial 3 "Deck 3"
+videohub: connect serial 2 "Serial Ctrl 2" to serial 4 "Deck 4"
 videohub: set serial 1 "Serial Ctrl 1" direction to IN (Workstation)
 videohub: set serial 2 "Serial Ctrl 2" direction to AUTO
 videohub: set serial 3 "Deck 3" direction to OUT (Deck)

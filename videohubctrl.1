@@ -129,8 +129,12 @@ else the port would be forcefully unlocked.
 \fB\-\-se\-name\fR <ser_X> <name>
 Set serial port X name.
 .TP
-\fB\-\-se\-input\fR <ser_X> <ser_Y>
-Connect serial port X to serial port Y.
+\fB\-\-se\-connect\fR <ser_X> <ser_Y>
+Connect serial port X to serial port Y. This option have two aliases \fB\-\-se\-input\fR
+and \fB\-\-se\-route\fR.
+.TP
+\fB\-\-se\-clear\fR <ser_X>
+Disconnect serial port X from serial port Y.
 .TP
 \fB\-\-se\-lock\fR <ser_X>
 Lock serial port X.

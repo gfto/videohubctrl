@@ -20,11 +20,15 @@ videohub: rename serial 1 "Serial Ctrl 1" to "Ren Ctrl 1"
 videohub: rename serial 3 "Deck 3" to "Ren Deck 3"
 videohub: unlock serial 1 "Ren Ctrl 1"
 videohub: lock serial 2 "Serial Ctrl 2"
-videohub: set serial 2 "Serial Ctrl 2" to read from serial 1 "Ren Ctrl 1"
+videohub: connect serial 2 "Serial Ctrl 2" to serial 1 "Ren Ctrl 1"
 videohub: set serial 6 "Serial 6" direction to IN (Workstation)
 videohub: set serial 7 "Serial 7" direction to OUT (Deck)
 videohub: set serial 8 "Serial 8" direction to OUT (Deck)
 videohub: set serial 8 "Serial 8" direction to AUTO
+videohub: connect serial 4 "Deck 4" to serial 5 "Serial 5"
+videohub: connect serial 6 "Serial 6" to serial 7 "Serial 7"
+videohub: disconnect serial 4 "Deck 4"
+videohub: disconnect serial 6 "Serial 6"
 Device info
   -----------------------------------------------------------
   | Device address             | sdi-matrix                 |

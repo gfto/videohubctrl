@@ -73,6 +73,7 @@ struct vcmd_entry {
 	bool			do_lock;
 	enum port_lock	lock;
 	enum serial_dir	direction;
+	bool			clear_port;
 };
 
 void prepare_cmd_entry(struct videohub_data *d, struct vcmd_entry *e);

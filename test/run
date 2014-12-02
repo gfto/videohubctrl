@@ -58,6 +58,10 @@ videohubctrl --test-input test/input-00.txt \
 	--se-dir 6 in \
 	--se-dir 7 out \
 	--se-dir 8 out --se-dir 8 auto \
+	--se-input 4 5 \
+	--se-input 6 7 \
+	--se-clear 4 \
+	--se-clear "Serial 6" \
 $@ &> test/test-04.out
 check test/test-04 "Test multiple configuration commands"
 

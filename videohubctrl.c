@@ -78,10 +78,12 @@ static const struct option long_options[] = {
 	{ "mo-unlock",			required_argument, NULL, 3004 },
 	{ "se-name",			required_argument, NULL, 4001 },
 	{ "se-input",			required_argument, NULL, 4002 },
+	{ "se-connect",			required_argument, NULL, 4002 }, // Alias of --se-input
 	{ "se-route",			required_argument, NULL, 4002 }, // Alias of --se-input
 	{ "se-lock",			required_argument, NULL, 4003 },
 	{ "se-unlock",			required_argument, NULL, 4004 },
 	{ "se-dir",				required_argument, NULL, 4005 },
+	{ "se-clear",			required_argument, NULL, 4006 },
 	{ 0, 0, 0, 0 }
 };
 
@@ -125,7 +127,8 @@ static void show_help(struct videohub_data *data) {
 	printf("\n");
 	printf("Serial ports configuration:\n");
 	printf(" --se-name <ser_X> <name>   | Set serial port X name.\n");
-	printf(" --se-input <ser_X> <ser_Y> | Connect serial X to serial Y.\n");
+	printf(" --se-connect <ser_X> <ser_Y> | Connect serial X to serial Y.\n");
+	printf(" --se-clear <ser_X>         | Disconnect serial port X from serial Y.\n");
 	printf(" --se-lock <ser_X>          | Lock serial port X.\n");
 	printf(" --se-unlock <ser_X>        | Unlock serial port X.\n");
 	printf(" --se-dir <ser_X> <dir>     | Set serial port X direction.\n");
@@ -166,6 +169,16 @@ static void parse_cmd2(int argc, char **argv, enum vcmd vcmd) {
 		else if (strcasecmp("auto", c->param2) == 0) c->direction = DIR_AUTO;
 		else die("Invalid serial port direction '%s'. Allowed are: in, out, auto.", c->param2);
 	}
+	num_parsed_cmds++;
+}
+
+static void parse_cmd2s(int argc, char **argv, enum vcmd vcmd) {
+	check_num_parsed_cmds();
+	struct vcmd_entry *c = &parsed_cmds.entry[num_parsed_cmds];
+	c->cmd = &videohub_commands[vcmd];
+	c->param1 = optarg;
+	c->param2 = "1"; // Fake
+	c->clear_port = true;
 	num_parsed_cmds++;
 }
 
@@ -247,6 +260,7 @@ static void parse_options(struct videohub_data *data, int argc, char **argv) {
 			case 4003: parse_cmd1(argc, argv, CMD_SERIAL_PORT_LOCKS, true); break; // --se-lock
 			case 4004: parse_cmd1(argc, argv, CMD_SERIAL_PORT_LOCKS, false); break; // --se-unlock
 			case 4005: parse_cmd2(argc, argv, CMD_SERIAL_PORT_DIRECTIONS); break; // --se-dir
+			case 4006: parse_cmd2s(argc, argv, CMD_SERIAL_PORT_ROUTING); break; // --se-clear
 			case 'H': // --help
 				show_help(data);
 				exit(EXIT_SUCCESS);

@@ -71,7 +71,8 @@ Monitoring outputs configuration:
 
 Serial ports configuration:
  --se-name <ser_X> <name>   | Set serial port X name.
- --se-input <ser_X> <ser_Y> | Connect serial X to serial Y.
+ --se-connect <ser_X> <ser_Y> | Connect serial X to serial Y.
+ --se-clear <ser_X>         | Disconnect serial port X from serial Y.
  --se-lock <ser_X>          | Lock serial port X.
  --se-unlock <ser_X>        | Unlock serial port X.
  --se-dir <ser_X> <dir>     | Set serial port X direction.

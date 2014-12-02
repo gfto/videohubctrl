@@ -344,8 +344,14 @@ void prepare_cmd_entry(struct videohub_data *d, struct vcmd_entry *e) {
 		}
 	}
 
+	// Allow port_noX to be used as index into ->port[]
+	e->port_no1 -= 1;
+	e->port_no2 -= 1;
+	if (e->clear_port)
+		e->port_no2 = NO_PORT;
+
 	if (e->cmd->type == PARSE_LOCK) {
-		e->lock = s_port->port[e->port_no1 - 1].lock;
+		e->lock = s_port->port[e->port_no1].lock;
 	}
 }
 
@@ -371,19 +377,19 @@ void format_cmd_text(struct vcmd_entry *e, char *buf, unsigned int bufsz) {
 	switch (e->cmd->type) {
 	case PARSE_LABEL:
 		snprintf(buf, bufsz, "%s:\n%u %s\n\n", videohub_commands_text[e->cmd->cmd],
-			e->port_no1 - 1, e->param2);
+			e->port_no1, e->param2);
 		break;
 	case PARSE_LOCK:
 		snprintf(buf, bufsz, "%s:\n%u %s\n\n", videohub_commands_text[e->cmd->cmd],
-			e->port_no1 - 1, e->do_lock ? "O" : (e->lock == PORT_LOCKED_OTHER ? "F" : "U"));
+			e->port_no1, e->do_lock ? "O" : (e->lock == PORT_LOCKED_OTHER ? "F" : "U"));
 		break;
 	case PARSE_ROUTE:
-		snprintf(buf, bufsz, "%s:\n%u %u\n\n", videohub_commands_text[e->cmd->cmd],
-			e->port_no1 - 1, e->port_no2 - 1);
+		snprintf(buf, bufsz, "%s:\n%u %d\n\n", videohub_commands_text[e->cmd->cmd],
+			e->port_no1, (e->port_no2 == NO_PORT ? -1 : (int)e->port_no2));
 		break;
 	case PARSE_DIR:
 		snprintf(buf, bufsz, "%s:\n%u %s\n\n", videohub_commands_text[e->cmd->cmd],
-			e->port_no1 - 1, dir2cmd(e->direction));
+			e->port_no1, dir2cmd(e->direction));
 		break;
 	default: break;
 	}
@@ -398,7 +404,7 @@ void show_cmd(struct videohub_data *d, struct vcmd_entry *e) {
 		printf("%srename %s %d \"%s\" to \"%s\"\n",
 			prefix,
 			e->cmd->port_id1,
-			e->port_no1, s_port->port[e->port_no1 - 1].name,
+			e->port_no1 + 1, s_port->port[e->port_no1].name,
 			e->param2
 		);
 		break;
@@ -407,23 +413,41 @@ void show_cmd(struct videohub_data *d, struct vcmd_entry *e) {
 			prefix,
 			e->do_lock ? "lock" : (e->lock == PORT_LOCKED_OTHER ? "force unlock" : "unlock"),
 			e->cmd->port_id1,
-			e->port_no1, s_port->port[e->port_no1 - 1].name
+			e->port_no1 + 1, s_port->port[e->port_no1].name
 		);
 		break;
 	case PARSE_ROUTE:
+		if (e->port_no2 == NO_PORT) {
+			printf("%sdisconnect %s %d \"%s\"\n",
+				prefix,
+				e->cmd->port_id1,
+				e->port_no1 + 1, s_port->port[e->port_no1].name
+			);
+			break;
+		}
+		if (e->cmd->cmd == CMD_SERIAL_PORT_ROUTING) {
+			printf("%sconnect %s %d \"%s\" to %s %d \"%s\"\n",
+				prefix,
+				e->cmd->port_id1,
+				e->port_no1 + 1, s_port->port[e->port_no1].name,
+				e->cmd->port_id2,
+				e->port_no2 + 1, d_port->port [e->port_no2].name
+			);
+			break;
+		}
 		printf("%sset %s %d \"%s\" to read from %s %d \"%s\"\n",
 			prefix,
 			e->cmd->port_id1,
-			e->port_no1, s_port->port[e->port_no1 - 1].name,
+			e->port_no1 + 1, s_port->port[e->port_no1].name,
 			e->cmd->port_id2,
-			e->port_no2, d_port->port [e->port_no2 - 1].name
+			e->port_no2 + 1, d_port->port [e->port_no2].name
 		);
 		break;
 	case PARSE_DIR:
 		printf("%sset %s %d \"%s\" direction to %s\n",
 			prefix,
 			e->cmd->port_id1,
-			e->port_no1, s_port->port[e->port_no1 - 1].name,
+			e->port_no1 + 1, s_port->port[e->port_no1].name,
 			dir2txt(e->direction)
 		);
 		break;
