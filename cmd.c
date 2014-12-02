@@ -239,20 +239,24 @@ bool parse_command(struct videohub_data *d, char *cmd) {
 				d->device.dev_present = streq(p, "true");
 				d->device.needs_fw_update = streq(p, "needs_update");
 			}
-			if ((p = parse_text(line, "Model name: ")))
+			else if ((p = parse_text(line, "Model name: ")))
 				snprintf(d->device.model_name, sizeof(d->device.model_name), "%s", p);
-			if ((p = parse_text(line, "Unique ID: ")))
+			else if ((p = parse_text(line, "Unique ID: ")))
 				snprintf(d->device.unique_id, sizeof(d->device.unique_id) , "%s", p);
-			if ((p = parse_text(line, "Video inputs: ")))
+			else if ((p = parse_text(line, "Video inputs: ")))
 				d->inputs.num = strtoul(p, NULL, 10);
-			if ((p = parse_text(line, "Video processing units: ")))
+			else if ((p = parse_text(line, "Video processing units: ")))
 				d->device.num_video_processing_units = strtoul(p, NULL, 10);
-			if ((p = parse_text(line, "Video outputs: ")))
+			else if ((p = parse_text(line, "Video outputs: ")))
 				d->outputs.num = strtoul(p, NULL, 10);
-			if ((p = parse_text(line, "Video monitoring outputs: ")))
+			else if ((p = parse_text(line, "Video monitoring outputs: ")))
 				d->mon_outputs.num = strtoul(p, NULL, 10);
-			if ((p = parse_text(line, "Serial ports: ")))
+			else if ((p = parse_text(line, "Serial ports: ")))
 				d->serial.num = strtoul(p, NULL, 10);
+			else {
+				q("WARNING: VIDEOHUB DEVICE command sent unknown line: '%s'\n", line);
+				q("Please report this line to author's email: georgi@unixsol.org\n");
+			}
 			break;
 		case CMD_NAK:
 			ret = false;
