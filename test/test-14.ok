@@ -24,72 +24,72 @@ Please report this line to author's email: georgi@unixsol.org
 WARNING: SERIAL PORT STATUS command returned unknown status: 'Thunderbolt'
 Please report this line to author's email: georgi@unixsol.org
 Device info
-  -----------------------------------------------------------
-  | Device address             | sdi-matrix                 |
-  | Device port                | 9990                       |
-  | Model name                 | Blackmagic Micro Videohub  |
-  | Unique ID                  | 7c2e0d021714               |
-  | Protocol                   | 2.4                        |
-  | Video inputs               | 16                         |
-  | Video outputs              | 16                         |
-  | Serial ports               | 4                          |
-  -----------------------------------------------------------
+  -------------------------------------------------------------------
+  | Device address             | sdi-matrix                         |
+  | Device port                | 9990                               |
+  | Model name                 | Blackmagic Micro Videohub          |
+  | Unique ID                  | 7c2e0d021714                       |
+  | Protocol                   | 2.4                                |
+  | Video inputs               | 16                                 |
+  | Video outputs              | 16                                 |
+  | Serial ports               | 4                                  |
+  -------------------------------------------------------------------
 
 Video inputs
-  --------------------------------------------------------------------
-  | ## | Video input name         | n | Routed to output         | s |
-  --------------------------------------------------------------------
-  |  1 | Windows 1                | 4 | Enc1 3                   |   |
-  |    |                          |   | Enc1 4                   |   |
-  |    |                          |   | Output 7                 |   |
-  |    |                          |   | Output 10                |   |
-  |  2 | Windows 2                | 1 | Enc1 2                   |   |
-  |  3 | Windows 3                | 1 | Enc1 1                   |   |
-  |  4 | Windows 4 HD             | 2 |                          |   |
-  |    |                          |   | Enc2 1                   |   |
-  |  5 | Input 5                  | 1 | Output 5                 |   |
-  |  6 | Input 6                  | 1 | Output 6                 |   |
-  |  7 |                          | 0 | -                        |   |
-  |  8 | Input 8                  | 0 | -                        |   |
-  |  9 | Input 9                  | 0 | -                        |   |
-  | 10 | Input 10                 | 0 | -                        |   |
-  | 11 | Input 11                 | 1 | Output 11                |   |
-  | 12 | DPlay1                   | 1 | Output 13                |   |
-  | 13 | DPlay2                   | 1 | Denc                     |   |
-  | 14 | Input 14                 | 1 | Output 14                |   |
-  | 15 | Input 15                 | 1 | Output 15                |   |
-  | 16 | Loopback                 | 1 | Loopback                 |   |
-  --------------------------------------------------------------------
+  ----------------------------------------------------------------------
+  | ### | Video input name         | nn | Routed to output         | s |
+  ----------------------------------------------------------------------
+  |   1 | Windows 1                |  4 | Enc1 3                   |   |
+  |     |                          |    | Enc1 4                   |   |
+  |     |                          |    | Output 7                 |   |
+  |     |                          |    | Output 10                |   |
+  |   2 | Windows 2                |  1 | Enc1 2                   |   |
+  |   3 | Windows 3                |  1 | Enc1 1                   |   |
+  |   4 | Windows 4 HD             |  2 |                          |   |
+  |     |                          |    | Enc2 1                   |   |
+  |   5 | Input 5                  |  1 | Output 5                 |   |
+  |   6 | Input 6                  |  1 | Output 6                 |   |
+  |   7 |                          |  0 | -                        |   |
+  |   8 | Input 8                  |  0 | -                        |   |
+  |   9 | Input 9                  |  0 | -                        |   |
+  |  10 | Input 10                 |  0 | -                        |   |
+  |  11 | Input 11                 |  1 | Output 11                |   |
+  |  12 | DPlay1                   |  1 | Output 13                |   |
+  |  13 | DPlay2                   |  1 | Denc                     |   |
+  |  14 | Input 14                 |  1 | Output 14                |   |
+  |  15 | Input 15                 |  1 | Output 15                |   |
+  |  16 | Loopback                 |  1 | Loopback                 |   |
+  ----------------------------------------------------------------------
 
 Video outputs
-  --------------------------------------------------------------------
-  | ## | x | Video output name        | Connected video input    | s |
-  --------------------------------------------------------------------
-  |  1 | L | Enc1 1                   | Windows 3                | B |
-  |  2 | L | Enc1 2                   | Windows 2                | x |
-  |  3 | L | Enc1 3                   | Windows 1                | o |
-  |  4 | L | Enc1 4                   | Windows 1                | T |
-  |  5 |   | Output 5                 | Input 5                  |   |
-  |  6 |   | Output 6                 | Input 6                  |   |
-  |  7 |   | Output 7                 | Windows 1                |   |
-  |  8 |   |                          | Windows 4 HD             |   |
-  |  9 | L | Enc2 1                   | Windows 4 HD             |   |
-  | 10 |   | Output 10                | Windows 1                |   |
-  | 11 |   | Output 11                | Input 11                 |   |
-  | 12 | L | Denc                     | DPlay2                   |   |
-  | 13 | O | Output 13                | DPlay1                   |   |
-  | 14 |   | Output 14                | Input 14                 |   |
-  | 15 |   | Output 15                | Input 15                 |   |
-  | 16 |   | Loopback                 | Loopback                 |   |
-  --------------------------------------------------------------------
+  ---------------------------------------------------------------------
+  | ### | x | Video output name        | Connected video input    | s |
+  ---------------------------------------------------------------------
+  |   1 | L | Enc1 1                   | Windows 3                | B |
+  |   2 | L | Enc1 2                   | Windows 2                | x |
+  |   3 | L | Enc1 3                   | Windows 1                | o |
+  |   4 | L | Enc1 4                   | Windows 1                | T |
+  |   5 |   | Output 5                 | Input 5                  |   |
+  |   6 |   | Output 6                 | Input 6                  |   |
+  |   7 |   | Output 7                 | Windows 1                |   |
+  |   8 |   |                          | Windows 4 HD             |   |
+  |   9 | L | Enc2 1                   | Windows 4 HD             |   |
+  |  10 |   | Output 10                | Windows 1                |   |
+  |  11 |   | Output 11                | Input 11                 |   |
+  |  12 | L | Denc                     | DPlay2                   |   |
+  |  13 | O | Output 13                | DPlay1                   |   |
+  |  14 |   | Output 14                | Input 14                 |   |
+  |  15 |   | Output 15                | Input 15                 |   |
+  |  16 |   | Loopback                 | Loopback                 |   |
+  ---------------------------------------------------------------------
 
 Serial ports
-  ---------------------------------------------------------------
-  | ## | x | Dir  | Serial port        | Connected serial   | s |
-  ---------------------------------------------------------------
-  |  1 |   | auto | Remote 1           |                    |   |
-  |  2 |   |   in | Remote 2           |                    |   |
-  |  3 |   |  out | Remote 3           |                    |   |
-  |  4 |   | auto | Remote 4           |                    | 4 |
-  ---------------------------------------------------------------
+  ----------------------------------------------------------------
+  | ### | x | Dir  | Serial port        | Connected serial   | s |
+  ----------------------------------------------------------------
+  |   1 |   | auto | Remote 1           |                    |   |
+  |   2 |   |   in | Remote 2           |                    |   |
+  |   3 |   |  out | Remote 3           |                    |   |
+  |   4 |   | auto | Remote 4           |                    | 4 |
+  ----------------------------------------------------------------
 

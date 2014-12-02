@@ -1,0 +1,211 @@
+PROTOCOL PREAMBLE:
+Version: 2.4
+
+VIDEOHUB DEVICE:
+Device present: true
+Model name: Blackmagic Workgroup Videohub
+Friendly name: SDI router on the 5th floor
+Unique ID: 465647757584
+Video inputs: 16
+Video processing units: 16
+Video outputs: 32
+Video monitoring outputs: 8
+Serial ports: 8
+Debug mode: true
+Debug mode: yes
+Power: both
+
+INPUT LABELS:
+0 Windows 1
+1 Windows 2
+2 Windows 3
+3 Windows 4 HD
+4 Input 5
+5 Input 6
+6 Input 7
+7 Input 8
+8 Input 9
+9 Input 10
+10 Input 11
+11 DPlay1
+12 DPlay2
+13 Input 14
+14 Input 15
+15 Loopback
+
+ALARM STATUS:
+0 Error
+
+END PRELUDE:
+
+ENGINEERING:
+0 Hack
+1 Hack
+
+OUTPUT LABELS:
+0 Enc1 1
+1 Enc1 2
+2 Enc1 3
+3 Enc1 4
+4 Output 5
+5 Output 6
+6 Output 7
+7 Output 8
+8 Enc2 1
+9 Output 10
+10 Output 11
+11 Denc
+12 Output 13
+13 Output 14
+14 Output 15
+15 Loopback
+
+VIDEO OUTPUT LOCKS:
+0 L
+1 L
+2 L
+3 L
+4 U
+5 U
+6 U
+7 U
+8 L
+9 U
+10 U
+11 L
+12 O
+13 U
+14 U
+15 O
+
+VIDEO OUTPUT ROUTING:
+0 2
+1 1
+2 0
+3 0
+4 4
+5 5
+6 6
+7 3
+8 3
+9 9
+10 10
+11 12
+12 11
+13 13
+14 14
+15 15
+
+VIDEO INPUT STATUS:
+0 BNC
+1 BNC
+2 BNC
+3 BNC
+4 Optical
+5 Optical
+6 Optical
+7 Optical
+13 None
+14 None
+
+VIDEO OUTPUT STATUS:
+4 None
+5 None
+6 None
+8 BNC
+9 BNC
+10 BNC
+11 BNC
+12 Optical
+13 Optical
+14 Optical
+15 Optical
+
+MONITORING OUTPUT LABELS:
+0 Monitor 1
+1 Monitor 2
+2 Monitor 3
+3 Monitor 4
+
+VIDEO MONITORING OUTPUT ROUTING:
+0 0
+1 1
+2 2
+3 3
+
+MONITORING OUTPUT LOCKS:
+0 U
+1 O
+2 L
+3 U
+
+SERIAL PORT LABELS:
+0 Serial Ctrl 1
+1 Serial Ctrl 2
+2 Deck 3
+3 Deck 4
+4 Serial 5
+5 Serial 6
+6 Serial 7
+7 Serial 8
+
+SERIAL PORT ROUTING:
+0 2
+1 3
+
+SERIAL PORT LOCKS:
+0 O
+1 U
+2 L
+3 U
+
+SERIAL PORT STATUS:
+0 RS422
+1 RS422
+2 RS422
+3 RS422
+6 None
+7 None
+
+SERIAL PORT DIRECTIONS:
+0 control
+1 auto
+2 slave
+3 auto
+4 auto
+5 auto
+6 control
+7 slave
+
+FRAME LABELS:
+0 gf-Frame 1
+1 Frame 2
+2 gf-Frame 3
+3 Frame 4
+4 gf-Frame 5
+5 Frame 6
+6 gf-Frame 7
+7 Frame 8
+
+FRAME BUFFER ROUTING:
+0 Frame 4
+1 gf-Frame 3
+2 Frame 6
+
+FRAME BUFFER LOCKS:
+0 U
+
+PROCESSING UNIT ROUTING:
+0 Output 15
+
+PROCESSING UNIT LOCKS:
+0 U
+
+ALARM STATUS:
+0 Error
+
+END PRELUDE:
+
+ENGINEERING:
+0 Debug
+

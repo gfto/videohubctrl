@@ -39,33 +39,33 @@ static char format_status(enum port_status status) {
 }
 
 void print_device_info(struct videohub_data *d) {
-	int len = 59;
+	int len = 67;
 	printf("Device info\n");
 	printf_line(len);
-	printf("  | %-26s | %-26s |\n", "Device address", d->dev_host);
-	printf("  | %-26s | %-26s |\n", "Device port", d->dev_port);
-	printf("  | %-26s | %-26s |\n", "Model name", d->device.model_name);
-	printf("  | %-26s | %-26s |\n", "Unique ID", d->device.unique_id);
-	printf("  | %-26s | %-26s |\n", "Protocol", d->device.protocol_ver);
-	printf("  | %-26s | %-26u |\n", "Video inputs", d->inputs.num);
-	printf("  | %-26s | %-26u |\n", "Video outputs", d->outputs.num);
+	printf("  | %-26s | %-34s |\n", "Device address", d->dev_host);
+	printf("  | %-26s | %-34s |\n", "Device port", d->dev_port);
+	printf("  | %-26s | %-34s |\n", "Model name", d->device.model_name);
+	printf("  | %-26s | %-34s |\n", "Unique ID", d->device.unique_id);
+	printf("  | %-26s | %-34s |\n", "Protocol", d->device.protocol_ver);
+	printf("  | %-26s | %-34u |\n", "Video inputs", d->inputs.num);
+	printf("  | %-26s | %-34u |\n", "Video outputs", d->outputs.num);
 	if (d->serial.num)
-		printf("  | %-26s | %-26u |\n", "Serial ports", d->serial.num);
+		printf("  | %-26s | %-34u |\n", "Serial ports", d->serial.num);
 	if (d->device.num_video_processing_units)
-		printf("  | %-26s | %-26u |\n", "Video processing units", d->device.num_video_processing_units);
+		printf("  | %-26s | %-34u |\n", "Video processing units", d->device.num_video_processing_units);
 	if (d->mon_outputs.num)
-		printf("  | %-26s | %-26u |\n", "Video monitoring outputs", d->mon_outputs.num);
+		printf("  | %-26s | %-34u |\n", "Video monitoring outputs", d->mon_outputs.num);
 	printf_line(len);
 	printf("\n");
 }
 
 void print_device_video_inputs(struct videohub_data *d) {
-	unsigned int i, r, len = 68;
+	unsigned int i, r, len = 70;
 	if (!d->inputs.num)
 		return;
 	printf("Video inputs\n");
 	printf_line(len);
-	printf("  | ## | %-24s | n | %-24s | s |\n", "Video input name", "Routed to output");
+	printf("  | ### | %-24s | nn | %-24s | s |\n", "Video input name", "Routed to output");
 	printf_line(len);
 	for(i = 0; i < d->inputs.num; i++) {
 		unsigned int num_outputs = 0, routed_to = 0;
@@ -76,7 +76,7 @@ void print_device_video_inputs(struct videohub_data *d) {
 					routed_to = r; // The first output
 			}
 		}
-		printf("  | %2d | %-24s | %d | ", i + 1, d->inputs.port[i].name,
+		printf("  | %3d | %-24s | %2d | ", i + 1, d->inputs.port[i].name,
 			 num_outputs);
 		if (num_outputs == 0) {
 			printf("%-24s | %c |\n", "-", format_status(d->inputs.port[i].status));
@@ -92,7 +92,7 @@ void print_device_video_inputs(struct videohub_data *d) {
 						first_skipped = true;
 						continue;
 					}
-					printf("  | %2s | %-24s | %s | %-24s | %c |\n",
+					printf("  | %3s | %-24s | %2s | %-24s | %c |\n",
 						" ", " ", " ", d->outputs.port[r].name, ' ');
 				}
 			}
@@ -112,15 +112,15 @@ static char port_lock_symbol(enum port_lock p) {
 }
 
 void print_device_video_outputs(struct videohub_data *d) {
-	unsigned int i, len = 68;
+	unsigned int i, len = 69;
 	if (!d->outputs.num)
 		return;
 	printf("Video outputs\n");
 	printf_line(len);
-	printf("  | ## | x | %-24s | %-24s | s |\n", "Video output name", "Connected video input");
+	printf("  | ### | x | %-24s | %-24s | s |\n", "Video output name", "Connected video input");
 	printf_line(len);
 	for(i = 0; i < d->outputs.num; i++) {
-		printf("  | %2d | %c | %-24s | %-24s | %c |\n",
+		printf("  | %3d | %c | %-24s | %-24s | %c |\n",
 			i + 1,
 			port_lock_symbol(d->outputs.port[i].lock),
 			d->outputs.port[i].name,
@@ -133,15 +133,15 @@ void print_device_video_outputs(struct videohub_data *d) {
 }
 
 void print_device_monitoring_outputs(struct videohub_data *d) {
-	unsigned int i, len = 64;
+	unsigned int i, len = 65;
 	if (!d->mon_outputs.num)
 		return;
 	printf("Monitoring outputs\n");
 	printf_line(len);
-	printf("  | ## | x | %-24s | %-24s |\n", "Monitoring output name", "Connected video input");
+	printf("  | ### | x | %-24s | %-24s |\n", "Monitoring output name", "Connected video input");
 	printf_line(len);
 	for(i = 0; i < d->mon_outputs.num; i++) {
-		printf("  | %2d | %c | %-24s | %-24s |\n",
+		printf("  | %3d | %c | %-24s | %-24s |\n",
 			i + 1,
 			port_lock_symbol(d->mon_outputs.port[i].lock),
 			d->mon_outputs.port[i].name,
@@ -162,15 +162,15 @@ static char *dir2opt(enum serial_dir dir) {
 }
 
 void print_device_serial_ports(struct videohub_data *d) {
-	unsigned int i, len = 63;
+	unsigned int i, len = 64;
 	if (!d->serial.num)
 		return;
 	printf("Serial ports\n");
 	printf_line(len);
-	printf("  | ## | x | Dir  | %-18s | %-18s | s |\n", "Serial port", "Connected serial");
+	printf("  | ### | x | Dir  | %-18s | %-18s | s |\n", "Serial port", "Connected serial");
 	printf_line(len);
 	for(i = 0; i < d->serial.num; i++) {
-		printf("  | %2d | %c | %4s | %-18s | %-18s | %c |\n",
+		printf("  | %3d | %c | %4s | %-18s | %-18s | %c |\n",
 			i + 1,
 			port_lock_symbol(d->serial.port[i].lock),
 			dir2opt(d->serial.port[i].direction),
@@ -191,24 +191,24 @@ static void __print_opt(struct videohub_data *d, enum vcmd vcmd) {
 	for(i = 0; i < s_port->num; i++) {
 		switch (v->type) {
 		case PARSE_LABEL:
-			printf("  --%s-name %2d \"%s\" \\\n", p, i + 1, s_port->port[i].name);
+			printf("  --%s-name %3d \"%s\" \\\n", p, i + 1, s_port->port[i].name);
 			break;
 		case PARSE_ROUTE:
 			if (s_port->port[i].routed_to == NO_PORT)
 				continue;
-			printf("  --%s-input %2d %2d \\\n", p, i + 1, s_port->port[i].routed_to + 1);
+			printf("  --%s-input %3d %3d \\\n", p, i + 1, s_port->port[i].routed_to + 1);
 			break;
 		case PARSE_LOCK:
 			last = i + 1 < s_port->num;
 			if (s_port->port[i].lock != PORT_UNLOCKED) {
-				printf("  --%s-unlock %2d --%s-lock %2d%s\n",
+				printf("  --%s-unlock %3d --%s-lock %3d%s\n",
 					p, i + 1, p, i + 1, last ? " \\" : "");
 			} else {
-				printf("  --%s-unlock %2d%s\n", p, i + 1, last ? " \\" : "");
+				printf("  --%s-unlock %3d%s\n", p, i + 1, last ? " \\" : "");
 			}
 			break;
 		case PARSE_DIR:
-			printf("  --%s-dir %2d %s \\\n", p, i + 1, dir2opt(s_port->port[i].direction));
+			printf("  --%s-dir %3d %s \\\n", p, i + 1, dir2opt(s_port->port[i].direction));
 			break;
 		default: break;
 		}

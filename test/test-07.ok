@@ -1,13 +1,13 @@
 Device info
-  -----------------------------------------------------------
-  | Device address             | sdi-matrix                 |
-  | Device port                | 9990                       |
-  | Model name                 | Blackmagic Micro Videohub  |
-  | Unique ID                  | 7c2e0d021714               |
-  | Protocol                   | 2.4                        |
-  | Video inputs               | 16                         |
-  | Video outputs              | 16                         |
-  | Serial ports               | 8                          |
-  | Video monitoring outputs   | 4                          |
-  -----------------------------------------------------------
+  -------------------------------------------------------------------
+  | Device address             | sdi-matrix                         |
+  | Device port                | 9990                               |
+  | Model name                 | Blackmagic Micro Videohub          |
+  | Unique ID                  | 7c2e0d021714                       |
+  | Protocol                   | 2.4                                |
+  | Video inputs               | 16                                 |
+  | Video outputs              | 16                                 |
+  | Serial ports               | 8                                  |
+  | Video monitoring outputs   | 4                                  |
+  -------------------------------------------------------------------
 

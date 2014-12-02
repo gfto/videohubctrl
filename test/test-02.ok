@@ -1,104 +1,104 @@
 videohubctrl \
-  --vi-name  1 "Windows 1" \
-  --vi-name  2 "Windows 2" \
-  --vi-name  3 "Windows 3" \
-  --vi-name  4 "Windows 4 HD" \
-  --vi-name  5 "Input 5" \
-  --vi-name  6 "Input 6" \
-  --vi-name  7 "Input 7" \
-  --vi-name  8 "Input 8" \
-  --vi-name  9 "Input 9" \
-  --vi-name 10 "Input 10" \
-  --vi-name 11 "Input 11" \
-  --vi-name 12 "DPlay1" \
-  --vi-name 13 "DPlay2" \
-  --vi-name 14 "Input 14" \
-  --vi-name 15 "Input 15" \
-  --vi-name 16 "Loopback" \
-  --vo-name  1 "Enc1 1" \
-  --vo-name  2 "Enc1 2" \
-  --vo-name  3 "Enc1 3" \
-  --vo-name  4 "Enc1 4" \
-  --vo-name  5 "Output 5" \
-  --vo-name  6 "Output 6" \
-  --vo-name  7 "Output 7" \
-  --vo-name  8 "Output 8" \
-  --vo-name  9 "Enc2 1" \
-  --vo-name 10 "Output 10" \
-  --vo-name 11 "Output 11" \
-  --vo-name 12 "Denc" \
-  --vo-name 13 "Output 13" \
-  --vo-name 14 "Output 14" \
-  --vo-name 15 "Output 15" \
-  --vo-name 16 "Loopback" \
-  --mo-name  1 "Monitor 1" \
-  --mo-name  2 "Monitor 2" \
-  --mo-name  3 "Monitor 3" \
-  --mo-name  4 "Monitor 4" \
-  --se-name  1 "Serial Ctrl 1" \
-  --se-name  2 "Serial Ctrl 2" \
-  --se-name  3 "Deck 3" \
-  --se-name  4 "Deck 4" \
-  --se-name  5 "Serial 5" \
-  --se-name  6 "Serial 6" \
-  --se-name  7 "Serial 7" \
-  --se-name  8 "Serial 8" \
-  --vo-input  1  3 \
-  --vo-input  2  2 \
-  --vo-input  3  1 \
-  --vo-input  4  1 \
-  --vo-input  5  5 \
-  --vo-input  6  6 \
-  --vo-input  7  7 \
-  --vo-input  8  4 \
-  --vo-input  9  4 \
-  --vo-input 10 10 \
-  --vo-input 11 11 \
-  --vo-input 12 13 \
-  --vo-input 13 12 \
-  --vo-input 14 14 \
-  --vo-input 15 15 \
-  --vo-input 16 16 \
-  --mo-input  1  1 \
-  --mo-input  2  2 \
-  --mo-input  3  3 \
-  --mo-input  4  4 \
-  --se-input  1  3 \
-  --se-input  2  4 \
-  --se-dir  1 in \
-  --se-dir  2 auto \
-  --se-dir  3 out \
-  --se-dir  4 auto \
-  --se-dir  5 auto \
-  --se-dir  6 auto \
-  --se-dir  7 in \
-  --se-dir  8 out \
-  --vo-unlock  1 --vo-lock  1 \
-  --vo-unlock  2 --vo-lock  2 \
-  --vo-unlock  3 --vo-lock  3 \
-  --vo-unlock  4 --vo-lock  4 \
-  --vo-unlock  5 \
-  --vo-unlock  6 \
-  --vo-unlock  7 \
-  --vo-unlock  8 \
-  --vo-unlock  9 --vo-lock  9 \
-  --vo-unlock 10 \
-  --vo-unlock 11 \
-  --vo-unlock 12 --vo-lock 12 \
-  --vo-unlock 13 --vo-lock 13 \
-  --vo-unlock 14 \
-  --vo-unlock 15 \
-  --vo-unlock 16 --vo-lock 16
-  --mo-unlock  1 \
-  --mo-unlock  2 --mo-lock  2 \
-  --mo-unlock  3 --mo-lock  3 \
-  --mo-unlock  4
-  --se-unlock  1 --se-lock  1 \
-  --se-unlock  2 \
-  --se-unlock  3 --se-lock  3 \
-  --se-unlock  4 \
-  --se-unlock  5 \
-  --se-unlock  6 \
-  --se-unlock  7 \
-  --se-unlock  8
+  --vi-name   1 "Windows 1" \
+  --vi-name   2 "Windows 2" \
+  --vi-name   3 "Windows 3" \
+  --vi-name   4 "Windows 4 HD" \
+  --vi-name   5 "Input 5" \
+  --vi-name   6 "Input 6" \
+  --vi-name   7 "Input 7" \
+  --vi-name   8 "Input 8" \
+  --vi-name   9 "Input 9" \
+  --vi-name  10 "Input 10" \
+  --vi-name  11 "Input 11" \
+  --vi-name  12 "DPlay1" \
+  --vi-name  13 "DPlay2" \
+  --vi-name  14 "Input 14" \
+  --vi-name  15 "Input 15" \
+  --vi-name  16 "Loopback" \
+  --vo-name   1 "Enc1 1" \
+  --vo-name   2 "Enc1 2" \
+  --vo-name   3 "Enc1 3" \
+  --vo-name   4 "Enc1 4" \
+  --vo-name   5 "Output 5" \
+  --vo-name   6 "Output 6" \
+  --vo-name   7 "Output 7" \
+  --vo-name   8 "Output 8" \
+  --vo-name   9 "Enc2 1" \
+  --vo-name  10 "Output 10" \
+  --vo-name  11 "Output 11" \
+  --vo-name  12 "Denc" \
+  --vo-name  13 "Output 13" \
+  --vo-name  14 "Output 14" \
+  --vo-name  15 "Output 15" \
+  --vo-name  16 "Loopback" \
+  --mo-name   1 "Monitor 1" \
+  --mo-name   2 "Monitor 2" \
+  --mo-name   3 "Monitor 3" \
+  --mo-name   4 "Monitor 4" \
+  --se-name   1 "Serial Ctrl 1" \
+  --se-name   2 "Serial Ctrl 2" \
+  --se-name   3 "Deck 3" \
+  --se-name   4 "Deck 4" \
+  --se-name   5 "Serial 5" \
+  --se-name   6 "Serial 6" \
+  --se-name   7 "Serial 7" \
+  --se-name   8 "Serial 8" \
+  --vo-input   1   3 \
+  --vo-input   2   2 \
+  --vo-input   3   1 \
+  --vo-input   4   1 \
+  --vo-input   5   5 \
+  --vo-input   6   6 \
+  --vo-input   7   7 \
+  --vo-input   8   4 \
+  --vo-input   9   4 \
+  --vo-input  10  10 \
+  --vo-input  11  11 \
+  --vo-input  12  13 \
+  --vo-input  13  12 \
+  --vo-input  14  14 \
+  --vo-input  15  15 \
+  --vo-input  16  16 \
+  --mo-input   1   1 \
+  --mo-input   2   2 \
+  --mo-input   3   3 \
+  --mo-input   4   4 \
+  --se-input   1   3 \
+  --se-input   2   4 \
+  --se-dir   1 in \
+  --se-dir   2 auto \
+  --se-dir   3 out \
+  --se-dir   4 auto \
+  --se-dir   5 auto \
+  --se-dir   6 auto \
+  --se-dir   7 in \
+  --se-dir   8 out \
+  --vo-unlock   1 --vo-lock   1 \
+  --vo-unlock   2 --vo-lock   2 \
+  --vo-unlock   3 --vo-lock   3 \
+  --vo-unlock   4 --vo-lock   4 \
+  --vo-unlock   5 \
+  --vo-unlock   6 \
+  --vo-unlock   7 \
+  --vo-unlock   8 \
+  --vo-unlock   9 --vo-lock   9 \
+  --vo-unlock  10 \
+  --vo-unlock  11 \
+  --vo-unlock  12 --vo-lock  12 \
+  --vo-unlock  13 --vo-lock  13 \
+  --vo-unlock  14 \
+  --vo-unlock  15 \
+  --vo-unlock  16 --vo-lock  16
+  --mo-unlock   1 \
+  --mo-unlock   2 --mo-lock   2 \
+  --mo-unlock   3 --mo-lock   3 \
+  --mo-unlock   4
+  --se-unlock   1 --se-lock   1 \
+  --se-unlock   2 \
+  --se-unlock   3 --se-lock   3 \
+  --se-unlock   4 \
+  --se-unlock   5 \
+  --se-unlock   6 \
+  --se-unlock   7 \
+  --se-unlock   8
 

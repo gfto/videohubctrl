@@ -129,3 +129,6 @@ check test/test-15 "Test --list-moutputs option output"
 
 videohubctrl --test-input test/input-00.txt --list-serial $@ &> test/test-16.out
 check test/test-16 "Test --list-serial option output"
+
+videohubctrl --test-input test/input-17.txt --info $@ &> test/test-17.out
+check test/test-17 "Test wider range of input commands"
