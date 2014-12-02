@@ -204,7 +204,7 @@ static void parse_options(struct videohub_data *data, int argc, char **argv) {
 				f = fopen(optarg, "r");
 				if (!f)
 					die("Can't open %s: %s", optarg, strerror(errno));
-				test_data = xzalloc(st.st_size);
+				test_data = xzalloc(st.st_size + 1);
 				if (fread(test_data, st.st_size, 1, f) < 1)
 					die("Can't read from %s: %s", optarg, strerror(errno));
 				fclose(f);
