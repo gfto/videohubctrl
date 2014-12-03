@@ -95,6 +95,9 @@ check test/test-05 "Test if --backup restored correct config."
 ./videohubctrl --test-input test/input-00.txt --mo-unlock "Output 18"                $@ >> test/test-06.out 2>&1
 ./videohubctrl --test-input test/input-00.txt --se-name 18          "Test Serial 18" $@ >> test/test-06.out 2>&1
 ./videohubctrl --test-input test/input-00.txt --se-name "Serial 18" "Test Serial 18" $@ >> test/test-06.out 2>&1
+./videohubctrl --test-input test/input-00.txt --se-clear 24                          $@ >> test/test-06.out 2>&1
+./videohubctrl --test-input test/input-00.txt --se-clear "Serial X"                  $@ >> test/test-06.out 2>&1
+./videohubctrl --test-input test/input-00.txt --se-connect 24 7                      $@ >> test/test-06.out 2>&1
 ./videohubctrl --test-input test/input-00.txt --se-lock 18                           $@ >> test/test-06.out 2>&1
 ./videohubctrl --test-input test/input-00.txt --se-lock "Serial 18"                  $@ >> test/test-06.out 2>&1
 ./videohubctrl --test-input test/input-00.txt --se-unlock 18                         $@ >> test/test-06.out 2>&1
