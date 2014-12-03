@@ -39,10 +39,8 @@ Video inputs
   ----------------------------------------------------------------------
   | ### | Video input name         | nn | Routed to output         | s |
   ----------------------------------------------------------------------
-  |   1 | Windows 1                |  4 | Enc1 3                   |   |
+  |   1 | Windows 1                |  2 | Enc1 3                   |   |
   |     |                          |    | Enc1 4                   |   |
-  |     |                          |    | Output 7                 |   |
-  |     |                          |    | Output 10                |   |
   |   2 | Windows 2                |  1 | Enc1 2                   |   |
   |   3 | Windows 3                |  1 | Enc1 1                   |   |
   |   4 | Windows 4 HD             |  2 |                          |   |
@@ -71,10 +69,10 @@ Video outputs
   |   4 | L | Enc1 4                   | Windows 1                | T |
   |   5 |   | Output 5                 | Input 5                  |   |
   |   6 |   | Output 6                 | Input 6                  |   |
-  |   7 |   | Output 7                 | Windows 1                |   |
+  |   7 |   | Output 7                 |                          |   |
   |   8 |   |                          | Windows 4 HD             |   |
   |   9 | L | Enc2 1                   | Windows 4 HD             |   |
-  |  10 |   | Output 10                | Windows 1                |   |
+  |  10 |   | Output 10                |                          |   |
   |  11 |   | Output 11                | Input 11                 |   |
   |  12 | L | Denc                     | DPlay2                   |   |
   |  13 | O | Output 13                | DPlay1                   |   |

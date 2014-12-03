@@ -378,6 +378,8 @@ int main(int argc, char **argv) {
 			exit(EXIT_FAILURE);
 	}
 
+	reset_routed_to(&data->inputs);
+	reset_routed_to(&data->outputs);
 	reset_routed_to(&data->serial);
 	reset_routed_to(&data->proc_units);
 	reset_routed_to(&data->frames);
