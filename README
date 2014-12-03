@@ -19,7 +19,7 @@ videohubctrl currently displays and can configure:
 Configuration of Videohub's network settings can be made using
 Blackmagic's Windows program when the device is connected via USB.
 
-Confiration of processing units and frames is probably not working
+Configuration of processing units and frames is probably not working
 properly because the support was added by just following the very
 minimal documentation and with no testing on a real device, so don't
 expect miracles in this department. The other stuff is solid but
