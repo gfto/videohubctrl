@@ -3,8 +3,8 @@ videohubctrl - Blackmagic Videohub control application
 
 videohubctrl implements the simple text based network protocol for
 controlling Blackmagic Design Videohub SDI router devices. The
-program is tested with Blackmagic Design Micro Videohub 16x16
-router and probably will work with other Videohub models.
+program is tested with Blackmagic Design Micro Videohub and
+probably works with other Videohub models.
 
 videohubctrl currently displays and can configure:
 
