@@ -113,3 +113,9 @@ SERIAL PORT STATUS:
 2 Thunderbolt
 3 RS422
 
+FRAME LABELS:
+0 Pic 1
+1 Pic 2
+2 Pic 3
+3 Pic 4
+

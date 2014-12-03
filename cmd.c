@@ -38,6 +38,9 @@ const char *videohub_commands_text[NUM_COMMANDS] = {
 	[CMD_SERIAL_PORT_DIRECTIONS] = "SERIAL PORT DIRECTIONS",
 	[CMD_PROCESSING_UNIT_ROUTING]= "PROCESSING UNIT ROUTING",
 	[CMD_PROCESSING_UNIT_LOCKS]  = "PROCESSING UNIT LOCKS",
+	[CMD_FRAME_LABELS]           = "FRAME LABELS",
+	[CMD_FRAME_BUFFER_ROUTING]   = "FRAME BUFFER ROUTING",
+	[CMD_FRAME_BUFFER_LOCKS]     = "FRAME BUFFER LOCKS",
 	[CMD_PING]                 = "PING",
 	[CMD_ACK]                  = "ACK",
 	[CMD_NAK]                  = "NAK",
@@ -137,6 +140,24 @@ struct videohub_commands videohub_commands[NUM_COMMANDS] = {
 		.ports1 = OFS(proc_units),
 		.port_id1 = "proc unit",
 		.opt_prefix = "pu",
+	},
+	[CMD_FRAME_LABELS]  = { .cmd = CMD_FRAME_LABELS, .type = PARSE_LABEL,
+		.ports1 = OFS(frames),
+		.port_id1 = "frame",
+		.opt_prefix = "fr",
+	},
+	[CMD_FRAME_BUFFER_ROUTING] = { .cmd = CMD_FRAME_BUFFER_ROUTING, .type = PARSE_ROUTE,
+		.ports1 = OFS(frames),
+		.ports2 = OFS(outputs),
+		.port_id1 = "frame",
+		.port_id2 = "output",
+		.opt_prefix = "fr",
+		.allow_disconnect = true,
+	},
+	[CMD_FRAME_BUFFER_LOCKS] = { .cmd = CMD_FRAME_BUFFER_LOCKS, .type = PARSE_LOCK,
+		.ports1 = OFS(frames),
+		.port_id1 = "frame",
+		.opt_prefix = "fr",
 	},
 	[CMD_PING]                 = { .cmd = CMD_PING                , .type = PARSE_NONE },
 	[CMD_ACK]                  = { .cmd = CMD_ACK                 , .type = PARSE_NONE },
@@ -293,9 +314,10 @@ bool parse_command(struct videohub_data *d, char *cmd) {
 				d->outputs.num = strtoul(p, NULL, 10);
 			else if ((p = parse_text(line, "Video monitoring outputs: ")))
 				d->mon_outputs.num = strtoul(p, NULL, 10);
-			else if ((p = parse_text(line, "Serial ports: ")))
+			else if ((p = parse_text(line, "Serial ports: "))) {
 				d->serial.num = strtoul(p, NULL, 10);
-			else {
+				d->frames.num = d->serial.num;
+			} else {
 				q("WARNING: VIDEOHUB DEVICE command sent unknown line: '%s'\n", line);
 				q("Please report this line to author's email: georgi@unixsol.org\n");
 			}

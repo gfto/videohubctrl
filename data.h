@@ -82,6 +82,7 @@ struct videohub_data {
 	struct port_set			mon_outputs;
 	struct port_set			serial;
 	struct port_set			proc_units;
+	struct port_set			frames;
 };
 
 extern int debug;

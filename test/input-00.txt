@@ -178,3 +178,23 @@ PROCESSING UNIT LOCKS:
 2 O
 3 U
 
+FRAME LABELS:
+0 Frame 1
+1 Frame 2
+2 Frame 3
+3 Frame 4
+4 Frame 5
+5 Frame 6
+6 Frame 7
+7 Frame 8
+
+FRAME BUFFER ROUTING:
+0 12
+1 13
+2 14
+
+FRAME BUFFER LOCKS:
+0 U
+1 L
+2 O
+

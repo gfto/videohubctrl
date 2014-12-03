@@ -44,6 +44,7 @@ enum list_actions {
 	action_list_moutputs	= (1 << 3),
 	action_list_serial		= (1 << 4),
 	action_list_proc_units	= (1 << 5),
+	action_list_frames		= (1 << 6),
 };
 
 static const char *program_id = PROGRAM_NAME " Version: " VERSION " Git: " GIT_VER;
@@ -91,6 +92,14 @@ static const struct option long_options[] = {
 	{ "pu-lock",			required_argument, NULL, 5002 },
 	{ "pu-unlock",			required_argument, NULL, 5003 },
 	{ "pu-clear",			required_argument, NULL, 5004 },
+	{ "fr-name",			required_argument, NULL, 6001 },
+	{ "fr-output",			required_argument, NULL, 6002 },
+	{ "fr-connect",			required_argument, NULL, 6002 }, // Alias of --fr-output
+	{ "fr-input",			required_argument, NULL, 6002 }, // Alias of --fr-output
+	{ "fr-route",			required_argument, NULL, 6002 }, // Alias of --fr-output
+	{ "fr-lock",			required_argument, NULL, 6003 },
+	{ "fr-unlock",			required_argument, NULL, 6004 },
+	{ "fr-clear",			required_argument, NULL, 6006 },
 	{ 0, 0, 0, 0 }
 };
 
@@ -117,6 +126,7 @@ static void show_help(struct videohub_data *data) {
 	printf(" --list-moutputs            | List device monitoring outputs.\n");
 	printf(" --list-serial              | List device serial ports.\n");
 	printf(" --list-proc-units          | List device processing units.\n");
+	printf(" --list-frames              | List device frame buffers.\n");
 	printf("\n");
 	printf("Video inputs configuration:\n");
 	printf(" --vi-name <in_X> <name>    | Set video input port X name.\n");
@@ -147,6 +157,13 @@ static void show_help(struct videohub_data *data) {
 	printf(" --pu-clear <pu_X>          | Disconnect unit X from input Y.\n");
 	printf(" --pu-lock <pu_X>           | Lock processing unit X.\n");
 	printf(" --pu-unlock <pu_X>         | Unlock processing unit X.\n");
+	printf("\n");
+	printf("Frames configuration:\n");
+	printf(" --fr-name <fr_X> <name>    | Set frame X name.\n");
+	printf(" --fr-output <fr_X> <out_Y> | Output frame X to output Y.\n");
+	printf(" --fr-clear <fr_X>          | Stop outputing frame X to the output.\n");
+	printf(" --fr-lock <fr_X>           | Lock frame X.\n");
+	printf(" --fr-unlock <rf_X>         | Unlock frame X.\n");
 	printf("\n");
 	printf("Misc options:\n");
 	printf(" -T --test-input <file>     | Read commands from <file>.\n");
@@ -279,6 +296,11 @@ static void parse_options(struct videohub_data *data, int argc, char **argv) {
 			case 5002: parse_cmd1(argc, argv, CMD_PROCESSING_UNIT_LOCKS, true); break; // --pu-lock
 			case 5003: parse_cmd1(argc, argv, CMD_PROCESSING_UNIT_LOCKS, false); break; // --pu-unlock
 			case 5004: parse_cmd2s(argc, argv, CMD_PROCESSING_UNIT_ROUTING); break; // --pu-clear
+			case 6001: parse_cmd2(argc, argv, CMD_FRAME_LABELS); break; // --fr-name
+			case 6002: parse_cmd2(argc, argv, CMD_FRAME_BUFFER_ROUTING); break; // --fr-input
+			case 6003: parse_cmd1(argc, argv, CMD_FRAME_BUFFER_LOCKS, true); break; // --fr-lock
+			case 6004: parse_cmd1(argc, argv, CMD_FRAME_BUFFER_LOCKS, false); break; // --fr-unlock
+			case 6005: parse_cmd2s(argc, argv, CMD_FRAME_BUFFER_ROUTING); break; // --fr-clear
 			case 'H': // --help
 				show_help(data);
 				exit(EXIT_SUCCESS);
@@ -320,6 +342,7 @@ static void print_device_full(struct videohub_data *d) {
 	print_device_monitoring_outputs(d);
 	print_device_serial_ports(d);
 	print_device_processing_units(d);
+	print_device_frame_buffers(d);
 	fflush(stdout);
 }
 
@@ -357,6 +380,7 @@ int main(int argc, char **argv) {
 
 	reset_routed_to(&data->serial);
 	reset_routed_to(&data->proc_units);
+	reset_routed_to(&data->frames);
 	read_device_command_stream(data);
 
 	if (test_data)
@@ -381,6 +405,7 @@ int main(int argc, char **argv) {
 	check_number_of_ports(&data->mon_outputs);
 	check_number_of_ports(&data->serial);
 	check_number_of_ports(&data->proc_units);
+	check_number_of_ports(&data->frames);
 
 	if (num_parsed_cmds) {
 		unsigned int i;
@@ -430,6 +455,7 @@ int main(int argc, char **argv) {
 		if (show_list & action_list_moutputs)	print_device_monitoring_outputs(data);
 		if (show_list & action_list_serial)		print_device_serial_ports(data);
 		if (show_list & action_list_proc_units)	print_device_processing_units(data);
+		if (show_list & action_list_frames)		print_device_frame_buffers(data);
 		fflush(stdout);
 	} else if (show_backup) {
 		print_device_backup(data);

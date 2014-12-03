@@ -204,6 +204,27 @@ void print_device_processing_units(struct videohub_data *d) {
 	printf("\n");
 }
 
+void print_device_frame_buffers(struct videohub_data *d) {
+	unsigned int i, len = 65;
+	if (!d->frames.num)
+		return;
+	printf("Frames\n");
+	printf_line(len);
+	printf("  | ### | x | %-24s | %-24s |\n", "Frame name", "Connected output");
+	printf_line(len);
+	for(i = 0; i < d->frames.num; i++) {
+		printf("  | %3d | %c | %-24s | %-24s |\n",
+			i + 1,
+			port_lock_symbol(d->frames.port[i].lock),
+			d->frames.port[i].name,
+			d->frames.port[i].routed_to == NO_PORT ? "" : d->outputs.port[d->frames.port[i].routed_to].name
+		);
+	}
+	printf_line(len);
+	printf("\n");
+}
+
+
 static void __print_opt(struct videohub_data *d, enum vcmd vcmd) {
 	unsigned int i, last = 0;
 	struct videohub_commands *v = &videohub_commands[vcmd];

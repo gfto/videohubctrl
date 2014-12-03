@@ -37,6 +37,15 @@ videohub: lock proc unit 1 ""
 videohub: connect proc unit 1 "" to input 4 "Windows 4 HighDef"
 videohub: connect proc unit 4 "" to input 12 "DPlay1"
 videohub: lock proc unit 4 ""
+videohub: rename frame 1 "Frame 1" to "Pic 1"
+videohub: rename frame 2 "Frame 2" to "Pic 2"
+videohub: connect frame 1 "Pic 1" to output 13 "Output 13"
+videohub: connect frame 2 "Pic 2" to output 14 "Output 14"
+videohub: connect frame 3 "Frame 3" to output 15 "Output 15"
+videohub: lock frame 1 "Pic 1"
+videohub: lock frame 2 "Pic 2"
+videohub: lock frame 8 "Frame 8"
+videohub: unlock frame 8 "Frame 8"
 Device info
   -------------------------------------------------------------------
   | Device address             | sdi-matrix                         |
@@ -131,4 +140,18 @@ Processing units
   |         3 | O |                          |
   |         4 | O | DPlay1                   |
   --------------------------------------------
+
+Frames
+  -----------------------------------------------------------------
+  | ### | x | Frame name               | Connected output         |
+  -----------------------------------------------------------------
+  |   1 | O | Pic 1                    | Output 13                |
+  |   2 | O | Pic 2                    | Output 14                |
+  |   3 | O | Frame 3                  | Output 15                |
+  |   4 |   | Frame 4                  |                          |
+  |   5 |   | Frame 5                  |                          |
+  |   6 |   | Frame 6                  |                          |
+  |   7 |   | Frame 7                  |                          |
+  |   8 |   | Frame 8                  |                          |
+  -----------------------------------------------------------------
 

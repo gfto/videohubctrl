@@ -16,6 +16,7 @@ videohubctrl currently displays and can configure:
   - Monitoring video output port names, routing and locking
   - Serial ports names, routing, locking and directions
   - Processing units
+  - Frames
 .SH MAIN OPTIONS
 .PP
 .TP
@@ -168,8 +169,26 @@ Disconnect processing unit X from the connected input port.
 Lock processing unit port X.
 .TP
 \fB\-\-pu\-unlock\fR <pu_X>
-Unlock processing unit port X. If the port is locked by somebody else the
-port would be forcefully unlocked.
+Unlock processing unit port X. If the processing unit is locked by somebody
+else the port would be forcefully unlocked.
+.SH FRAMES CONFIGURATION
+.PP
+.TP
+\fB\-\-fr\-name\fR <fr_X> <name>
+Set frame X name.
+.TP
+\fB\-\-fr\-output\fR <fr_X> <out_Y>
+Output frame X to video output port Y.
+.TP
+\fB\-\-fr\-clear\fR <fr_X>
+Disconnect frame X from the connected output port.
+.TP
+\fB\-\-fr\-lock\fR <fr_X>
+Lock frame X.
+.TP
+\fB\-\-fr\-unlock\fR <fr_X>
+Unlock frame X. If the frame is locked by somebody else the port would be
+forcefully unlocked.
 .SH MISC OPTIONS
 .PP
 .TP

@@ -43,6 +43,14 @@ videohubctrl \
   --se-name   6 "Serial 6" \
   --se-name   7 "Serial 7" \
   --se-name   8 "Serial 8" \
+  --fr-name   1 "Frame 1" \
+  --fr-name   2 "Frame 2" \
+  --fr-name   3 "Frame 3" \
+  --fr-name   4 "Frame 4" \
+  --fr-name   5 "Frame 5" \
+  --fr-name   6 "Frame 6" \
+  --fr-name   7 "Frame 7" \
+  --fr-name   8 "Frame 8" \
   --vo-input   1   3 \
   --vo-input   2   2 \
   --vo-input   3   1 \
@@ -68,6 +76,9 @@ videohubctrl \
   --pu-input   1   4 \
   --pu-input   2   2 \
   --pu-input   4   3 \
+  --fr-input   1  13 \
+  --fr-input   2  14 \
+  --fr-input   3  15 \
   --se-dir   1 in \
   --se-dir   2 auto \
   --se-dir   3 out \
@@ -108,4 +119,12 @@ videohubctrl \
   --pu-unlock   2 \
   --pu-unlock   3 --pu-lock   3 \
   --pu-unlock   4
+  --fr-unlock   1 \
+  --fr-unlock   2 --fr-lock   2 \
+  --fr-unlock   3 --fr-lock   3 \
+  --fr-unlock   4 \
+  --fr-unlock   5 \
+  --fr-unlock   6 \
+  --fr-unlock   7 \
+  --fr-unlock   8
 

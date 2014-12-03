@@ -19,6 +19,7 @@ void print_device_video_outputs(struct videohub_data *d);
 void print_device_monitoring_outputs(struct videohub_data *d);
 void print_device_serial_ports(struct videohub_data *d);
 void print_device_processing_units(struct videohub_data *d);
+void print_device_frame_buffers(struct videohub_data *d);
 
 void print_device_backup(struct videohub_data *d);
 

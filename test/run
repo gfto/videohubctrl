@@ -65,6 +65,10 @@ videohubctrl --test-input test/input-00.txt \
 	--pu-clear 1 --pu-clear 3 --pu-clear 4 \
 	--pu-unlock 1 --pu-lock 1 --pu-connect 1 "Windows 4 HD" \
 	--pu-connect 4 "DPlay1" --pu-lock 4 \
+	--fr-name 1 "Pic 1" --fr-name 2 "Pic 2" \
+	--fr-output 1 13 --fr-output 2 14 --fr-output 3 15 \
+	--fr-clear 3 \
+	--fr-lock 1 --fr-lock 2 --fr-lock 8 --fr-unlock 8 \
 $@ &> test/test-04.out
 check test/test-04 "Test multiple configuration commands"
 
