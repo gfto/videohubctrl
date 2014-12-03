@@ -111,6 +111,7 @@ struct videohub_commands videohub_commands[NUM_COMMANDS] = {
 		.port_id1 = "serial",
 		.port_id2 = "serial",
 		.opt_prefix = "se",
+		.allow_disconnect = true,
 	},
 	[CMD_SERIAL_PORT_STATUS]  = { .cmd = CMD_SERIAL_PORT_STATUS , .type = PARSE_STATUS,
 		.ports1 = OFS(serial),
@@ -228,8 +229,7 @@ bool parse_command(struct videohub_data *d, char *cmd) {
 		case PARSE_ROUTE:
 			dest_port_num = strtoul(port_data, NULL, 10);
 			if (dest_port_num == NO_PORT) {
-				// Only serial port routing can be disabled with -1
-				if (v->cmd == CMD_SERIAL_PORT_ROUTING) {
+				if (v->allow_disconnect) {
 					s_port->port[port_num].routed_to = dest_port_num;
 					continue;
 				} else {
@@ -444,7 +444,7 @@ void show_cmd(struct videohub_data *d, struct vcmd_entry *e) {
 			);
 			break;
 		}
-		if (e->cmd->cmd == CMD_SERIAL_PORT_ROUTING) {
+		if (e->cmd->allow_disconnect) {
 			printf("%sconnect %s %d \"%s\" to %s %d \"%s\"\n",
 				prefix,
 				e->cmd->port_id1,

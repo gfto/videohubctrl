@@ -57,6 +57,7 @@ struct videohub_commands {
 	const char		*port_id1;
 	const char		*port_id2;
 	const char		*opt_prefix;
+	bool			allow_disconnect;
 };
 
 extern struct videohub_commands videohub_commands[NUM_COMMANDS];
