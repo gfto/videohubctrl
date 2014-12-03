@@ -115,13 +115,13 @@ static void show_help(struct videohub_data *data) {
 	printf("\n");
 	printf("Video outputs configuration:\n");
 	printf(" --vo-name <out_X> <name>   | Set video output port X name.\n");
-	printf(" --vo-input <out_X> <in_Y>  | Connect video output X to video input Y.\n");
+	printf(" --vo-input <out_X> <in_Y>  | Connect video output X to input Y.\n");
 	printf(" --vo-lock <out_X>          | Lock output port X.\n");
 	printf(" --vo-unlock <out_X>        | Unlock output port X.\n");
 	printf("\n");
 	printf("Monitoring outputs configuration:\n");
 	printf(" --mo-name <mout_X> <name>  | Set monitoring port X name.\n");
-	printf(" --mo-input <mout_X> <in_Y> | Connect monitoring X to video input Y.\n");
+	printf(" --mo-input <mout_X> <in_Y> | Connect monitoring X to input Y.\n");
 	printf(" --mo-lock <mout_X>         | Lock monitoring port X.\n");
 	printf(" --mo-unlock <mout_X>       | Unlock monitoring port X.\n");
 	printf("\n");

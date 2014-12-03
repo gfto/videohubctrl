@@ -59,13 +59,13 @@ Video inputs configuration:
 
 Video outputs configuration:
  --vo-name <out_X> <name>   | Set video output port X name.
- --vo-input <out_X> <in_Y>  | Connect video output X to video input Y.
+ --vo-input <out_X> <in_Y>  | Connect video output X to input Y.
  --vo-lock <out_X>          | Lock output port X.
  --vo-unlock <out_X>        | Unlock output port X.
 
 Monitoring outputs configuration:
  --mo-name <mout_X> <name>  | Set monitoring port X name.
- --mo-input <mout_X> <in_Y> | Connect monitoring X to video input Y.
+ --mo-input <mout_X> <in_Y> | Connect monitoring X to input Y.
  --mo-lock <mout_X>         | Lock monitoring port X.
  --mo-unlock <mout_X>       | Unlock monitoring port X.
 
