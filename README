@@ -13,11 +13,7 @@ videohubctrl currently displays and can configure:
   - Input/Output port statuses
   - Monitoring video output port names, routing and locking
   - Serial ports names, routing, locking and directions
-
-The following features found in bigger Videohub models are currently
-not supported (I don't have the hardware):
-
-  - Configuration of video processing units
+  - Processing units
 
 Configuration of Videohub's network settings can be made using
 Blackmagic's Windows program when the device is connected via USB.
@@ -53,6 +49,7 @@ Commands:
  --list-voutputs            | List device video outputs.
  --list-moutputs            | List device monitoring outputs.
  --list-serial              | List device serial ports.
+ --list-proc-units          | List device processing units.
 
 Video inputs configuration:
  --vi-name <in_X> <name>    | Set video input port X name.
@@ -77,6 +74,12 @@ Serial ports configuration:
  --se-unlock <ser_X>        | Unlock serial port X.
  --se-dir <ser_X> <dir>     | Set serial port X direction.
                             . <dir> can be 'auto', 'in' or 'out'.
+
+Processing units configuration:
+ --pu-input <pu_X> <in_Y>   | Connect processing unit X to input Y.
+ --pu-clear <pu_X>          | Disconnect unit X from input Y.
+ --pu-lock <pu_X>           | Lock processing unit X.
+ --pu-unlock <pu_X>         | Unlock processing unit X.
 
 Misc options:
  -T --test-input <file>     | Read commands from <file>.
@@ -153,10 +156,10 @@ Example output
 ==============
 
 Here is how videohubctrl output looks like using the commands recorded
-in tests/input-00.txt file.
+in test/input-00.txt file.
 
 |----------------------------------------------------------------------|
-$ videohubctrl --test tests/input-00.txt
+$ videohubctrl --test test/input-00.txt
 Device info
   -------------------------------------------------------------------
   | Device address             | sdi-matrix                         |
@@ -167,6 +170,7 @@ Device info
   | Video inputs               | 16                                 |
   | Video outputs              | 16                                 |
   | Serial ports               | 8                                  |
+  | Video processing units     | 4                                  |
   | Video monitoring outputs   | 4                                  |
   -------------------------------------------------------------------
 
@@ -239,6 +243,17 @@ Serial ports
   |   7 |   |   in | Serial 7           |                    | x |
   |   8 |   |  out | Serial 8           |                    | x |
   ----------------------------------------------------------------
+
+Processing units
+  --------------------------------------------
+  | Proc Unit | x | Connected video input    |
+  --------------------------------------------
+  |         1 | L | Windows 4 HD             |
+  |         2 |   | Windows 2                |
+  |         3 | O |                          |
+  |         4 |   | Windows 3                |
+  --------------------------------------------
+
 
 |----------------------------------------------------------------------|
 

@@ -6,7 +6,7 @@ Device present: true
 Model name: Blackmagic Micro Videohub
 Unique ID: 7c2e0d021714
 Video inputs: 16
-Video processing units: 0
+Video processing units: 4
 Video outputs: 16
 Video monitoring outputs: 4
 Serial ports: 8
@@ -166,4 +166,15 @@ SERIAL PORT DIRECTIONS:
 5 auto
 6 control
 7 slave
+
+PROCESSING UNIT ROUTING:
+0 3
+1 1
+3 2
+
+PROCESSING UNIT LOCKS:
+0 L
+1 U
+2 O
+3 U
 

@@ -15,6 +15,7 @@ videohubctrl currently displays and can configure:
   - Input/Output port statuses
   - Monitoring video output port names, routing and locking
   - Serial ports names, routing, locking and directions
+  - Processing units
 .SH MAIN OPTIONS
 .PP
 .TP
@@ -83,6 +84,10 @@ same as video input and output ports.
 Display device serial ports. Port numbers, names, locking status, directions
 and how serial ports are routed. The locking statuses are the same as video
 input, output ports and monitoring ports.
+.TP
+\fB\-\-list\-proc-units\fR
+Display device procesing units. Unit numbers, locking status and connected
+video inputs.
 .SH CONFIGURATION COMMANDS
 .PP
 Everywhere where port needs to be set, you can use the port number or the
@@ -135,7 +140,7 @@ Connect serial port X to serial port Y. This option have two aliases \fB\-\-se\-
 and \fB\-\-se\-route\fR.
 .TP
 \fB\-\-se\-clear\fR <ser_X>
-Disconnect serial port X from serial port Y.
+Disconnect serial port X from the connected serial port.
 .TP
 \fB\-\-se\-lock\fR <ser_X>
 Lock serial port X.
@@ -144,12 +149,27 @@ Lock serial port X.
 Unlock serial port X. If the port is locked by somebody else the
 port would be forcefully unlocked.
 .TP
-\fB\-\-se\-dir\fR <set_X> <in|out|auto>
+\fB\-\-se\-dir\fR <ser_X> <in|out|auto>
 Set serial port X direction. There are three possible settings for
 each port:
  \fBin\fR   - input/control/Workstation
  \fBout\fR  - output/slave/Deck
  \fBauto\fR - Automatic in/out
+.SH PROCESSING UNITS CONFIGURATION
+.PP
+.TP
+\fB\-\-pu\-input\fR <pu_X> <in_Y>
+Connect processing unit X to video input port Y.
+.TP
+\fB\-\-pu\-clear\fR <pu_X>
+Disconnect processing unit X from the connected input port.
+.TP
+\fB\-\-pu\-lock\fR <pu_X>
+Lock processing unit port X.
+.TP
+\fB\-\-pu\-unlock\fR <pu_X>
+Unlock processing unit port X. If the port is locked by somebody else the
+port would be forcefully unlocked.
 .SH MISC OPTIONS
 .PP
 .TP

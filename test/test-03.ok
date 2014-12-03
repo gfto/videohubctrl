@@ -64,6 +64,9 @@ videohub: set monitoring output 3 "Monitor 3" to read from video input 3 "Window
 videohub: set monitoring output 4 "Monitor 4" to read from video input 4 "Windows 4 HD"
 videohub: connect serial 1 "Serial Ctrl 1" to serial 3 "Deck 3"
 videohub: connect serial 2 "Serial Ctrl 2" to serial 4 "Deck 4"
+videohub: connect proc unit 1 "" to input 4 "Windows 4 HD"
+videohub: connect proc unit 2 "" to input 2 "Windows 2"
+videohub: connect proc unit 4 "" to input 3 "Windows 3"
 videohub: set serial 1 "Serial Ctrl 1" direction to IN (Workstation)
 videohub: set serial 2 "Serial Ctrl 2" direction to AUTO
 videohub: set serial 3 "Deck 3" direction to OUT (Deck)
@@ -112,6 +115,12 @@ videohub: unlock serial 5 "Serial 5"
 videohub: unlock serial 6 "Serial 6"
 videohub: unlock serial 7 "Serial 7"
 videohub: unlock serial 8 "Serial 8"
+videohub: unlock proc unit 1 ""
+videohub: lock proc unit 1 ""
+videohub: unlock proc unit 2 ""
+videohub: unlock proc unit 3 ""
+videohub: lock proc unit 3 ""
+videohub: unlock proc unit 4 ""
 Device info
   -------------------------------------------------------------------
   | Device address             | sdi-matrix                         |
@@ -122,6 +131,7 @@ Device info
   | Video inputs               | 16                                 |
   | Video outputs              | 16                                 |
   | Serial ports               | 8                                  |
+  | Video processing units     | 4                                  |
   | Video monitoring outputs   | 4                                  |
   -------------------------------------------------------------------
 
@@ -194,4 +204,14 @@ Serial ports
   |   7 |   |   in | Serial 7           |                    | x |
   |   8 |   |  out | Serial 8           |                    | x |
   ----------------------------------------------------------------
+
+Processing units
+  --------------------------------------------
+  | Proc Unit | x | Connected video input    |
+  --------------------------------------------
+  |         1 | O | Windows 4 HD             |
+  |         2 |   | Windows 2                |
+  |         3 | O |                          |
+  |         4 |   | Windows 3                |
+  --------------------------------------------
 

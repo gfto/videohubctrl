@@ -36,6 +36,8 @@ const char *videohub_commands_text[NUM_COMMANDS] = {
 	[CMD_SERIAL_PORT_LOCKS]      = "SERIAL PORT LOCKS",
 	[CMD_SERIAL_PORT_STATUS]     = "SERIAL PORT STATUS",
 	[CMD_SERIAL_PORT_DIRECTIONS] = "SERIAL PORT DIRECTIONS",
+	[CMD_PROCESSING_UNIT_ROUTING]= "PROCESSING UNIT ROUTING",
+	[CMD_PROCESSING_UNIT_LOCKS]  = "PROCESSING UNIT LOCKS",
 	[CMD_PING]                 = "PING",
 	[CMD_ACK]                  = "ACK",
 	[CMD_NAK]                  = "NAK",
@@ -122,6 +124,19 @@ struct videohub_commands videohub_commands[NUM_COMMANDS] = {
 		.ports1 = OFS(serial),
 		.port_id1 = "serial",
 		.opt_prefix = "se",
+	},
+	[CMD_PROCESSING_UNIT_ROUTING] = { .cmd = CMD_PROCESSING_UNIT_ROUTING, .type = PARSE_ROUTE,
+		.ports1 = OFS(proc_units),
+		.ports2 = OFS(inputs),
+		.port_id1 = "proc unit",
+		.port_id2 = "input",
+		.opt_prefix = "pu",
+		.allow_disconnect = true,
+	},
+	[CMD_PROCESSING_UNIT_LOCKS] = { .cmd = CMD_PROCESSING_UNIT_LOCKS, .type = PARSE_LOCK,
+		.ports1 = OFS(proc_units),
+		.port_id1 = "proc unit",
+		.opt_prefix = "pu",
 	},
 	[CMD_PING]                 = { .cmd = CMD_PING                , .type = PARSE_NONE },
 	[CMD_ACK]                  = { .cmd = CMD_ACK                 , .type = PARSE_NONE },
@@ -273,7 +288,7 @@ bool parse_command(struct videohub_data *d, char *cmd) {
 			else if ((p = parse_text(line, "Video inputs: ")))
 				d->inputs.num = strtoul(p, NULL, 10);
 			else if ((p = parse_text(line, "Video processing units: ")))
-				d->device.num_video_processing_units = strtoul(p, NULL, 10);
+				d->proc_units.num = strtoul(p, NULL, 10);
 			else if ((p = parse_text(line, "Video outputs: ")))
 				d->outputs.num = strtoul(p, NULL, 10);
 			else if ((p = parse_text(line, "Video monitoring outputs: ")))

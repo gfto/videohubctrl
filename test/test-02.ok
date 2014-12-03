@@ -65,6 +65,9 @@ videohubctrl \
   --mo-input   4   4 \
   --se-input   1   3 \
   --se-input   2   4 \
+  --pu-input   1   4 \
+  --pu-input   2   2 \
+  --pu-input   4   3 \
   --se-dir   1 in \
   --se-dir   2 auto \
   --se-dir   3 out \
@@ -101,4 +104,8 @@ videohubctrl \
   --se-unlock   6 \
   --se-unlock   7 \
   --se-unlock   8
+  --pu-unlock   1 --pu-lock   1 \
+  --pu-unlock   2 \
+  --pu-unlock   3 --pu-lock   3 \
+  --pu-unlock   4
 

@@ -29,6 +29,14 @@ videohub: connect serial 4 "Deck 4" to serial 5 "Serial 5"
 videohub: connect serial 6 "Serial 6" to serial 7 "Serial 7"
 videohub: disconnect serial 4 "Deck 4"
 videohub: disconnect serial 6 "Serial 6"
+videohub: disconnect proc unit 1 ""
+videohub: disconnect proc unit 3 ""
+videohub: disconnect proc unit 4 ""
+videohub: force unlock proc unit 1 ""
+videohub: lock proc unit 1 ""
+videohub: connect proc unit 1 "" to input 4 "Windows 4 HighDef"
+videohub: connect proc unit 4 "" to input 12 "DPlay1"
+videohub: lock proc unit 4 ""
 Device info
   -------------------------------------------------------------------
   | Device address             | sdi-matrix                         |
@@ -39,6 +47,7 @@ Device info
   | Video inputs               | 16                                 |
   | Video outputs              | 16                                 |
   | Serial ports               | 8                                  |
+  | Video processing units     | 4                                  |
   | Video monitoring outputs   | 4                                  |
   -------------------------------------------------------------------
 
@@ -112,4 +121,14 @@ Serial ports
   |   7 |   |  out | Serial 7           |                    | x |
   |   8 |   | auto | Serial 8           |                    | x |
   ----------------------------------------------------------------
+
+Processing units
+  --------------------------------------------
+  | Proc Unit | x | Connected video input    |
+  --------------------------------------------
+  |         1 | O | Windows 4 HighDef        |
+  |         2 |   | Windows 2                |
+  |         3 | O |                          |
+  |         4 | O | DPlay1                   |
+  --------------------------------------------
 

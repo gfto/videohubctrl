@@ -53,8 +53,8 @@ void print_device_info(struct videohub_data *d) {
 	printf("  | %-26s | %-34u |\n", "Video outputs", d->outputs.num);
 	if (d->serial.num)
 		printf("  | %-26s | %-34u |\n", "Serial ports", d->serial.num);
-	if (d->device.num_video_processing_units)
-		printf("  | %-26s | %-34u |\n", "Video processing units", d->device.num_video_processing_units);
+	if (d->proc_units.num)
+		printf("  | %-26s | %-34u |\n", "Video processing units", d->proc_units.num);
 	if (d->mon_outputs.num)
 		printf("  | %-26s | %-34u |\n", "Video monitoring outputs", d->mon_outputs.num);
 	printf_line(len);
@@ -179,6 +179,25 @@ void print_device_serial_ports(struct videohub_data *d) {
 			d->serial.port[i].name,
 			d->serial.port[i].routed_to == NO_PORT ? "" : d->serial.port[d->serial.port[i].routed_to].name,
 			format_status(d->serial.port[i].status)
+		);
+	}
+	printf_line(len);
+	printf("\n");
+}
+
+void print_device_processing_units(struct videohub_data *d) {
+	unsigned int i, len = 44;
+	if (!d->proc_units.num)
+		return;
+	printf("Processing units\n");
+	printf_line(len);
+	printf("  | Proc Unit | x | %-24s |\n", "Connected video input");
+	printf_line(len);
+	for(i = 0; i < d->proc_units.num; i++) {
+		printf("  | %9d | %c | %-24s |\n",
+			i + 1,
+			port_lock_symbol(d->proc_units.port[i].lock),
+			d->proc_units.port[i].routed_to == NO_PORT ? "" : d->inputs.port[d->proc_units.port[i].routed_to].name
 		);
 	}
 	printf_line(len);

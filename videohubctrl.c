@@ -43,6 +43,7 @@ enum list_actions {
 	action_list_voutputs	= (1 << 2),
 	action_list_moutputs	= (1 << 3),
 	action_list_serial		= (1 << 4),
+	action_list_proc_units	= (1 << 5),
 };
 
 static const char *program_id = PROGRAM_NAME " Version: " VERSION " Git: " GIT_VER;
@@ -84,6 +85,12 @@ static const struct option long_options[] = {
 	{ "se-unlock",			required_argument, NULL, 4004 },
 	{ "se-dir",				required_argument, NULL, 4005 },
 	{ "se-clear",			required_argument, NULL, 4006 },
+	{ "pu-input",			required_argument, NULL, 5001 },
+	{ "pu-connect",			required_argument, NULL, 5001 }, // Alias of --pu-input
+	{ "pu-route",			required_argument, NULL, 5001 }, // Alias of --pu-input
+	{ "pu-lock",			required_argument, NULL, 5002 },
+	{ "pu-unlock",			required_argument, NULL, 5003 },
+	{ "pu-clear",			required_argument, NULL, 5004 },
 	{ 0, 0, 0, 0 }
 };
 
@@ -109,6 +116,7 @@ static void show_help(struct videohub_data *data) {
 	printf(" --list-voutputs            | List device video outputs.\n");
 	printf(" --list-moutputs            | List device monitoring outputs.\n");
 	printf(" --list-serial              | List device serial ports.\n");
+	printf(" --list-proc-units          | List device processing units.\n");
 	printf("\n");
 	printf("Video inputs configuration:\n");
 	printf(" --vi-name <in_X> <name>    | Set video input port X name.\n");
@@ -133,6 +141,12 @@ static void show_help(struct videohub_data *data) {
 	printf(" --se-unlock <ser_X>        | Unlock serial port X.\n");
 	printf(" --se-dir <ser_X> <dir>     | Set serial port X direction.\n");
 	printf("                            . <dir> can be 'auto', 'in' or 'out'.\n");
+	printf("\n");
+	printf("Processing units configuration:\n");
+	printf(" --pu-input <pu_X> <in_Y>   | Connect processing unit X to input Y.\n");
+	printf(" --pu-clear <pu_X>          | Disconnect unit X from input Y.\n");
+	printf(" --pu-lock <pu_X>           | Lock processing unit X.\n");
+	printf(" --pu-unlock <pu_X>         | Unlock processing unit X.\n");
 	printf("\n");
 	printf("Misc options:\n");
 	printf(" -T --test-input <file>     | Read commands from <file>.\n");
@@ -261,6 +275,10 @@ static void parse_options(struct videohub_data *data, int argc, char **argv) {
 			case 4004: parse_cmd1(argc, argv, CMD_SERIAL_PORT_LOCKS, false); break; // --se-unlock
 			case 4005: parse_cmd2(argc, argv, CMD_SERIAL_PORT_DIRECTIONS); break; // --se-dir
 			case 4006: parse_cmd2s(argc, argv, CMD_SERIAL_PORT_ROUTING); break; // --se-clear
+			case 5001: parse_cmd2(argc, argv, CMD_PROCESSING_UNIT_ROUTING); break; // --pu-input
+			case 5002: parse_cmd1(argc, argv, CMD_PROCESSING_UNIT_LOCKS, true); break; // --pu-lock
+			case 5003: parse_cmd1(argc, argv, CMD_PROCESSING_UNIT_LOCKS, false); break; // --pu-unlock
+			case 5004: parse_cmd2s(argc, argv, CMD_PROCESSING_UNIT_ROUTING); break; // --pu-clear
 			case 'H': // --help
 				show_help(data);
 				exit(EXIT_SUCCESS);
@@ -301,6 +319,7 @@ static void print_device_full(struct videohub_data *d) {
 	print_device_video_outputs(d);
 	print_device_monitoring_outputs(d);
 	print_device_serial_ports(d);
+	print_device_processing_units(d);
 	fflush(stdout);
 }
 
@@ -337,6 +356,7 @@ int main(int argc, char **argv) {
 	}
 
 	reset_routed_to(&data->serial);
+	reset_routed_to(&data->proc_units);
 	read_device_command_stream(data);
 
 	if (test_data)
@@ -360,6 +380,7 @@ int main(int argc, char **argv) {
 	check_number_of_ports(&data->outputs);
 	check_number_of_ports(&data->mon_outputs);
 	check_number_of_ports(&data->serial);
+	check_number_of_ports(&data->proc_units);
 
 	if (num_parsed_cmds) {
 		unsigned int i;
@@ -408,6 +429,7 @@ int main(int argc, char **argv) {
 		if (show_list & action_list_voutputs)	print_device_video_outputs(data);
 		if (show_list & action_list_moutputs)	print_device_monitoring_outputs(data);
 		if (show_list & action_list_serial)		print_device_serial_ports(data);
+		if (show_list & action_list_proc_units)	print_device_processing_units(data);
 		fflush(stdout);
 	} else if (show_backup) {
 		print_device_backup(data);

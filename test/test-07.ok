@@ -8,6 +8,7 @@ Device info
   | Video inputs               | 16                                 |
   | Video outputs              | 16                                 |
   | Serial ports               | 8                                  |
+  | Video processing units     | 4                                  |
   | Video monitoring outputs   | 4                                  |
   -------------------------------------------------------------------
 

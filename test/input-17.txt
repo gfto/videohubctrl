@@ -7,7 +7,7 @@ Model name: Blackmagic Workgroup Videohub
 Friendly name: SDI router on the 5th floor
 Unique ID: 465647757584
 Video inputs: 16
-Video processing units: 16
+Video processing units: 0
 Video outputs: 32
 Video monitoring outputs: 8
 Serial ports: 8
@@ -193,12 +193,6 @@ FRAME BUFFER ROUTING:
 2 Frame 6
 
 FRAME BUFFER LOCKS:
-0 U
-
-PROCESSING UNIT ROUTING:
-0 Output 15
-
-PROCESSING UNIT LOCKS:
 0 U
 
 ALARM STATUS:

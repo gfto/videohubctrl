@@ -6,6 +6,8 @@ xxxx-xx-xx : Version 0.5-dev
     --se-dir and --list-serial.
  * Add support for undocumented "Thunderbolt" port status/type.
  * Display the undocumented "Friendly name" device setting.
+ * Add support for processing units (routing and locks). It is not tested
+   on a real hardware.
 
 2014-11-30 : Version 0.4
  * Add videohubctrl(1) man page.

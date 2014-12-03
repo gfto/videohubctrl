@@ -59,20 +59,6 @@ WARNING: Videohub sent unknown command!
          Please report this command to author's email: georgi@unixsol.org
          You may use -q or --quiet to suppress the message.
 ---------8<-----------8<----------- cut here ---------8<------------8<---------
-PROCESSING UNIT ROUTING:
-0 Output 15
----------8<-----------8<----------- cut here ---------8<------------8<---------
-WARNING: Videohub sent unknown command!
-         Please report this command to author's email: georgi@unixsol.org
-         You may use -q or --quiet to suppress the message.
----------8<-----------8<----------- cut here ---------8<------------8<---------
-PROCESSING UNIT LOCKS:
-0 U
----------8<-----------8<----------- cut here ---------8<------------8<---------
-WARNING: Videohub sent unknown command!
-         Please report this command to author's email: georgi@unixsol.org
-         You may use -q or --quiet to suppress the message.
----------8<-----------8<----------- cut here ---------8<------------8<---------
 ALARM STATUS:
 0 Error
 ---------8<-----------8<----------- cut here ---------8<------------8<---------
@@ -100,7 +86,6 @@ Device info
   | Video inputs               | 16                                 |
   | Video outputs              | 32                                 |
   | Serial ports               | 8                                  |
-  | Video processing units     | 16                                 |
   | Video monitoring outputs   | 8                                  |
   -------------------------------------------------------------------
 

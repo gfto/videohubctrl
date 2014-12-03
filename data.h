@@ -27,7 +27,6 @@ struct device_desc {
 	char			model_name[MAX_NAME_LEN];
 	char			friendly_name[MAX_NAME_LEN];
 	char			unique_id[MAX_NAME_LEN];
-	unsigned int	num_video_processing_units;
 };
 
 enum port_status {
@@ -82,6 +81,7 @@ struct videohub_data {
 	struct port_set			outputs;
 	struct port_set			mon_outputs;
 	struct port_set			serial;
+	struct port_set			proc_units;
 };
 
 extern int debug;
