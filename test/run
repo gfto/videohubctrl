@@ -142,3 +142,9 @@ check test/test-16 "Test --list-serial option output"
 
 videohubctrl --test-input test/input-17.txt --info $@ &> test/test-17.out
 check test/test-17 "Test wider range of input commands"
+
+videohubctrl --test-input test/input-00.txt --list-proc-units $@ &> test/test-18.out
+check test/test-18 "Test --list-proc-units option output"
+
+videohubctrl --test-input test/input-00.txt --list-frames $@ &> test/test-19.out
+check test/test-19 "Test --list-frames option output"

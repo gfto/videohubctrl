@@ -67,6 +67,8 @@ static const struct option long_options[] = {
 	{ "list-voutputs",		no_argument,       NULL, 903 },
 	{ "list-moutputs",		no_argument,       NULL, 904 },
 	{ "list-serial",		no_argument,       NULL, 905 },
+	{ "list-proc-units",	no_argument,       NULL, 906 },
+	{ "list-frames",		no_argument,       NULL, 907 },
 	{ "vi-name",			required_argument, NULL, 1001 },
 	{ "vo-name",			required_argument, NULL, 2001 },
 	{ "vo-input",			required_argument, NULL, 2002 },
@@ -277,6 +279,8 @@ static void parse_options(struct videohub_data *data, int argc, char **argv) {
 			case 903: show_list |= action_list_voutputs; break; // --list-voutputs
 			case 904: show_list |= action_list_moutputs; break; // --list-moutputs
 			case 905: show_list |= action_list_serial; break; // --list-serial
+			case 906: show_list |= action_list_proc_units; break; // --list-proc-units
+			case 907: show_list |= action_list_frames; break; // --list-frames
 			case 1001: parse_cmd2(argc, argv, CMD_INPUT_LABELS); break; // --vi-name
 			case 2001: parse_cmd2(argc, argv, CMD_OUTPUT_LABELS); break; // --vo-name
 			case 2002: parse_cmd2(argc, argv, CMD_VIDEO_OUTPUT_ROUTING); break; // --vo-input
