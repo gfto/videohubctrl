@@ -1,3 +1,4 @@
+videohub: set device "Friendly name" to "Test name"
 videohub: rename video input 4 "Windows 4 HD" to "Windows 4 HighDef"
 videohub: rename video input 5 "Input 5" to "In 5"
 videohub: rename video input 6 "Input 6" to "Camera 6"
@@ -51,6 +52,7 @@ Device info
   | Device address             | sdi-matrix                         |
   | Device port                | 9990                               |
   | Model name                 | Blackmagic Micro Videohub          |
+  | Friendly name              | Test name                          |
   | Unique ID                  | 7c2e0d021714                       |
   | Protocol                   | 2.4                                |
   | Video inputs               | 16                                 |

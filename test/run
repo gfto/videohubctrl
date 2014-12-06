@@ -32,6 +32,7 @@ check test/test-02 "Test --backup option output"
 check test/test-03 "Test --backup restore"
 
 videohubctrl --test-input test/input-00.txt \
+	--set-name "Test name" \
 	--vi-name "Windows 4 HD" "Windows 4 HighDef" \
 	--vi-name 5 "In 5" \
 	--vi-name "Input 6" "Camera 6" \
@@ -111,7 +112,8 @@ check test/test-05 "Test if --backup restored correct config."
 ./videohubctrl --test-input test/input-00.txt --se-unlock "Serial 18"                $@ >> test/test-06.out 2>&1
 ./videohubctrl --test-input test/input-00.txt --se-dir 1 err-dir                     $@ >> test/test-06.out 2>&1
 ./videohubctrl --test-input test/input-00.txt --se-dir "Serial 5" err-dir            $@ >> test/test-06.out 2>&1
-check test/test-06 "Test errors on commands with invalid ports."
+./videohubctrl --test-input test/input-00.txt --set-name                             $@ >> test/test-06.out 2>&1
+check test/test-06 "Test errors on commands with invalid parameters."
 
 videohubctrl --test-input test/input-00.txt --list-device $@ &> test/test-07.out
 check test/test-07 "Test --list-device option output"

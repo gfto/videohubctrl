@@ -382,6 +382,9 @@ void prepare_cmd_entry(struct videohub_data *d, struct vcmd_entry *e) {
 	struct port_set *s_port = !e->cmd->ports1 ? NULL : (void *)d + e->cmd->ports1;
 	struct port_set *d_port = !e->cmd->ports2 ? NULL : (void *)d + e->cmd->ports2;
 
+	if (e->cmd->type == PARSE_CUSTOM)
+		return;
+
 	// All command types needs parsing of the "source port"
 	e->port_no1 = my_atoi(e->param1);
 	if (e->port_no1 == 0 || e->port_no1 > s_port->num) {
@@ -430,6 +433,11 @@ static char *dir2txt(enum serial_dir dir) {
 }
 
 void format_cmd_text(struct vcmd_entry *e, char *buf, unsigned int bufsz) {
+	if (e->cmd->cmd == CMD_VIDEOHUB_DEVICE) {
+		snprintf(buf, bufsz, "%s:\n%s: %s\n\n", videohub_commands_text[e->cmd->cmd],
+			e->param1, e->param2);
+		return;
+	}
 	switch (e->cmd->type) {
 	case PARSE_LABEL:
 		snprintf(buf, bufsz, "%s:\n%u %s\n\n", videohub_commands_text[e->cmd->cmd],
@@ -455,6 +463,14 @@ void show_cmd(struct videohub_data *d, struct vcmd_entry *e) {
 	struct port_set *s_port = !e->cmd->ports1 ? NULL : (void *)d + e->cmd->ports1;
 	struct port_set *d_port = !e->cmd->ports2 ? NULL : (void *)d + e->cmd->ports2;
 	const char *prefix = "videohub: ";
+	if (e->cmd->cmd == CMD_VIDEOHUB_DEVICE) {
+		printf("%sset device \"%s\" to \"%s\"\n",
+			prefix,
+			e->param1,
+			e->param2
+		);
+		return;
+	}
 	switch (e->cmd->type) {
 	case PARSE_LABEL:
 		printf("%srename %s %d \"%s\" to \"%s\"\n",

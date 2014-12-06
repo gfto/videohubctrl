@@ -59,6 +59,8 @@ Commands:
  --list-proc-units          | List device processing units.
  --list-frames              | List device frame buffers.
 
+ --set-name <name>          | Set the device "friendly name".
+
 Video inputs configuration:
  --vi-name <in_X> <name>    | Set video input port X name.
 

@@ -1,4 +1,5 @@
 videohubctrl \
+  --set-name "My Videohub" \
   --vi-name   1 "Windows 1" \
   --vi-name   2 "Windows 2" \
   --vi-name   3 "Windows 3" \

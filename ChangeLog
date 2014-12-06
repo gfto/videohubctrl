@@ -1,6 +1,7 @@
 |-----------------------------------------------------------------------|
 xxxx-xx-xx : Version -next
  * Add support for --list-proc-units and --list-frames.
+ * Add support for setting device friendly name using --set-name option.
 
 2014-12-03 : Version 1.0
  * Add missing documentation for --list-moutputs parameter.

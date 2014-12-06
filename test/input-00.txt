@@ -4,6 +4,7 @@ Version: 2.4
 VIDEOHUB DEVICE:
 Device present: true
 Model name: Blackmagic Micro Videohub
+Friendly name: My Videohub
 Unique ID: 7c2e0d021714
 Video inputs: 16
 Video processing units: 4

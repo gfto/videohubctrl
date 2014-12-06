@@ -260,6 +260,9 @@ static void __print_opt(struct videohub_data *d, enum vcmd vcmd) {
 void print_device_backup(struct videohub_data *d) {
 	unsigned int i;
 	printf("videohubctrl \\\n");
+	if (d->device.friendly_name[0]) {
+		printf("  --set-name \"%s\" \\\n", d->device.friendly_name);
+	}
 	for (i = 0; i < NUM_COMMANDS; i++) {
 		if (videohub_commands[i].type == PARSE_LABEL)
 			__print_opt(d, videohub_commands[i].cmd);
