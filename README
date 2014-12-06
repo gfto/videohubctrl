@@ -57,6 +57,7 @@ Commands:
  --list-moutputs            | List device monitoring outputs.
  --list-serial              | List device serial ports.
  --list-proc-units          | List device processing units.
+ --list-frames              | List device frame buffers.
 
 Video inputs configuration:
  --vi-name <in_X> <name>    | Set video input port X name.
