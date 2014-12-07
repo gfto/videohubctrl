@@ -409,7 +409,7 @@ int main(int argc, char **argv) {
 		die("The device does not respond correctly. Is it Videohub?");
 
 	if (strstr(data->device.protocol_ver, "2.") != data->device.protocol_ver)
-		die("Device protocol is %s but this program supports 2.x only.\n",
+		q("WARNING: Device protocol is %s but this program is tested with 2.x only.\n",
 			data->device.protocol_ver);
 
 	if (!data->device.dev_present) {
