@@ -1,5 +1,5 @@
 |-----------------------------------------------------------------------|
-xxxx-xx-xx : Version -next
+2014-12-08 : Version 2.0
  * Add support for --list-proc-units and --list-frames.
  * Add support for setting device friendly name using --set-name option.
  * Add support for routing inputs to outputs/mon_ports using
