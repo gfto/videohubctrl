@@ -85,55 +85,55 @@ static const struct option long_options[] = {
 
 	{ "out-name",			required_argument, NULL, 2001 },
 	{ "out-input",			required_argument, NULL, 2002 },
-	{ "out-route",			required_argument, NULL, 2002 }, // Alias of --vo-input
+	{ "out-route",			required_argument, NULL, 2002 }, // Alias
 	{ "out-lock",			required_argument, NULL, 2003 },
 	{ "out-unlock",			required_argument, NULL, 2004 },
 	{ "vo-name",			required_argument, NULL, 2001 },
 	{ "vo-input",			required_argument, NULL, 2002 },
-	{ "vo-route",			required_argument, NULL, 2002 }, // Alias of --vo-input
+	{ "vo-route",			required_argument, NULL, 2002 }, // Alias
 	{ "vo-lock",			required_argument, NULL, 2003 },
 	{ "vo-unlock",			required_argument, NULL, 2004 },
 
 	{ "mon-name",			required_argument, NULL, 3001 },
 	{ "mon-input",			required_argument, NULL, 3002 },
-	{ "mon-route",			required_argument, NULL, 3002 }, // Alias of --mo-input
+	{ "mon-route",			required_argument, NULL, 3002 }, // Alias
 	{ "mon-lock",			required_argument, NULL, 3003 },
 	{ "mon-unlock",			required_argument, NULL, 3004 },
 	{ "mo-name",			required_argument, NULL, 3001 },
 	{ "mo-input",			required_argument, NULL, 3002 },
-	{ "mo-route",			required_argument, NULL, 3002 }, // Alias of --mo-input
+	{ "mo-route",			required_argument, NULL, 3002 }, // Alias
 	{ "mo-lock",			required_argument, NULL, 3003 },
 	{ "mo-unlock",			required_argument, NULL, 3004 },
 
 	{ "ser-name",			required_argument, NULL, 4001 },
 	{ "ser-input",			required_argument, NULL, 4002 },
-	{ "ser-connect",		required_argument, NULL, 4002 }, // Alias of --se-input
-	{ "ser-route",			required_argument, NULL, 4002 }, // Alias of --se-input
+	{ "ser-connect",		required_argument, NULL, 4002 }, // Alias
+	{ "ser-route",			required_argument, NULL, 4002 }, // Alias
 	{ "ser-lock",			required_argument, NULL, 4003 },
 	{ "ser-unlock",			required_argument, NULL, 4004 },
 	{ "ser-dir",			required_argument, NULL, 4005 },
 	{ "ser-clear",			required_argument, NULL, 4006 },
 	{ "se-name",			required_argument, NULL, 4001 },
 	{ "se-input",			required_argument, NULL, 4002 },
-	{ "se-connect",			required_argument, NULL, 4002 }, // Alias of --se-input
-	{ "se-route",			required_argument, NULL, 4002 }, // Alias of --se-input
+	{ "se-connect",			required_argument, NULL, 4002 }, // Alias
+	{ "se-route",			required_argument, NULL, 4002 }, // Alias
 	{ "se-lock",			required_argument, NULL, 4003 },
 	{ "se-unlock",			required_argument, NULL, 4004 },
 	{ "se-dir",				required_argument, NULL, 4005 },
 	{ "se-clear",			required_argument, NULL, 4006 },
 
 	{ "pu-input",			required_argument, NULL, 5001 },
-	{ "pu-connect",			required_argument, NULL, 5001 }, // Alias of --pu-input
-	{ "pu-route",			required_argument, NULL, 5001 }, // Alias of --pu-input
+	{ "pu-connect",			required_argument, NULL, 5001 }, // Alias
+	{ "pu-route",			required_argument, NULL, 5001 }, // Alias
 	{ "pu-lock",			required_argument, NULL, 5002 },
 	{ "pu-unlock",			required_argument, NULL, 5003 },
 	{ "pu-clear",			required_argument, NULL, 5004 },
 
 	{ "fr-name",			required_argument, NULL, 6001 },
 	{ "fr-output",			required_argument, NULL, 6002 },
-	{ "fr-connect",			required_argument, NULL, 6002 }, // Alias of --fr-output
-	{ "fr-input",			required_argument, NULL, 6002 }, // Alias of --fr-output
-	{ "fr-route",			required_argument, NULL, 6002 }, // Alias of --fr-output
+	{ "fr-connect",			required_argument, NULL, 6002 }, // Alias
+	{ "fr-input",			required_argument, NULL, 6002 }, // Alias
+	{ "fr-route",			required_argument, NULL, 6002 }, // Alias
 	{ "fr-lock",			required_argument, NULL, 6003 },
 	{ "fr-unlock",			required_argument, NULL, 6004 },
 	{ "fr-clear",			required_argument, NULL, 6006 },
@@ -339,23 +339,23 @@ static void parse_options(struct videohub_data *data, int argc, char **argv) {
 			case 906: show_list |= action_list_proc_units; break; // --list-proc-units
 			case 907: show_list |= action_list_frames; break; // --list-frames
 			case 950: set_device_option("Friendly name", optarg); break; // --set-name
-			case 1001: parse_cmd2(argc, argv, CMD_INPUT_LABELS); break; // --vi-name
-			case 1002: parse_cmd2(argc, argv, CMD_VIDEO_OUTPUT_ROUTING); switch_cmd_args(); break; // --vi-output
-			case 1003: parse_cmd2(argc, argv, CMD_MONITORING_OUTPUT_ROUTING); switch_cmd_args(); break; // --vi-monitor
-			case 2001: parse_cmd2(argc, argv, CMD_OUTPUT_LABELS); break; // --vo-name
-			case 2002: parse_cmd2(argc, argv, CMD_VIDEO_OUTPUT_ROUTING); break; // --vo-input
-			case 2003: parse_cmd1(argc, argv, CMD_VIDEO_OUTPUT_LOCKS, true); break; // --vo-lock
-			case 2004: parse_cmd1(argc, argv, CMD_VIDEO_OUTPUT_LOCKS, false); break; // --vo-unlock
-			case 3001: parse_cmd2(argc, argv, CMD_MONITORING_OUTPUT_LABELS); break; // --mo-name
-			case 3002: parse_cmd2(argc, argv, CMD_MONITORING_OUTPUT_ROUTING); break; // --mo-input
-			case 3003: parse_cmd1(argc, argv, CMD_MONITORING_OUTPUT_LOCKS, true); break; // --mo-lock
-			case 3004: parse_cmd1(argc, argv, CMD_MONITORING_OUTPUT_LOCKS, false); break; // --mo-unlock
-			case 4001: parse_cmd2(argc, argv, CMD_SERIAL_PORT_LABELS); break; // --se-name
-			case 4002: parse_cmd2(argc, argv, CMD_SERIAL_PORT_ROUTING); break; // --se-input
-			case 4003: parse_cmd1(argc, argv, CMD_SERIAL_PORT_LOCKS, true); break; // --se-lock
-			case 4004: parse_cmd1(argc, argv, CMD_SERIAL_PORT_LOCKS, false); break; // --se-unlock
-			case 4005: parse_cmd2(argc, argv, CMD_SERIAL_PORT_DIRECTIONS); break; // --se-dir
-			case 4006: parse_cmd2s(argc, argv, CMD_SERIAL_PORT_ROUTING); break; // --se-clear
+			case 1001: parse_cmd2(argc, argv, CMD_INPUT_LABELS); break; // --in-name
+			case 1002: parse_cmd2(argc, argv, CMD_VIDEO_OUTPUT_ROUTING); switch_cmd_args(); break; // --in-output
+			case 1003: parse_cmd2(argc, argv, CMD_MONITORING_OUTPUT_ROUTING); switch_cmd_args(); break; // --in-monitor
+			case 2001: parse_cmd2(argc, argv, CMD_OUTPUT_LABELS); break; // --out-name
+			case 2002: parse_cmd2(argc, argv, CMD_VIDEO_OUTPUT_ROUTING); break; // --out-input
+			case 2003: parse_cmd1(argc, argv, CMD_VIDEO_OUTPUT_LOCKS, true); break; // --out-lock
+			case 2004: parse_cmd1(argc, argv, CMD_VIDEO_OUTPUT_LOCKS, false); break; // --out-unlock
+			case 3001: parse_cmd2(argc, argv, CMD_MONITORING_OUTPUT_LABELS); break; // --mon-name
+			case 3002: parse_cmd2(argc, argv, CMD_MONITORING_OUTPUT_ROUTING); break; // --mon-input
+			case 3003: parse_cmd1(argc, argv, CMD_MONITORING_OUTPUT_LOCKS, true); break; // --mon-lock
+			case 3004: parse_cmd1(argc, argv, CMD_MONITORING_OUTPUT_LOCKS, false); break; // --mon-unlock
+			case 4001: parse_cmd2(argc, argv, CMD_SERIAL_PORT_LABELS); break; // --ser-name
+			case 4002: parse_cmd2(argc, argv, CMD_SERIAL_PORT_ROUTING); break; // --ser-input
+			case 4003: parse_cmd1(argc, argv, CMD_SERIAL_PORT_LOCKS, true); break; // --ser-lock
+			case 4004: parse_cmd1(argc, argv, CMD_SERIAL_PORT_LOCKS, false); break; // --ser-unlock
+			case 4005: parse_cmd2(argc, argv, CMD_SERIAL_PORT_DIRECTIONS); break; // --ser-dir
+			case 4006: parse_cmd2s(argc, argv, CMD_SERIAL_PORT_ROUTING); break; // --ser-clear
 			case 5001: parse_cmd2(argc, argv, CMD_PROCESSING_UNIT_ROUTING); break; // --pu-input
 			case 5002: parse_cmd1(argc, argv, CMD_PROCESSING_UNIT_LOCKS, true); break; // --pu-lock
 			case 5003: parse_cmd1(argc, argv, CMD_PROCESSING_UNIT_LOCKS, false); break; // --pu-unlock
