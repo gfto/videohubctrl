@@ -107,6 +107,12 @@ command will fail. Using port numbers always works.
 .TP
 \fB\-\-vi\-name\fR <in_X> <name>
 Set video input port X name.
+.TP
+\fB\-\-vi\-output\fR <in_X> <out_Y>
+Set video input X to be outputted via output Y.
+.TP
+\fB\-\-vi\-monitor\fR <in_X> <mout_Y>
+Set video input X to be outputted via monitoring port Y.
 .SH VIDEO OUTPUTS CONFIGURATION
 .PP
 .TP
@@ -246,6 +252,12 @@ To get a quick start here are some example command lines.
  # Set two outputs to receive from the same input using port names
    videohubctrl -h sdi --vo-input "Output 8" "Windows 4 HD"
    videohubctrl -h sdi --vo-input "Output 7" "Windows 4 HD"
+
+ # Set one input to go out two outputs and two monitoring ports
+   videohubctrl -h sdi --vi-output  "Windows 4 HD" "Output 8" \\
+                       --vi-output  "Windows 4 HD" "Output 7" \\
+                       --vi-monitor "Windows 4 HD" "Monitor 1" \\
+                       --vi-monitor "Windows 4 HD" "Monitor 2"
 
  # Run several commands at once
  # Rename video input 11 and 12

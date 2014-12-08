@@ -71,6 +71,8 @@ static const struct option long_options[] = {
 	{ "list-frames",		no_argument,       NULL, 907 },
 	{ "set-name",			required_argument, NULL, 950 },
 	{ "vi-name",			required_argument, NULL, 1001 },
+	{ "vi-output",			required_argument, NULL, 1002 },
+	{ "vi-monitor",			required_argument, NULL, 1003 },
 	{ "vo-name",			required_argument, NULL, 2001 },
 	{ "vo-input",			required_argument, NULL, 2002 },
 	{ "vo-route",			required_argument, NULL, 2002 }, // Alias of --vo-input
@@ -135,6 +137,8 @@ static void show_help(struct videohub_data *data) {
 	printf("\n");
 	printf("Video inputs configuration:\n");
 	printf(" --vi-name <in_X> <name>    | Set video input port X name.\n");
+	printf(" --vi-output <in_X> <out_Y> | Route video input X to output Y.\n");
+	printf(" --vi-monitor <in_X> <mout_Y> | Route video input X to mon port Y.\n");
 	printf("\n");
 	printf("Video outputs configuration:\n");
 	printf(" --vo-name <out_X> <name>   | Set video output port X name.\n");
@@ -236,6 +240,15 @@ static void set_device_option(char *setting, char *value) {
 	num_parsed_cmds++;
 }
 
+static void switch_cmd_args(void) {
+	char *p1, *p2;
+	parsed_cmds.entry[num_parsed_cmds-1].reversed_args = 1;
+	p1 = parsed_cmds.entry[num_parsed_cmds-1].p1.param;
+	p2 = parsed_cmds.entry[num_parsed_cmds-1].p2.param;
+	parsed_cmds.entry[num_parsed_cmds-1].p1.param = p2;
+	parsed_cmds.entry[num_parsed_cmds-1].p2.param = p1;
+}
+
 static void parse_options(struct videohub_data *data, int argc, char **argv) {
 	int j, err = 0;
 	// Check environment
@@ -295,6 +308,8 @@ static void parse_options(struct videohub_data *data, int argc, char **argv) {
 			case 907: show_list |= action_list_frames; break; // --list-frames
 			case 950: set_device_option("Friendly name", optarg); break; // --set-name
 			case 1001: parse_cmd2(argc, argv, CMD_INPUT_LABELS); break; // --vi-name
+			case 1002: parse_cmd2(argc, argv, CMD_VIDEO_OUTPUT_ROUTING); switch_cmd_args(); break; // --vi-output
+			case 1003: parse_cmd2(argc, argv, CMD_MONITORING_OUTPUT_ROUTING); switch_cmd_args(); break; // --vi-monitor
 			case 2001: parse_cmd2(argc, argv, CMD_OUTPUT_LABELS); break; // --vo-name
 			case 2002: parse_cmd2(argc, argv, CMD_VIDEO_OUTPUT_ROUTING); break; // --vo-input
 			case 2003: parse_cmd1(argc, argv, CMD_VIDEO_OUTPUT_LOCKS, true); break; // --vo-lock

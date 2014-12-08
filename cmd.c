@@ -506,6 +506,16 @@ void show_cmd(struct videohub_data *d, struct vcmd_entry *e) {
 			);
 			break;
 		}
+		if (e->reversed_args) {
+			printf("%sset %s %d \"%s\" to go out of %s %d \"%s\"\n",
+				prefix,
+				e->cmd->port_id2,
+				e->p2.port_no + 1, d_port->port[e->p2.port_no].name,
+				e->cmd->port_id1,
+				e->p1.port_no + 1, s_port->port [e->p1.port_no].name
+			);
+			break;
+		}
 		printf("%sset %s %d \"%s\" to read from %s %d \"%s\"\n",
 			prefix,
 			e->cmd->port_id1,

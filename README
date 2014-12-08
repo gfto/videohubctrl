@@ -63,6 +63,8 @@ Commands:
 
 Video inputs configuration:
  --vi-name <in_X> <name>    | Set video input port X name.
+ --vi-output <in_X> <out_Y> | Route video input X to output Y.
+ --vi-monitor <in_X> <mout_Y> | Route video input X to mon port Y.
 
 Video outputs configuration:
  --vo-name <out_X> <name>   | Set video output port X name.
@@ -148,6 +150,14 @@ Example usage
 
    videohubctrl -h sdi --vo-input "Output 8" "Windows 4 HD"
    videohubctrl -h sdi --vo-input "Output 7" "Windows 4 HD"
+
+
+ # Set one input to go out two outputs and two monitoring ports
+
+   videohubctrl -h sdi --vi-output  "Windows 4 HD" "Output 8" \
+                       --vi-output  "Windows 4 HD" "Output 7" \
+                       --vi-monitor "Windows 4 HD" "Monitor 1" \
+                       --vi-monitor "Windows 4 HD" "Monitor 2"
 
 
  # Run several commands at once

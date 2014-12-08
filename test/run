@@ -34,6 +34,8 @@ check test/test-03 "Test --backup restore"
 videohubctrl --test-input test/input-00.txt \
 	--set-name "Test name" \
 	--vi-name "Windows 4 HD" "Windows 4 HighDef" \
+	--vi-output "Windows 1" "Output 15" \
+	--vi-monitor "Windows 3" "Monitor 1" \
 	--vi-name 5 "In 5" \
 	--vi-name "Input 6" "Camera 6" \
 	--vo-name "Enc1 1" "Encoder 1" \
@@ -82,6 +84,10 @@ check test/test-05 "Test if --backup restored correct config."
 ./videohubctrl --test-input test/input-00.txt --vi-name "Input 18"  "Test Input 18"  $@ >> test/test-06.out 2>&1
 ./videohubctrl --test-input test/input-00.txt --vo-name 18          "Test Output 18" $@ >> test/test-06.out 2>&1
 ./videohubctrl --test-input test/input-00.txt --vo-name "Output 18" "Test Output 18" $@ >> test/test-06.out 2>&1
+./videohubctrl --test-input test/input-00.txt --vi-output "Input 22" "Output 15"     $@ >> test/test-06.out 2>&1
+./videohubctrl --test-input test/input-00.txt --vi-output "Input 14" "Output 22"     $@ >> test/test-06.out 2>&1
+./videohubctrl --test-input test/input-00.txt --vi-monitor "Input 22" "Monitor 3"    $@ >> test/test-06.out 2>&1
+./videohubctrl --test-input test/input-00.txt --vi-monitor "Input 14" "Monitor 33"   $@ >> test/test-06.out 2>&1
 ./videohubctrl --test-input test/input-00.txt --vo-lock 18                           $@ >> test/test-06.out 2>&1
 ./videohubctrl --test-input test/input-00.txt --vo-lock "Output 18"                  $@ >> test/test-06.out 2>&1
 ./videohubctrl --test-input test/input-00.txt --vo-unlock 18                         $@ >> test/test-06.out 2>&1
