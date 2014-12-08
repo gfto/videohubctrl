@@ -197,13 +197,13 @@ static void parse_cmd2(int argc, char **argv, enum vcmd vcmd) {
 		exit(EXIT_FAILURE);
 	}
 	c->cmd = &videohub_commands[vcmd];
-	c->param1 = argv[optind - 1];
-	c->param2 = argv[optind];
+	c->p1.param = argv[optind - 1];
+	c->p2.param = argv[optind];
 	if (vcmd == CMD_SERIAL_PORT_DIRECTIONS) {
-		if (strcasecmp("in", c->param2) == 0)        c->direction = DIR_CONTROL;
-		else if (strcasecmp("out", c->param2) == 0)  c->direction = DIR_SLAVE;
-		else if (strcasecmp("auto", c->param2) == 0) c->direction = DIR_AUTO;
-		else die("Invalid serial port direction '%s'. Allowed are: in, out, auto.", c->param2);
+		if (strcasecmp("in", c->p2.param) == 0)        c->direction = DIR_CONTROL;
+		else if (strcasecmp("out", c->p2.param) == 0)  c->direction = DIR_SLAVE;
+		else if (strcasecmp("auto", c->p2.param) == 0) c->direction = DIR_AUTO;
+		else die("Invalid serial port direction '%s'. Allowed are: in, out, auto.", c->p2.param);
 	}
 	num_parsed_cmds++;
 }
@@ -212,8 +212,8 @@ static void parse_cmd2s(int argc, char **argv, enum vcmd vcmd) {
 	check_num_parsed_cmds();
 	struct vcmd_entry *c = &parsed_cmds.entry[num_parsed_cmds];
 	c->cmd = &videohub_commands[vcmd];
-	c->param1 = optarg;
-	c->param2 = "1"; // Fake
+	c->p1.param = optarg;
+	c->p2.param = "1"; // Fake
 	c->clear_port = true;
 	num_parsed_cmds++;
 }
@@ -222,7 +222,7 @@ static void parse_cmd1(int argc, char **argv, enum vcmd vcmd, bool do_lock) {
 	check_num_parsed_cmds();
 	struct vcmd_entry *c = &parsed_cmds.entry[num_parsed_cmds];
 	c->cmd = &videohub_commands[vcmd];
-	c->param1 = argv[optind - 1];
+	c->p1.param = argv[optind - 1];
 	c->do_lock = do_lock;
 	num_parsed_cmds++;
 }
@@ -231,8 +231,8 @@ static void set_device_option(char *setting, char *value) {
 	check_num_parsed_cmds();
 	struct vcmd_entry *c = &parsed_cmds.entry[num_parsed_cmds];
 	c->cmd = &videohub_commands[CMD_VIDEOHUB_DEVICE];
-	c->param1 = setting;
-	c->param2 = value;
+	c->p1.param = setting;
+	c->p2.param = value;
 	num_parsed_cmds++;
 }
 
@@ -430,7 +430,7 @@ int main(int argc, char **argv) {
 		unsigned int i;
 		for (i = 0; i < ARRAY_SIZE(parsed_cmds.entry); i++) {
 			struct vcmd_entry *ve = &parsed_cmds.entry[i];
-			if (!ve->param1)
+			if (!ve->p1.param)
 				continue;
 			prepare_cmd_entry(data, &parsed_cmds.entry[i]);
 		}
@@ -438,7 +438,7 @@ int main(int argc, char **argv) {
 		for (i = 0; i < ARRAY_SIZE(parsed_cmds.entry); i++) {
 			char cmd_buffer[1024];
 			struct vcmd_entry *ve = &parsed_cmds.entry[i];
-			if (!ve->param1)
+			if (!ve->p1.param)
 				continue;
 			format_cmd_text(ve, cmd_buffer, sizeof(cmd_buffer));
 			if (strlen(cmd_buffer)) {

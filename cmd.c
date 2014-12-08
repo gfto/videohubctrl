@@ -378,6 +378,15 @@ static unsigned int my_atoi(char *txt) {
 	return ret;
 }
 
+static void init_port_number(struct vcmd_param *p, struct port_set *port, const char *port_id) {
+	p->port_no = my_atoi(p->param);
+	if (p->port_no == 0 || p->port_no > port->num) {
+		p->port_no = get_port_by_name(port, p->param);
+		if (!p->port_no)
+			die("Unknown %s port number/name: %s", port_id, p->param);
+	}
+}
+
 void prepare_cmd_entry(struct videohub_data *d, struct vcmd_entry *e) {
 	struct port_set *s_port = !e->cmd->ports1 ? NULL : (void *)d + e->cmd->ports1;
 	struct port_set *d_port = !e->cmd->ports2 ? NULL : (void *)d + e->cmd->ports2;
@@ -386,31 +395,21 @@ void prepare_cmd_entry(struct videohub_data *d, struct vcmd_entry *e) {
 		return;
 
 	// All command types needs parsing of the "source port"
-	e->port_no1 = my_atoi(e->param1);
-	if (e->port_no1 == 0 || e->port_no1 > s_port->num) {
-		e->port_no1 = get_port_by_name(s_port, e->param1);
-		if (!e->port_no1)
-			die("Unknown %s port number/name: %s", e->cmd->port_id1, e->param1);
-	}
+	init_port_number(&e->p1, s_port, e->cmd->port_id1);
 
 	// ROUTE type needs parsing of the "destination port"
 	if (e->cmd->type == PARSE_ROUTE) {
-		e->port_no2 = my_atoi(e->param2);
-		if (e->port_no2 == 0 || e->port_no2 > d_port->num) {
-			e->port_no2 = get_port_by_name(d_port, e->param2);
-			if (!e->port_no2)
-				die("Unknown %s port number/name: %s", e->cmd->port_id2, e->param2);
-		}
+		init_port_number(&e->p2, d_port, e->cmd->port_id2);
 	}
 
 	// Allow port_noX to be used as index into ->port[]
-	e->port_no1 -= 1;
-	e->port_no2 -= 1;
+	e->p1.port_no -= 1;
+	e->p2.port_no -= 1;
 	if (e->clear_port)
-		e->port_no2 = NO_PORT;
+		e->p2.port_no = NO_PORT;
 
 	if (e->cmd->type == PARSE_LOCK) {
-		e->lock = s_port->port[e->port_no1].lock;
+		e->lock = s_port->port[e->p1.port_no].lock;
 	}
 }
 
@@ -435,25 +434,25 @@ static char *dir2txt(enum serial_dir dir) {
 void format_cmd_text(struct vcmd_entry *e, char *buf, unsigned int bufsz) {
 	if (e->cmd->cmd == CMD_VIDEOHUB_DEVICE) {
 		snprintf(buf, bufsz, "%s:\n%s: %s\n\n", videohub_commands_text[e->cmd->cmd],
-			e->param1, e->param2);
+			e->p1.param, e->p2.param);
 		return;
 	}
 	switch (e->cmd->type) {
 	case PARSE_LABEL:
 		snprintf(buf, bufsz, "%s:\n%u %s\n\n", videohub_commands_text[e->cmd->cmd],
-			e->port_no1, e->param2);
+			e->p1.port_no, e->p2.param);
 		break;
 	case PARSE_LOCK:
 		snprintf(buf, bufsz, "%s:\n%u %s\n\n", videohub_commands_text[e->cmd->cmd],
-			e->port_no1, e->do_lock ? "O" : (e->lock == PORT_LOCKED_OTHER ? "F" : "U"));
+			e->p1.port_no, e->do_lock ? "O" : (e->lock == PORT_LOCKED_OTHER ? "F" : "U"));
 		break;
 	case PARSE_ROUTE:
 		snprintf(buf, bufsz, "%s:\n%u %d\n\n", videohub_commands_text[e->cmd->cmd],
-			e->port_no1, (e->port_no2 == NO_PORT ? -1 : (int)e->port_no2));
+			e->p1.port_no, (e->p2.port_no == NO_PORT ? -1 : (int)e->p2.port_no));
 		break;
 	case PARSE_DIR:
 		snprintf(buf, bufsz, "%s:\n%u %s\n\n", videohub_commands_text[e->cmd->cmd],
-			e->port_no1, dir2cmd(e->direction));
+			e->p1.port_no, dir2cmd(e->direction));
 		break;
 	default: break;
 	}
@@ -466,8 +465,8 @@ void show_cmd(struct videohub_data *d, struct vcmd_entry *e) {
 	if (e->cmd->cmd == CMD_VIDEOHUB_DEVICE) {
 		printf("%sset device \"%s\" to \"%s\"\n",
 			prefix,
-			e->param1,
-			e->param2
+			e->p1.param,
+			e->p2.param
 		);
 		return;
 	}
@@ -476,8 +475,8 @@ void show_cmd(struct videohub_data *d, struct vcmd_entry *e) {
 		printf("%srename %s %d \"%s\" to \"%s\"\n",
 			prefix,
 			e->cmd->port_id1,
-			e->port_no1 + 1, s_port->port[e->port_no1].name,
-			e->param2
+			e->p1.port_no + 1, s_port->port[e->p1.port_no].name,
+			e->p2.param
 		);
 		break;
 	case PARSE_LOCK:
@@ -485,15 +484,15 @@ void show_cmd(struct videohub_data *d, struct vcmd_entry *e) {
 			prefix,
 			e->do_lock ? "lock" : (e->lock == PORT_LOCKED_OTHER ? "force unlock" : "unlock"),
 			e->cmd->port_id1,
-			e->port_no1 + 1, s_port->port[e->port_no1].name
+			e->p1.port_no + 1, s_port->port[e->p1.port_no].name
 		);
 		break;
 	case PARSE_ROUTE:
-		if (e->port_no2 == NO_PORT) {
+		if (e->p2.port_no == NO_PORT) {
 			printf("%sdisconnect %s %d \"%s\"\n",
 				prefix,
 				e->cmd->port_id1,
-				e->port_no1 + 1, s_port->port[e->port_no1].name
+				e->p1.port_no + 1, s_port->port[e->p1.port_no].name
 			);
 			break;
 		}
@@ -501,25 +500,25 @@ void show_cmd(struct videohub_data *d, struct vcmd_entry *e) {
 			printf("%sconnect %s %d \"%s\" to %s %d \"%s\"\n",
 				prefix,
 				e->cmd->port_id1,
-				e->port_no1 + 1, s_port->port[e->port_no1].name,
+				e->p1.port_no + 1, s_port->port[e->p1.port_no].name,
 				e->cmd->port_id2,
-				e->port_no2 + 1, d_port->port [e->port_no2].name
+				e->p2.port_no + 1, d_port->port [e->p2.port_no].name
 			);
 			break;
 		}
 		printf("%sset %s %d \"%s\" to read from %s %d \"%s\"\n",
 			prefix,
 			e->cmd->port_id1,
-			e->port_no1 + 1, s_port->port[e->port_no1].name,
+			e->p1.port_no + 1, s_port->port[e->p1.port_no].name,
 			e->cmd->port_id2,
-			e->port_no2 + 1, d_port->port [e->port_no2].name
+			e->p2.port_no + 1, d_port->port [e->p2.port_no].name
 		);
 		break;
 	case PARSE_DIR:
 		printf("%sset %s %d \"%s\" direction to %s\n",
 			prefix,
 			e->cmd->port_id1,
-			e->port_no1 + 1, s_port->port[e->port_no1].name,
+			e->p1.port_no + 1, s_port->port[e->p1.port_no].name,
 			dir2txt(e->direction)
 		);
 		break;

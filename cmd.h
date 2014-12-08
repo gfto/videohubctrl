@@ -70,12 +70,15 @@ extern struct videohub_commands videohub_commands[NUM_COMMANDS];
 bool parse_command(struct videohub_data *d, char *cmd);
 int parse_text_buffer(struct videohub_data *data, char *cmd_buffer);
 
+struct vcmd_param {
+	char			*param;
+	unsigned int	port_no;
+};
+
 struct vcmd_entry {
 	struct videohub_commands *cmd;
-	char			*param1;
-	char			*param2;
-	unsigned int	port_no1;
-	unsigned int	port_no2;
+	struct vcmd_param	p1;
+	struct vcmd_param	p2;
 	bool			do_lock;
 	enum port_lock	lock;
 	enum serial_dir	direction;
