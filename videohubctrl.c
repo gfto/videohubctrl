@@ -62,27 +62,57 @@ static const struct option long_options[] = {
 	{ "info",				no_argument,       NULL, 'i' },
 	{ "monitor",			no_argument,       NULL, 'm' },
 	{ "backup",				no_argument,       NULL, 'b' },
+
 	{ "list-device",		no_argument,       NULL, 901 },
+	{ "list-inputs",		no_argument,       NULL, 902 },
 	{ "list-vinputs",		no_argument,       NULL, 902 },
+	{ "list-outputs",		no_argument,       NULL, 903 },
 	{ "list-voutputs",		no_argument,       NULL, 903 },
+	{ "list-monitoring",	no_argument,       NULL, 904 },
 	{ "list-moutputs",		no_argument,       NULL, 904 },
 	{ "list-serial",		no_argument,       NULL, 905 },
 	{ "list-proc-units",	no_argument,       NULL, 906 },
 	{ "list-frames",		no_argument,       NULL, 907 },
+
 	{ "set-name",			required_argument, NULL, 950 },
+
+	{ "in-name",			required_argument, NULL, 1001 },
+	{ "in-output",			required_argument, NULL, 1002 },
+	{ "in-monitor",			required_argument, NULL, 1003 },
 	{ "vi-name",			required_argument, NULL, 1001 },
 	{ "vi-output",			required_argument, NULL, 1002 },
 	{ "vi-monitor",			required_argument, NULL, 1003 },
+
+	{ "out-name",			required_argument, NULL, 2001 },
+	{ "out-input",			required_argument, NULL, 2002 },
+	{ "out-route",			required_argument, NULL, 2002 }, // Alias of --vo-input
+	{ "out-lock",			required_argument, NULL, 2003 },
+	{ "out-unlock",			required_argument, NULL, 2004 },
 	{ "vo-name",			required_argument, NULL, 2001 },
 	{ "vo-input",			required_argument, NULL, 2002 },
 	{ "vo-route",			required_argument, NULL, 2002 }, // Alias of --vo-input
 	{ "vo-lock",			required_argument, NULL, 2003 },
 	{ "vo-unlock",			required_argument, NULL, 2004 },
+
+	{ "mon-name",			required_argument, NULL, 3001 },
+	{ "mon-input",			required_argument, NULL, 3002 },
+	{ "mon-route",			required_argument, NULL, 3002 }, // Alias of --mo-input
+	{ "mon-lock",			required_argument, NULL, 3003 },
+	{ "mon-unlock",			required_argument, NULL, 3004 },
 	{ "mo-name",			required_argument, NULL, 3001 },
 	{ "mo-input",			required_argument, NULL, 3002 },
 	{ "mo-route",			required_argument, NULL, 3002 }, // Alias of --mo-input
 	{ "mo-lock",			required_argument, NULL, 3003 },
 	{ "mo-unlock",			required_argument, NULL, 3004 },
+
+	{ "ser-name",			required_argument, NULL, 4001 },
+	{ "ser-input",			required_argument, NULL, 4002 },
+	{ "ser-connect",		required_argument, NULL, 4002 }, // Alias of --se-input
+	{ "ser-route",			required_argument, NULL, 4002 }, // Alias of --se-input
+	{ "ser-lock",			required_argument, NULL, 4003 },
+	{ "ser-unlock",			required_argument, NULL, 4004 },
+	{ "ser-dir",			required_argument, NULL, 4005 },
+	{ "ser-clear",			required_argument, NULL, 4006 },
 	{ "se-name",			required_argument, NULL, 4001 },
 	{ "se-input",			required_argument, NULL, 4002 },
 	{ "se-connect",			required_argument, NULL, 4002 }, // Alias of --se-input
@@ -91,12 +121,14 @@ static const struct option long_options[] = {
 	{ "se-unlock",			required_argument, NULL, 4004 },
 	{ "se-dir",				required_argument, NULL, 4005 },
 	{ "se-clear",			required_argument, NULL, 4006 },
+
 	{ "pu-input",			required_argument, NULL, 5001 },
 	{ "pu-connect",			required_argument, NULL, 5001 }, // Alias of --pu-input
 	{ "pu-route",			required_argument, NULL, 5001 }, // Alias of --pu-input
 	{ "pu-lock",			required_argument, NULL, 5002 },
 	{ "pu-unlock",			required_argument, NULL, 5003 },
 	{ "pu-clear",			required_argument, NULL, 5004 },
+
 	{ "fr-name",			required_argument, NULL, 6001 },
 	{ "fr-output",			required_argument, NULL, 6002 },
 	{ "fr-connect",			required_argument, NULL, 6002 }, // Alias of --fr-output
@@ -126,53 +158,53 @@ static void show_help(struct videohub_data *data) {
 	printf("                            . the device to the current configuration.\n");
 	printf("\n");
 	printf(" --list-device              | Display device info.\n");
-	printf(" --list-vinputs             | List device video inputs.\n");
-	printf(" --list-voutputs            | List device video outputs.\n");
-	printf(" --list-moutputs            | List device monitoring outputs.\n");
+	printf(" --list-inputs              | List device input ports.\n");
+	printf(" --list-outputs             | List device output ports.\n");
+	printf(" --list-monitor             | List device monitoring outputs.\n");
 	printf(" --list-serial              | List device serial ports.\n");
 	printf(" --list-proc-units          | List device processing units.\n");
 	printf(" --list-frames              | List device frame buffers.\n");
 	printf("\n");
 	printf(" --set-name <name>          | Set the device \"friendly name\".\n");
 	printf("\n");
-	printf("Video inputs configuration:\n");
-	printf(" --vi-name <in_X> <name>    | Set video input port X name.\n");
-	printf(" --vi-output <in_X> <out_Y> | Route video input X to output Y.\n");
-	printf(" --vi-monitor <in_X> <mout_Y> | Route video input X to mon port Y.\n");
+	printf("Inputs configuration:\n");
+	printf(" --in-name <in_X> <name>       | Set input port X name.\n");
+	printf(" --in-output <in_X> <out_Y>    | Route input X to output Y.\n");
+	printf(" --in-monitor <in_X> <mout_Y>  | Route input X to monitor port Y.\n");
 	printf("\n");
-	printf("Video outputs configuration:\n");
-	printf(" --vo-name <out_X> <name>   | Set video output port X name.\n");
-	printf(" --vo-input <out_X> <in_Y>  | Connect video output X to input Y.\n");
-	printf(" --vo-lock <out_X>          | Lock output port X.\n");
-	printf(" --vo-unlock <out_X>        | Unlock output port X.\n");
+	printf("Outputs configuration:\n");
+	printf(" --out-name <out_X> <name>     | Set output port X name.\n");
+	printf(" --out-input <out_X> <in_Y>    | Connect output X to input Y.\n");
+	printf(" --out-lock <out_X>            | Lock output port X.\n");
+	printf(" --out-unlock <out_X>          | Unlock output port X.\n");
 	printf("\n");
 	printf("Monitoring outputs configuration:\n");
-	printf(" --mo-name <mout_X> <name>  | Set monitoring port X name.\n");
-	printf(" --mo-input <mout_X> <in_Y> | Connect monitoring X to input Y.\n");
-	printf(" --mo-lock <mout_X>         | Lock monitoring port X.\n");
-	printf(" --mo-unlock <mout_X>       | Unlock monitoring port X.\n");
+	printf(" --mon-name <mout_X> <name>    | Set monitoring port X name.\n");
+	printf(" --mon-input <mout_X> <in_Y>   | Connect monitoring X to input Y.\n");
+	printf(" --mon-lock <mout_X>           | Lock monitoring port X.\n");
+	printf(" --mon-unlock <mout_X>         | Unlock monitoring port X.\n");
 	printf("\n");
 	printf("Serial ports configuration:\n");
-	printf(" --se-name <ser_X> <name>   | Set serial port X name.\n");
-	printf(" --se-connect <ser_X> <ser_Y> | Connect serial X to serial Y.\n");
-	printf(" --se-clear <ser_X>         | Disconnect serial port X from serial Y.\n");
-	printf(" --se-lock <ser_X>          | Lock serial port X.\n");
-	printf(" --se-unlock <ser_X>        | Unlock serial port X.\n");
-	printf(" --se-dir <ser_X> <dir>     | Set serial port X direction.\n");
-	printf("                            . <dir> can be 'auto', 'in' or 'out'.\n");
+	printf(" --ser-name <ser_X> <name>     | Set serial port X name.\n");
+	printf(" --ser-connect <ser_X> <ser_Y> | Connect serial X to serial Y.\n");
+	printf(" --ser-clear <ser_X>           | Disconnect serial port X from serial Y.\n");
+	printf(" --ser-lock <ser_X>            | Lock serial port X.\n");
+	printf(" --ser-unlock <ser_X>          | Unlock serial port X.\n");
+	printf(" --ser-dir <ser_X> <dir>       | Set serial port X direction.\n");
+	printf("                               . <dir> can be 'auto', 'in' or 'out'.\n");
 	printf("\n");
 	printf("Processing units configuration:\n");
-	printf(" --pu-input <pu_X> <in_Y>   | Connect processing unit X to input Y.\n");
-	printf(" --pu-clear <pu_X>          | Disconnect unit X from input Y.\n");
-	printf(" --pu-lock <pu_X>           | Lock processing unit X.\n");
-	printf(" --pu-unlock <pu_X>         | Unlock processing unit X.\n");
+	printf(" --pu-input <pu_X> <in_Y>      | Connect processing unit X to input Y.\n");
+	printf(" --pu-clear <pu_X>             | Disconnect unit X from input Y.\n");
+	printf(" --pu-lock <pu_X>              | Lock processing unit X.\n");
+	printf(" --pu-unlock <pu_X>            | Unlock processing unit X.\n");
 	printf("\n");
 	printf("Frames configuration:\n");
-	printf(" --fr-name <fr_X> <name>    | Set frame X name.\n");
-	printf(" --fr-output <fr_X> <out_Y> | Output frame X to output Y.\n");
-	printf(" --fr-clear <fr_X>          | Stop outputing frame X to the output.\n");
-	printf(" --fr-lock <fr_X>           | Lock frame X.\n");
-	printf(" --fr-unlock <rf_X>         | Unlock frame X.\n");
+	printf(" --fr-name <fr_X> <name>       | Set frame X name.\n");
+	printf(" --fr-output <fr_X> <out_Y>    | Output frame X to output Y.\n");
+	printf(" --fr-clear <fr_X>             | Stop outputing frame X to the output.\n");
+	printf(" --fr-lock <fr_X>              | Lock frame X.\n");
+	printf(" --fr-unlock <rf_X>            | Unlock frame X.\n");
 	printf("\n");
 	printf("Misc options:\n");
 	printf(" -T --test-input <file>     | Read commands from <file>.\n");

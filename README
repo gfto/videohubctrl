@@ -52,53 +52,53 @@ Commands:
                             . the device to the current configuration.
 
  --list-device              | Display device info.
- --list-vinputs             | List device video inputs.
- --list-voutputs            | List device video outputs.
- --list-moutputs            | List device monitoring outputs.
+ --list-inputs              | List device input ports.
+ --list-outputs             | List device output ports.
+ --list-monitor             | List device monitoring outputs.
  --list-serial              | List device serial ports.
  --list-proc-units          | List device processing units.
  --list-frames              | List device frame buffers.
 
  --set-name <name>          | Set the device "friendly name".
 
-Video inputs configuration:
- --vi-name <in_X> <name>    | Set video input port X name.
- --vi-output <in_X> <out_Y> | Route video input X to output Y.
- --vi-monitor <in_X> <mout_Y> | Route video input X to mon port Y.
+Inputs configuration:
+ --in-name <in_X> <name>       | Set input port X name.
+ --in-output <in_X> <out_Y>    | Route input X to output Y.
+ --in-monitor <in_X> <mout_Y>  | Route input X to monitor port Y.
 
-Video outputs configuration:
- --vo-name <out_X> <name>   | Set video output port X name.
- --vo-input <out_X> <in_Y>  | Connect video output X to input Y.
- --vo-lock <out_X>          | Lock output port X.
- --vo-unlock <out_X>        | Unlock output port X.
+Outputs configuration:
+ --out-name <out_X> <name>     | Set output port X name.
+ --out-input <out_X> <in_Y>    | Connect output X to input Y.
+ --out-lock <out_X>            | Lock output port X.
+ --out-unlock <out_X>          | Unlock output port X.
 
 Monitoring outputs configuration:
- --mo-name <mout_X> <name>  | Set monitoring port X name.
- --mo-input <mout_X> <in_Y> | Connect monitoring X to input Y.
- --mo-lock <mout_X>         | Lock monitoring port X.
- --mo-unlock <mout_X>       | Unlock monitoring port X.
+ --mon-name <mout_X> <name>    | Set monitoring port X name.
+ --mon-input <mout_X> <in_Y>   | Connect monitoring X to input Y.
+ --mon-lock <mout_X>           | Lock monitoring port X.
+ --mon-unlock <mout_X>         | Unlock monitoring port X.
 
 Serial ports configuration:
- --se-name <ser_X> <name>   | Set serial port X name.
- --se-connect <ser_X> <ser_Y> | Connect serial X to serial Y.
- --se-clear <ser_X>         | Disconnect serial port X from serial Y.
- --se-lock <ser_X>          | Lock serial port X.
- --se-unlock <ser_X>        | Unlock serial port X.
- --se-dir <ser_X> <dir>     | Set serial port X direction.
-                            . <dir> can be 'auto', 'in' or 'out'.
+ --ser-name <ser_X> <name>     | Set serial port X name.
+ --ser-connect <ser_X> <ser_Y> | Connect serial X to serial Y.
+ --ser-clear <ser_X>           | Disconnect serial port X from serial Y.
+ --ser-lock <ser_X>            | Lock serial port X.
+ --ser-unlock <ser_X>          | Unlock serial port X.
+ --ser-dir <ser_X> <dir>       | Set serial port X direction.
+                               . <dir> can be 'auto', 'in' or 'out'.
 
 Processing units configuration:
- --pu-input <pu_X> <in_Y>   | Connect processing unit X to input Y.
- --pu-clear <pu_X>          | Disconnect unit X from input Y.
- --pu-lock <pu_X>           | Lock processing unit X.
- --pu-unlock <pu_X>         | Unlock processing unit X.
+ --pu-input <pu_X> <in_Y>      | Connect processing unit X to input Y.
+ --pu-clear <pu_X>             | Disconnect unit X from input Y.
+ --pu-lock <pu_X>              | Lock processing unit X.
+ --pu-unlock <pu_X>            | Unlock processing unit X.
 
 Frames configuration:
- --fr-name <fr_X> <name>    | Set frame X name.
- --fr-output <fr_X> <out_Y> | Output frame X to output Y.
- --fr-clear <fr_X>          | Stop outputing frame X to the output.
- --fr-lock <fr_X>           | Lock frame X.
- --fr-unlock <rf_X>         | Unlock frame X.
+ --fr-name <fr_X> <name>       | Set frame X name.
+ --fr-output <fr_X> <out_Y>    | Output frame X to output Y.
+ --fr-clear <fr_X>             | Stop outputing frame X to the output.
+ --fr-lock <fr_X>              | Lock frame X.
+ --fr-unlock <rf_X>            | Unlock frame X.
 
 Misc options:
  -T --test-input <file>     | Read commands from <file>.
@@ -128,36 +128,36 @@ Example usage
 
  # Rename video output
 
-   videohubctrl -h sdi --vo-name 8 "Output 8 - test"
-   videohubctrl -h sdi --vo-name "Output 8 - test" "Output 8"
+   videohubctrl -h sdi --out-name 8 "Output 8 - test"
+   videohubctrl -h sdi --out-name "Output 8 - test" "Output 8"
 
 
  # Rename video input
 
-   videohubctrl -h sdi --vi-name 4 "Windows 4 HD"
-   videohubctrl -h sdi --vi-name "Windows 4 HD" "CPlay4"
+   videohubctrl -h sdi --in-name 4 "Windows 4 HD"
+   videohubctrl -h sdi --in-name "Windows 4 HD" "CPlay4"
 
 
  # Lock and then unlock output 16 (unlock assumes that the port is
  # named Output 16). The host name is set via env variable.
 
    export VIDEOHUB_HOST=sdi
-   videohubctrl --vo-lock 16
-   videohubctrl --vo-unlock "Output 16"
+   videohubctrl --out-lock 16
+   videohubctrl --out-unlock "Output 16"
 
 
  # Set two outputs to receive from the same input using port names
 
-   videohubctrl -h sdi --vo-input "Output 8" "Windows 4 HD"
-   videohubctrl -h sdi --vo-input "Output 7" "Windows 4 HD"
+   videohubctrl -h sdi --out-input "Output 8" "Windows 4 HD"
+   videohubctrl -h sdi --out-input "Output 7" "Windows 4 HD"
 
 
  # Set one input to go out two outputs and two monitoring ports
 
-   videohubctrl -h sdi --vi-output  "Windows 4 HD" "Output 8" \
-                       --vi-output  "Windows 4 HD" "Output 7" \
-                       --vi-monitor "Windows 4 HD" "Monitor 1" \
-                       --vi-monitor "Windows 4 HD" "Monitor 2"
+   videohubctrl -h sdi --in-output  "Windows 4 HD" "Output 8" \
+                       --in-output  "Windows 4 HD" "Output 7" \
+                       --in-monitor "Windows 4 HD" "Monitor 1" \
+                       --in-monitor "Windows 4 HD" "Monitor 2"
 
 
  # Run several commands at once
@@ -167,16 +167,16 @@ Example usage
  # Lock output 5
 
    videohubctrl --host sdi \
-                --vi-name 11 "Test input" \
-                --vi-name 12 "Playout input" \
-                --vo-name 5 "Encoder h264" \
-                --vo-input 5 12 \
-                --vo-lock 5
+                --in-name 11 "Test input" \
+                --in-name 12 "Playout input" \
+                --out-name 5 "Encoder h264" \
+                --out-input 5 12 \
+                --out-lock 5
 
  # This fails. It tries to use name that is not previously configured.
 
-   videohubctrl -h sdi --vo-name 1 "Test output" \
-                       --vo-name "Test output" "Other name"
+   videohubctrl -h sdi --out-name 1 "Test output" \
+                       --out-name "Test output" "Other name"
 
 
 Example output

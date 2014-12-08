@@ -102,68 +102,68 @@ Everywhere where port needs to be set, you can use the port number or the
 port name. You can use only port names that were already configured in
 previous session. Trying to set a name and then reference it in the next
 command will fail. Using port numbers always works.
-.SH VIDEO INPUTS CONFIGURATION
+.SH INPUTS CONFIGURATION
 .PP
 .TP
-\fB\-\-vi\-name\fR <in_X> <name>
+\fB\-\-in\-name\fR <in_X> <name>
 Set video input port X name.
 .TP
-\fB\-\-vi\-output\fR <in_X> <out_Y>
+\fB\-\-in\-output\fR <in_X> <out_Y>
 Set video input X to be outputted via output Y.
 .TP
-\fB\-\-vi\-monitor\fR <in_X> <mout_Y>
+\fB\-\-in\-monitor\fR <in_X> <mout_Y>
 Set video input X to be outputted via monitoring port Y.
-.SH VIDEO OUTPUTS CONFIGURATION
+.SH OUTPUTS CONFIGURATION
 .PP
 .TP
-\fB\-\-vo\-name\fR <out_X> <name>
+\fB\-\-out\-name\fR <out_X> <name>
 Set video output port X name.
 .TP
-\fB\-\-vo\-input\fR <out_X> <in_Y>
+\fB\-\-out\-input\fR <out_X> <in_Y>
 Connect video output X to video input Y.
 .TP
-\fB\-\-vo\-lock\fR <out_X>
+\fB\-\-out\-lock\fR <out_X>
 Lock output port X.
 .TP
-\fB\-\-vo\-unlock\fR <out_X>
+\fB\-\-out\-unlock\fR <out_X>
 Unlock output port X. If the port is locked by somebody else the
 port would be forcefully unlocked.
 .SH MONITORING OUTPUTS CONFIGURATION
 .PP
 .TP
-\fB\-\-mo\-name\fR <mout_X> <name>
+\fB\-\-mon\-name\fR <mout_X> <name>
 Set monitoring output port X name.
 .TP
-\fB\-\-mo\-input\fR <mout_X> <in_Y>
+\fB\-\-mon\-input\fR <mout_X> <in_Y>
 Connect monitoring output X to video input Y.
 .TP
-\fB\-\-mo\-lock\fR <mout_X>
+\fB\-\-mon\-lock\fR <mout_X>
 Lock monitoring output port X.
 .TP
-\fB\-\-mo\-unlock\fR <mout_X>
+\fB\-\-mon\-unlock\fR <mout_X>
 Unlock monitoring output port X. If the port is locked by somebody
 else the port would be forcefully unlocked.
 .SH SERIAL PORTS CONFIGURATION
 .PP
 .TP
-\fB\-\-se\-name\fR <ser_X> <name>
+\fB\-\-ser\-name\fR <ser_X> <name>
 Set serial port X name.
 .TP
-\fB\-\-se\-connect\fR <ser_X> <ser_Y>
-Connect serial port X to serial port Y. This option have two aliases \fB\-\-se\-input\fR
-and \fB\-\-se\-route\fR.
+\fB\-\-ser\-connect\fR <ser_X> <ser_Y>
+Connect serial port X to serial port Y. This option have two aliases \fB\-\-ser\-input\fR
+and \fB\-\-ser\-route\fR.
 .TP
-\fB\-\-se\-clear\fR <ser_X>
+\fB\-\-ser\-clear\fR <ser_X>
 Disconnect serial port X from the connected serial port.
 .TP
-\fB\-\-se\-lock\fR <ser_X>
+\fB\-\-ser\-lock\fR <ser_X>
 Lock serial port X.
 .TP
-\fB\-\-se\-unlock\fR <ser_X>
+\fB\-\-ser\-unlock\fR <ser_X>
 Unlock serial port X. If the port is locked by somebody else the
 port would be forcefully unlocked.
 .TP
-\fB\-\-se\-dir\fR <ser_X> <in|out|auto>
+\fB\-\-ser\-dir\fR <ser_X> <in|out|auto>
 Set serial port X direction. There are three possible settings for
 each port:
  \fBin\fR   - input/control/Workstation
@@ -236,28 +236,28 @@ To get a quick start here are some example command lines.
 
 .nf
  # Rename video output
-   videohubctrl -h sdi --vo-name 8 "Output 8 - test"
-   videohubctrl -h sdi --vo-name "Output 8 - test" "Output 8"
+   videohubctrl -h sdi --out-name 8 "Output 8 - test"
+   videohubctrl -h sdi --out-name "Output 8 - test" "Output 8"
 
  # Rename video input
-   videohubctrl -h sdi --vi-name 4 "Windows 4 HD"
-   videohubctrl -h sdi --vi-name "Windows 4 HD" "CPlay4"
+   videohubctrl -h sdi --in-name 4 "Windows 4 HD"
+   videohubctrl -h sdi --in-name "Windows 4 HD" "CPlay4"
 
  # Lock and then unlock output 16 (unlock assumes that the port is
  # named Output 16). The host name is set via env variable.
    export VIDEOHUB_HOST=sdi
-   videohubctrl --vo-lock 16
-   videohubctrl --vo-unlock "Output 16"
+   videohubctrl --out-lock 16
+   videohubctrl --out-unlock "Output 16"
 
  # Set two outputs to receive from the same input using port names
-   videohubctrl -h sdi --vo-input "Output 8" "Windows 4 HD"
-   videohubctrl -h sdi --vo-input "Output 7" "Windows 4 HD"
+   videohubctrl -h sdi --out-input "Output 8" "Windows 4 HD"
+   videohubctrl -h sdi --out-input "Output 7" "Windows 4 HD"
 
  # Set one input to go out two outputs and two monitoring ports
-   videohubctrl -h sdi --vi-output  "Windows 4 HD" "Output 8" \\
-                       --vi-output  "Windows 4 HD" "Output 7" \\
-                       --vi-monitor "Windows 4 HD" "Monitor 1" \\
-                       --vi-monitor "Windows 4 HD" "Monitor 2"
+   videohubctrl -h sdi --in-output  "Windows 4 HD" "Output 8" \\
+                       --in-output  "Windows 4 HD" "Output 7" \\
+                       --in-monitor "Windows 4 HD" "Monitor 1" \\
+                       --in-monitor "Windows 4 HD" "Monitor 2"
 
  # Run several commands at once
  # Rename video input 11 and 12
@@ -265,15 +265,15 @@ To get a quick start here are some example command lines.
  # Set output 5 to receive from input 12
  # Lock output 5
    videohubctrl --host sdi \\
-                --vi-name 11 "Test input" \\
-                --vi-name 12 "Playout input" \\
-                --vo-name 5 "Encoder h264" \\
-                --vo-input 5 12 \\
-                --vo-lock 5
+                --in-name 11 "Test input" \\
+                --in-name 12 "Playout input" \\
+                --out-name 5 "Encoder h264" \\
+                --out-input 5 12 \\
+                --out-lock 5
 
  # This fails. It tries to use name that is not previously configured.
-   videohubctrl -h sdi --vo-name 1 "Test output" \\
-                       --vo-name "Test output" "Other name"
+   videohubctrl -h sdi --out-name 1 "Test output" \\
+                       --out-name "Test output" "Other name"
 
 .fi
 .SH SEE ALSO

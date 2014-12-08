@@ -1,49 +1,49 @@
 videohubctrl \
   --set-name "My Videohub" \
-  --vi-name   1 "Windows 1" \
-  --vi-name   2 "Windows 2" \
-  --vi-name   3 "Windows 3" \
-  --vi-name   4 "Windows 4 HD" \
-  --vi-name   5 "Input 5" \
-  --vi-name   6 "Input 6" \
-  --vi-name   7 "Input 7" \
-  --vi-name   8 "Input 8" \
-  --vi-name   9 "Input 9" \
-  --vi-name  10 "Input 10" \
-  --vi-name  11 "Input 11" \
-  --vi-name  12 "DPlay1" \
-  --vi-name  13 "DPlay2" \
-  --vi-name  14 "Input 14" \
-  --vi-name  15 "Input 15" \
-  --vi-name  16 "Loopback" \
-  --vo-name   1 "Enc1 1" \
-  --vo-name   2 "Enc1 2" \
-  --vo-name   3 "Enc1 3" \
-  --vo-name   4 "Enc1 4" \
-  --vo-name   5 "Output 5" \
-  --vo-name   6 "Output 6" \
-  --vo-name   7 "Output 7" \
-  --vo-name   8 "Output 8" \
-  --vo-name   9 "Enc2 1" \
-  --vo-name  10 "Output 10" \
-  --vo-name  11 "Output 11" \
-  --vo-name  12 "Denc" \
-  --vo-name  13 "Output 13" \
-  --vo-name  14 "Output 14" \
-  --vo-name  15 "Output 15" \
-  --vo-name  16 "Loopback" \
-  --mo-name   1 "Monitor 1" \
-  --mo-name   2 "Monitor 2" \
-  --mo-name   3 "Monitor 3" \
-  --mo-name   4 "Monitor 4" \
-  --se-name   1 "Serial Ctrl 1" \
-  --se-name   2 "Serial Ctrl 2" \
-  --se-name   3 "Deck 3" \
-  --se-name   4 "Deck 4" \
-  --se-name   5 "Serial 5" \
-  --se-name   6 "Serial 6" \
-  --se-name   7 "Serial 7" \
-  --se-name   8 "Serial 8" \
+  --in-name   1 "Windows 1" \
+  --in-name   2 "Windows 2" \
+  --in-name   3 "Windows 3" \
+  --in-name   4 "Windows 4 HD" \
+  --in-name   5 "Input 5" \
+  --in-name   6 "Input 6" \
+  --in-name   7 "Input 7" \
+  --in-name   8 "Input 8" \
+  --in-name   9 "Input 9" \
+  --in-name  10 "Input 10" \
+  --in-name  11 "Input 11" \
+  --in-name  12 "DPlay1" \
+  --in-name  13 "DPlay2" \
+  --in-name  14 "Input 14" \
+  --in-name  15 "Input 15" \
+  --in-name  16 "Loopback" \
+  --out-name   1 "Enc1 1" \
+  --out-name   2 "Enc1 2" \
+  --out-name   3 "Enc1 3" \
+  --out-name   4 "Enc1 4" \
+  --out-name   5 "Output 5" \
+  --out-name   6 "Output 6" \
+  --out-name   7 "Output 7" \
+  --out-name   8 "Output 8" \
+  --out-name   9 "Enc2 1" \
+  --out-name  10 "Output 10" \
+  --out-name  11 "Output 11" \
+  --out-name  12 "Denc" \
+  --out-name  13 "Output 13" \
+  --out-name  14 "Output 14" \
+  --out-name  15 "Output 15" \
+  --out-name  16 "Loopback" \
+  --mon-name   1 "Monitor 1" \
+  --mon-name   2 "Monitor 2" \
+  --mon-name   3 "Monitor 3" \
+  --mon-name   4 "Monitor 4" \
+  --ser-name   1 "Serial Ctrl 1" \
+  --ser-name   2 "Serial Ctrl 2" \
+  --ser-name   3 "Deck 3" \
+  --ser-name   4 "Deck 4" \
+  --ser-name   5 "Serial 5" \
+  --ser-name   6 "Serial 6" \
+  --ser-name   7 "Serial 7" \
+  --ser-name   8 "Serial 8" \
   --fr-name   1 "Frame 1" \
   --fr-name   2 "Frame 2" \
   --fr-name   3 "Frame 3" \
@@ -52,70 +52,70 @@ videohubctrl \
   --fr-name   6 "Frame 6" \
   --fr-name   7 "Frame 7" \
   --fr-name   8 "Frame 8" \
-  --vo-input   1   3 \
-  --vo-input   2   2 \
-  --vo-input   3   1 \
-  --vo-input   4   1 \
-  --vo-input   5   5 \
-  --vo-input   6   6 \
-  --vo-input   7   7 \
-  --vo-input   8   4 \
-  --vo-input   9   4 \
-  --vo-input  10  10 \
-  --vo-input  11  11 \
-  --vo-input  12  13 \
-  --vo-input  13  12 \
-  --vo-input  14  14 \
-  --vo-input  15  15 \
-  --vo-input  16  16 \
-  --mo-input   1   1 \
-  --mo-input   2   2 \
-  --mo-input   3   3 \
-  --mo-input   4   4 \
-  --se-input   1   3 \
-  --se-input   2   4 \
+  --out-input   1   3 \
+  --out-input   2   2 \
+  --out-input   3   1 \
+  --out-input   4   1 \
+  --out-input   5   5 \
+  --out-input   6   6 \
+  --out-input   7   7 \
+  --out-input   8   4 \
+  --out-input   9   4 \
+  --out-input  10  10 \
+  --out-input  11  11 \
+  --out-input  12  13 \
+  --out-input  13  12 \
+  --out-input  14  14 \
+  --out-input  15  15 \
+  --out-input  16  16 \
+  --mon-input   1   1 \
+  --mon-input   2   2 \
+  --mon-input   3   3 \
+  --mon-input   4   4 \
+  --ser-input   1   3 \
+  --ser-input   2   4 \
   --pu-input   1   4 \
   --pu-input   2   2 \
   --pu-input   4   3 \
   --fr-input   1  13 \
   --fr-input   2  14 \
   --fr-input   3  15 \
-  --se-dir   1 in \
-  --se-dir   2 auto \
-  --se-dir   3 out \
-  --se-dir   4 auto \
-  --se-dir   5 auto \
-  --se-dir   6 auto \
-  --se-dir   7 in \
-  --se-dir   8 out \
-  --vo-unlock   1 --vo-lock   1 \
-  --vo-unlock   2 --vo-lock   2 \
-  --vo-unlock   3 --vo-lock   3 \
-  --vo-unlock   4 --vo-lock   4 \
-  --vo-unlock   5 \
-  --vo-unlock   6 \
-  --vo-unlock   7 \
-  --vo-unlock   8 \
-  --vo-unlock   9 --vo-lock   9 \
-  --vo-unlock  10 \
-  --vo-unlock  11 \
-  --vo-unlock  12 --vo-lock  12 \
-  --vo-unlock  13 --vo-lock  13 \
-  --vo-unlock  14 \
-  --vo-unlock  15 \
-  --vo-unlock  16 --vo-lock  16
-  --mo-unlock   1 \
-  --mo-unlock   2 --mo-lock   2 \
-  --mo-unlock   3 --mo-lock   3 \
-  --mo-unlock   4
-  --se-unlock   1 --se-lock   1 \
-  --se-unlock   2 \
-  --se-unlock   3 --se-lock   3 \
-  --se-unlock   4 \
-  --se-unlock   5 \
-  --se-unlock   6 \
-  --se-unlock   7 \
-  --se-unlock   8
+  --ser-dir   1 in \
+  --ser-dir   2 auto \
+  --ser-dir   3 out \
+  --ser-dir   4 auto \
+  --ser-dir   5 auto \
+  --ser-dir   6 auto \
+  --ser-dir   7 in \
+  --ser-dir   8 out \
+  --out-unlock   1 --out-lock   1 \
+  --out-unlock   2 --out-lock   2 \
+  --out-unlock   3 --out-lock   3 \
+  --out-unlock   4 --out-lock   4 \
+  --out-unlock   5 \
+  --out-unlock   6 \
+  --out-unlock   7 \
+  --out-unlock   8 \
+  --out-unlock   9 --out-lock   9 \
+  --out-unlock  10 \
+  --out-unlock  11 \
+  --out-unlock  12 --out-lock  12 \
+  --out-unlock  13 --out-lock  13 \
+  --out-unlock  14 \
+  --out-unlock  15 \
+  --out-unlock  16 --out-lock  16
+  --mon-unlock   1 \
+  --mon-unlock   2 --mon-lock   2 \
+  --mon-unlock   3 --mon-lock   3 \
+  --mon-unlock   4
+  --ser-unlock   1 --ser-lock   1 \
+  --ser-unlock   2 \
+  --ser-unlock   3 --ser-lock   3 \
+  --ser-unlock   4 \
+  --ser-unlock   5 \
+  --ser-unlock   6 \
+  --ser-unlock   7 \
+  --ser-unlock   8
   --pu-unlock   1 --pu-lock   1 \
   --pu-unlock   2 \
   --pu-unlock   3 --pu-lock   3 \

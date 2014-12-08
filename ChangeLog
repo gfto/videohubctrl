@@ -3,7 +3,15 @@ xxxx-xx-xx : Version -next
  * Add support for --list-proc-units and --list-frames.
  * Add support for setting device friendly name using --set-name option.
  * Add support for routing inputs to outputs/mon_ports using
-  --vi-output and --vi-monitor parameters.
+   --vi-output and --vi-monitor parameters.
+ * Rename configuration parameters (the old ones continue to work):
+   --list-vinputs   ->  --list-inputs
+   --list-voutputs  ->  --list-outputs
+   --list-moutputs  ->  --list-monitor
+   --vi-X           ->  --in-X
+   --vo-X           ->  --out-X
+   --mo-X           ->  --mon-X
+   --se-X           ->  --ser-X
 
 2014-12-03 : Version 1.0
  * Add missing documentation for --list-moutputs parameter.
