@@ -230,6 +230,8 @@ static void __print_opt(struct videohub_data *d, enum vcmd vcmd) {
 	struct videohub_commands *v = &videohub_commands[vcmd];
 	struct port_set *s_port = !v->ports1 ? NULL : (void *)d + v->ports1;
 	const char *p = v->opt_prefix;
+	if (!s_port)
+		return;
 	for(i = 0; i < s_port->num; i++) {
 		switch (v->type) {
 		case PARSE_LABEL:

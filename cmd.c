@@ -380,6 +380,10 @@ static unsigned int my_atoi(char *txt) {
 
 static void init_port_number(struct vcmd_param *p, struct port_set *port, const char *port_id) {
 	p->port_no = my_atoi(p->param);
+	if (!port) {
+		die("impossible! port == NULL");
+		return;
+	}
 	if (p->port_no == 0 || p->port_no > port->num) {
 		p->port_no = get_port_by_name(port, p->param);
 		if (!p->port_no)
