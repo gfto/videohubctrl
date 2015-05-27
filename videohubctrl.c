@@ -390,7 +390,7 @@ static void parse_options(struct videohub_data *data, int argc, char **argv) {
 static void check_number_of_ports(struct port_set *p) {
 	if (p->num > ARRAY_SIZE(p->port))
 		die("The device supports %d ports. Increase MAX_PORTS (%lu) and recompile the program.",
-			p->num, ARRAY_SIZE(p->port));
+			p->num, (unsigned long)ARRAY_SIZE(p->port));
 }
 
 static void reset_routed_to(struct port_set *p) {
