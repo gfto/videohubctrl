@@ -23,6 +23,7 @@
 struct device_desc {
 	bool			dev_present;
 	bool			needs_fw_update;
+	bool			conf_take_mode;
 	char			protocol_ver[16];
 	char			model_name[MAX_NAME_LEN];
 	char			friendly_name[MAX_NAME_LEN];

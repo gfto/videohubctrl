@@ -15,6 +15,9 @@ Debug mode: true
 Debug mode: yes
 Power: both
 
+CONFIGURATION:
+Take Mode: true
+
 INPUT LABELS:
 0 Windows 1
 1 Windows 2

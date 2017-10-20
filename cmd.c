@@ -22,6 +22,7 @@
 const char *videohub_commands_text[NUM_COMMANDS] = {
 	[CMD_PROTOCOL_PREAMBLE]    = "PROTOCOL PREAMBLE",
 	[CMD_VIDEOHUB_DEVICE]      = "VIDEOHUB DEVICE",
+	[CMD_CONFIGURATION]        = "CONFIGURATION",
 	[CMD_INPUT_LABELS]         = "INPUT LABELS",
 	[CMD_OUTPUT_LABELS]        = "OUTPUT LABELS",
 	[CMD_VIDEO_OUTPUT_LOCKS]   = "VIDEO OUTPUT LOCKS",
@@ -51,6 +52,7 @@ const char *videohub_commands_text[NUM_COMMANDS] = {
 struct videohub_commands videohub_commands[NUM_COMMANDS] = {
 	[CMD_PROTOCOL_PREAMBLE]    = { .cmd = CMD_PROTOCOL_PREAMBLE   , .type = PARSE_CUSTOM },
 	[CMD_VIDEOHUB_DEVICE]      = { .cmd = CMD_VIDEOHUB_DEVICE     , .type = PARSE_CUSTOM },
+	[CMD_CONFIGURATION]        = { .cmd = CMD_CONFIGURATION       , .type = PARSE_CUSTOM },
 	[CMD_INPUT_LABELS]         = { .cmd = CMD_INPUT_LABELS        , .type = PARSE_LABEL,
 		.ports1 = OFS(inputs),
 		.port_id1 = "video input",
@@ -322,6 +324,10 @@ bool parse_command(struct videohub_data *d, char *cmd) {
 				q("Please report this line to author's email: georgi@unixsol.org\n");
 			}
 			break;
+		case CMD_CONFIGURATION:
+			if ((p = parse_text(line, "Take Mode: "))) {
+				d->device.conf_take_mode = streq(p, "true");
+			}
 		case CMD_NAK:
 			ret = false;
 			break;
