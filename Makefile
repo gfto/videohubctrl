@@ -51,7 +51,7 @@ videohubctrl_OBJS = $(FUNCS_LIB) $(videohubctrl_SRC:.c=.o)
 CLEAN_OBJS = videohubctrl $(videohubctrl_SRC:.c=.o) $(videohubctrl_SRC:.c=.d) test/*.out
 DISTCLEAN_OBJS = version.h
 
-.PHONY: distclean clean version install uninstall
+.PHONY: distclean clean version install uninstall test
 
 PROGS=videohubctrl
 
@@ -64,6 +64,9 @@ videohubctrl: $(videohubctrl_OBJS)
 	$(Q)$(CROSS)$(CC) $(CFLAGS) $(DEFS) $(videohubctrl_OBJS) $(videohubctrl_LIBS) $(LDFLAGS) -o videohubctrl
 
 all: version
+
+test:
+	test/run
 
 $(FUNCS_LIB): $(FUNCS_DIR)/libfuncs.h
 	$(SAY) "  MAKE	$(FUNCS_LIB)"
