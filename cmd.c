@@ -193,6 +193,8 @@ bool parse_command(struct videohub_data *d, char *cmd) {
 	}
 
 	if (!v) {
+		if (cmd[0] == '\n') // Do not report 'empty' commands
+			return false;
 		q("WARNING: Videohub sent unknown command!\n");
 		q("         Please report this command to author's email: georgi@unixsol.org\n");
 		q("         You may use -q or --quiet to suppress the message.\n");
@@ -343,10 +345,13 @@ bool parse_command(struct videohub_data *d, char *cmd) {
 int parse_text_buffer(struct videohub_data *d, char *_cmd_buffer) {
 	int r, cmd_buffer_pos = 0, cmd_len = strlen(_cmd_buffer);
 	char *cmd_buffer = xzalloc(cmd_len + 1);
-	// Clean \r from output because it breaks parsing
+	// Clean input
+	char last_char = '\0';
 	for (r = 0; r < cmd_len; r++) {
-		if (_cmd_buffer[r] == '\r') continue;
+		if (_cmd_buffer[r] == '\r') continue; // Remove windows style line endings
+		if (last_char == '\n' && _cmd_buffer[r] == ' ') continue; // Trim leading white space from each line
 		cmd_buffer[cmd_buffer_pos++] = _cmd_buffer[r];
+		last_char = _cmd_buffer[r];
 	}
 	// The buffer contains only one command, no splitting is needed
 	if (!strstr(cmd_buffer, "\n\n")) {

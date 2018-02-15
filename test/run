@@ -160,3 +160,6 @@ check test/test-19 "Test --list-frames option output"
 
 videohubctrl --test-input test/input-r.txt $@ &> test/test-r.out
 check test/test-r "Test input with windows line endings"
+
+videohubctrl --test-input test/input-r2.txt $@ &> test/test-r2.out
+check test/test-r2 "Test input with leading whitespace and windows line endings"

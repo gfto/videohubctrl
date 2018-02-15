@@ -1,0 +1,72 @@
+Device info
+  -------------------------------------------------------------------
+  | Device address             | sdi-matrix                         |
+  | Device port                | 9990                               |
+  | Model name                 | Blackmagic Smart Videohub 20 x     |
+  | Friendly name              |      (2)            @              |
+  | Unique ID                  | XXXXXXXXXXXX                       |
+  | Protocol                   | 2.7                                |
+  | Video inputs               | 20                                 |
+  | Video outputs              | 20                                 |
+  -------------------------------------------------------------------
+
+Video inputs
+  ----------------------------------------------------------------------
+  | ### | Video input name         | nn | Routed to output         | s |
+  ----------------------------------------------------------------------
+  |   1 | Input 1                  |  0 | -                        |   |
+  |   2 | Input 2                  |  0 | -                        |   |
+  |   3 | Input 3                  |  1 | Output 3                 |   |
+  |   4 | Input 4                  |  1 | Output 4                 |   |
+  |   5 | Input 5                  |  6 | Output 1                 |   |
+  |     |                          |    | Output 2                 |   |
+  |     |                          |    | Output 5                 |   |
+  |     |                          |    | Output 6                 |   |
+  |     |                          |    | Output 7                 |   |
+  |     |                          |    | Output 8                 |   |
+  |   6 | Input 6                  |  0 | -                        |   |
+  |   7 | Input 7                  |  0 | -                        |   |
+  |   8 | Input 8                  |  0 | -                        |   |
+  |   9 | Input 9                  |  2 | Output 13                |   |
+  |     |                          |    | Output 14                |   |
+  |  10 | Input 10                 |  1 | Output 10                |   |
+  |  11 | Input 11                 |  1 | Output 11                |   |
+  |  12 | Input 12                 |  1 | Output 12                |   |
+  |  13 | Input 13                 |  0 | -                        |   |
+  |  14 | Input 14                 |  0 | -                        |   |
+  |  15 | Input 15                 |  3 | Output 9                 |   |
+  |     |                          |    | Output 15                |   |
+  |     |                          |    | Output 19                |   |
+  |  16 | Input 16                 |  0 | -                        |   |
+  |  17 | Input 17                 |  1 | Output 17                |   |
+  |  18 | Input 18                 |  1 | Output 18                |   |
+  |  19 | Input 19                 |  0 | -                        |   |
+  |  20 | Input 20                 |  1 | Output 20                |   |
+  ----------------------------------------------------------------------
+
+Video outputs
+  ---------------------------------------------------------------------
+  | ### | x | Video output name        | Connected video input    | s |
+  ---------------------------------------------------------------------
+  |   1 |   | Output 1                 | Input 5                  |   |
+  |   2 |   | Output 2                 | Input 5                  |   |
+  |   3 |   | Output 3                 | Input 3                  |   |
+  |   4 |   | Output 4                 | Input 4                  |   |
+  |   5 |   | Output 5                 | Input 5                  |   |
+  |   6 |   | Output 6                 | Input 5                  |   |
+  |   7 |   | Output 7                 | Input 5                  |   |
+  |   8 |   | Output 8                 | Input 5                  |   |
+  |   9 |   | Output 9                 | Input 15                 |   |
+  |  10 |   | Output 10                | Input 10                 |   |
+  |  11 |   | Output 11                | Input 11                 |   |
+  |  12 |   | Output 12                | Input 12                 |   |
+  |  13 |   | Output 13                | Input 9                  |   |
+  |  14 |   | Output 14                | Input 9                  |   |
+  |  15 |   | Output 15                | Input 15                 |   |
+  |  16 |   | Output 16                |                          |   |
+  |  17 |   | Output 17                | Input 17                 |   |
+  |  18 |   | Output 18                | Input 18                 |   |
+  |  19 |   | Output 19                | Input 15                 |   |
+  |  20 |   | Output 20                | Input 20                 |   |
+  ---------------------------------------------------------------------
+
