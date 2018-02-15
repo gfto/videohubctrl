@@ -340,10 +340,20 @@ bool parse_command(struct videohub_data *d, char *cmd) {
 	return ret;
 }
 
-int parse_text_buffer(struct videohub_data *d, char *cmd_buffer) {
+int parse_text_buffer(struct videohub_data *d, char *_cmd_buffer) {
+	int r, cmd_buffer_pos = 0, cmd_len = strlen(_cmd_buffer);
+	char *cmd_buffer = xzalloc(cmd_len + 1);
+	// Clean \r from output because it breaks parsing
+	for (r = 0; r < cmd_len; r++) {
+		if (_cmd_buffer[r] == '\r') continue;
+		cmd_buffer[cmd_buffer_pos++] = _cmd_buffer[r];
+	}
 	// The buffer contains only one command, no splitting is needed
-	if (!strstr(cmd_buffer, "\n\n"))
-		return parse_command(d, cmd_buffer);
+	if (!strstr(cmd_buffer, "\n\n")) {
+		bool ret = parse_command(d, cmd_buffer);
+		free(cmd_buffer);
+		return ret;
+	}
 	// Split commands and parse them one by one
 	int ok_commands = 0;
 	char *buf_copy = xstrdup(cmd_buffer);
@@ -361,6 +371,7 @@ int parse_text_buffer(struct videohub_data *d, char *cmd_buffer) {
 		cmd = newcmd + 2; // Advance cmd to the next command
 	}
 	free(buf_copy);
+	free(cmd_buffer);
 	return ok_commands;
 }
 

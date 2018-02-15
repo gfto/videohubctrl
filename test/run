@@ -157,3 +157,6 @@ check test/test-18 "Test --list-proc-units option output"
 
 videohubctrl --test-input test/input-00.txt --list-frames $@ &> test/test-19.out
 check test/test-19 "Test --list-frames option output"
+
+videohubctrl --test-input test/input-r.txt $@ &> test/test-r.out
+check test/test-r "Test input with windows line endings"

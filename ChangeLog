@@ -1,6 +1,7 @@
 |-----------------------------------------------------------------------|
 xxxx-xx-xx : Version -dev
  * Add parsing support for CONFIGURATION command
+ * Add support for input that contains Windows style line endings
  * Ignore 'END PRELUDE' command
 
 2014-12-08 : Version 2.0
