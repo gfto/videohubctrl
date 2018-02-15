@@ -389,10 +389,20 @@ Reporting bugs
 If you think you have found bug in videohubctrl, please report it to
 the e-mail listed in Contact section (see below) of this README file.
 
-When reporting bugs, please send the whole output that videohubctrl
-generated (preferably by using --debug option) and also the full
-command line which you used and describe what you think the videohubctrl
-does wrong.
+When reporting bugs, run 'videohubctrl' with debugging enabled by adding
+several --debug (-d) options on the command line, for example:
+
+  videohubctrl -d -d -d --host 192.168.0.1
+
+Please add the full command line that you are using and describe what
+you think the 'videohubctrl' does wrong.
+
+Also it is very useful to report what VideoHub device reports by
+running:
+
+  telnet your_videohub_ip 9990
+
+save the output and attach it to your bug report.
 
 
 TODO list
