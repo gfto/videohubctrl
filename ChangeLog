@@ -1,9 +1,10 @@
 |-----------------------------------------------------------------------|
-xxxx-xx-xx : Version -dev
+2020-07-26 : Version 3.0
  * Add parsing support for CONFIGURATION command
  * Add support for input that contains Windows style line endings
  * Add support for input that have leading white space
  * Ignore 'END PRELUDE' command
+ * Add support for --timeout.
 
 2014-12-08 : Version 2.0
  * Add support for --list-proc-units and --list-frames.
