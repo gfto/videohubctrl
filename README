@@ -42,6 +42,7 @@ of supported command line parameters:
 Main options:
  -h --host <host>           | Set device host name.
  -p --port <port_number>    | Set device port (default: 9990).
+ -t --timeout <secs>        | Set connect/read timeout. Default: 15
 
 Commands:
  -i --info                  | Show full device info (default command).

@@ -26,6 +26,7 @@
 #include "libfuncs/libfuncs.h"
 
 int ai_family = AF_UNSPEC;
+extern int timeout;
 
 static char *my_inet_ntop(int family, struct sockaddr *addr, char *dest, int dest_len) {
 	struct sockaddr_in  *addr_v4 = (struct sockaddr_in  *)addr;
@@ -69,7 +70,7 @@ int connect_client(int socktype, const char *hostname, const char *service) {
 		sockfd = socket(res->ai_family, res->ai_socktype, res->ai_protocol);
 		if (sockfd > -1) {
 			my_inet_ntop(res->ai_family, res->ai_addr, str_addr, sizeof(str_addr));
-			if (do_connect(sockfd, res->ai_addr, res->ai_addrlen, 1000) < 0) {
+			if (do_connect(sockfd, res->ai_addr, res->ai_addrlen, timeout * 1000) < 0) {
 				fprintf(stderr, "ERROR: Cant connect to server %s port %s (addr=%s) | %s\n",
 					hostname, service, str_addr, strerror(errno));
 				close(sockfd);

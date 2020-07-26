@@ -29,6 +29,7 @@
 
 int debug;
 int quiet;
+int timeout = 15;
 
 static struct videohub_data maindata;
 static int show_info = 1;
@@ -49,7 +50,7 @@ enum list_actions {
 
 static const char *program_id = PROGRAM_NAME " Version: " VERSION " Git: " GIT_VER;
 
-static const char short_options[] = "h:p:T:qdHVimb";
+static const char short_options[] = "h:p:T:qdHVimbt:";
 
 static const struct option long_options[] = {
 	{ "host",				required_argument, NULL, 'h' },
@@ -62,6 +63,7 @@ static const struct option long_options[] = {
 	{ "info",				no_argument,       NULL, 'i' },
 	{ "monitor",			no_argument,       NULL, 'm' },
 	{ "backup",				no_argument,       NULL, 'b' },
+	{ "timeout",			required_argument, NULL, 't' },
 
 	{ "list-device",		no_argument,       NULL, 901 },
 	{ "list-inputs",		no_argument,       NULL, 902 },
@@ -148,6 +150,7 @@ static void show_help(struct videohub_data *data) {
 	printf("Main options:\n");
 	printf(" -h --host <host>           | Set device host name.\n");
 	printf(" -p --port <port_number>    | Set device port (default: 9990).\n");
+	printf(" -t --timeout <secs>        | Set connect/read timeout. Default: %d\n", timeout);
 	printf("\n");
 	printf("Commands:\n");
 	printf(" -i --info                  | Show full device info (default command).\n");
@@ -299,6 +302,9 @@ static void parse_options(struct videohub_data *data, int argc, char **argv) {
 			case 'p': // --port
 				data->dev_port = optarg;
 				break;
+			case 't': // --timeout
+				timeout = strtoimax(optarg, NULL, 0);
+				break;
 			case 'T': { // --test-input
 				struct stat st;
 				FILE *f;
@@ -374,13 +380,15 @@ static void parse_options(struct videohub_data *data, int argc, char **argv) {
 		}
 	}
 
-	if (!data->dev_host || !strtoul(data->dev_port, NULL, 10))
+	if (!data->dev_host || !strtoul(data->dev_port, NULL, 10) || !timeout || timeout > 60)
 		err = 1;
 
 	if (err) {
 		show_help(data);
 		if (!data->dev_host)
 			fprintf(stderr, "ERROR: host is not set. Use --host option.\n");
+		if (!timeout || timeout > 60)
+			fprintf(stderr, "ERROR: invalid timeout value, must be between 1 and 60\n");
 		exit(EXIT_FAILURE);
 	}
 
@@ -416,7 +424,7 @@ static int read_device_command_stream(struct videohub_data *d) {
 	if (test_data)
 		return 0;
 	memset(buf, 0, sizeof(buf));
-	while ((ret = fdread_ex(d->dev_fd, buf, sizeof(buf) - 1, 5, 0, 1)) >= 0) {
+	while ((ret = fdread_ex(d->dev_fd, buf, sizeof(buf) - 1, timeout, 0, 1)) >= 0) {
 		ncommands += parse_text_buffer(d, buf);
 		memset(buf, 0, sizeof(buf));
 	}
