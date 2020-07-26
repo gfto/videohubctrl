@@ -354,11 +354,11 @@ Development
 
 The development is done using git. videohubctrl repository is hosted at
 
-   http://github.com/gfto/videohubctrl
+   https://georgi.unixsol.org/git/gfto/videohubctrl
 
 To clone the repository issue the following commands:
 
-   git clone git://github.com/gfto/videohubctrl.git
+   git clone https://georgi.unixsol.org/git/gfto/videohubctrl.git
    cd videohubctrl
    git submodule init
    git submodule update
@@ -429,7 +429,7 @@ Releases
 
 Official releases can be downloaded from videohubctrl home page which is
 
-   http://georgi.unixsol.org/programs/videohubctrl/
+   https://georgi.unixsol.org/programs/videohubctrl/
 
 
 Contact
