@@ -420,7 +420,11 @@ static void print_device_full(struct videohub_data *d) {
 
 static int read_device_command_stream(struct videohub_data *d) {
 	int ret, ncommands = 0;
-	char buf[8192 + 1];
+        /* On a Universal Videohub 288 you can get 3231 lines of output,
+         * let's assume worst case of 80 characters per line, so a 300KB
+         * message.
+         */
+        char buf[300 * 1024 + 1];
 	if (test_data)
 		return 0;
 	memset(buf, 0, sizeof(buf));
