@@ -428,7 +428,7 @@ static int read_device_command_stream(struct videohub_data *d) {
 	if (test_data)
 		return 0;
 	memset(buf, 0, sizeof(buf));
-	while ((ret = fdread_ex(d->dev_fd, buf, sizeof(buf) - 1, timeout, 0, 1)) >= 0) {
+	while ((ret = fdread_ex(d->dev_fd, buf, sizeof(buf) - 1, timeout * 1000, 0, 1)) >= 0) {
 		ncommands += parse_text_buffer(d, buf);
 		memset(buf, 0, sizeof(buf));
 	}
