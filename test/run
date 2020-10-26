@@ -163,3 +163,9 @@ check test/test-r "Test input with windows line endings"
 
 videohubctrl --test-input test/input-r2.txt $@ &> test/test-r2.out
 check test/test-r2 "Test input with leading whitespace and windows line endings"
+
+videohubctrl --test-input test/input-288.txt $@ &> test/test-288.out
+check test/test-288 "Test videohub 288 config parsing"
+
+videohubctrl --list-alarms --test-input test/input-288-alarms.txt $@ &> test/test-288-alarms.out
+check test/test-288-alarms "Test alarm overflow"

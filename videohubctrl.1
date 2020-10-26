@@ -1,4 +1,4 @@
-.TH VIDEOHUBCTRL "1" "December 2014" "videohubctrl 3.0" "User Commands"
+.TH VIDEOHUBCTRL "1" "October 2020" "videohubctrl 3.1" "User Commands"
 .SH NAME
 videohubctrl - Blackmagic Design Videohub SDI router control
 .SH SYNOPSIS
@@ -17,6 +17,7 @@ videohubctrl currently displays and can configure:
   - Serial ports names, routing, locking and directions
   - Processing units
   - Frames
+  - Alarms status
 .SH MAIN OPTIONS
 .PP
 .TP
@@ -96,6 +97,9 @@ video inputs.
 .TP
 \fB\-\-list\-frames\fR
 Display stored frame buffers.
+.TP
+\fB\-\-list\-alarms\fR
+Display current alarms status.
 .TP
 \fB\-\-set\-name\fR <name>
 Set the device "friendly name". This name can be used as a device identifier.

@@ -15,7 +15,7 @@
 
 #include <stdbool.h>
 
-#define NUM_COMMANDS 26
+#define NUM_COMMANDS 27
 
 enum vcmd {
 	CMD_PROTOCOL_PREAMBLE,
@@ -41,6 +41,7 @@ enum vcmd {
 	CMD_FRAME_LABELS,
 	CMD_FRAME_BUFFER_ROUTING,
 	CMD_FRAME_BUFFER_LOCKS,
+	CMD_ALARM_STATUS,
 	CMD_PING,
 	CMD_ACK,
 	CMD_NAK = (NUM_COMMANDS - 1),

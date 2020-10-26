@@ -224,6 +224,24 @@ void print_device_frame_buffers(struct videohub_data *d) {
 	printf("\n");
 }
 
+void print_device_alarm_status(struct videohub_data *d) {
+	unsigned int i, len = 70;
+	if (!d->alarms.num)
+		return;
+	printf("Alarm status\n");
+	printf_line(len);
+	printf("  | %-32s | %-31s |\n", "Alarm name", "Status");
+	printf_line(len);
+	for(i = 0; i < d->alarms.num; i++) {
+		printf("  | %-32s | %-31s |\n",
+			d->alarms.alarm[i].name,
+			d->alarms.alarm[i].status
+		);
+	}
+	printf_line(len);
+	printf("\n");
+}
+
 
 static void __print_opt(struct videohub_data *d, enum vcmd vcmd) {
 	unsigned int i, last = 0;

@@ -15,6 +15,7 @@ videohubctrl currently displays and can configure:
   - Serial ports names, routing, locking and directions
   - Processing units
   - Frames
+  - Alarms status
 
 Configuration of Videohub's network settings can be made using
 Blackmagic's Windows program when the device is connected via USB.
@@ -59,6 +60,7 @@ Commands:
  --list-serial              | List device serial ports.
  --list-proc-units          | List device processing units.
  --list-frames              | List device frame buffers.
+ --list-alarms              | List device alarms.
 
  --set-name <name>          | Set the device "friendly name".
 
@@ -412,7 +414,6 @@ TODO list
 Help is very much welcome for these tasks:
 
  - Find out what these undocumented commands do:
-    ALARM STATUS:
     END PRELUDE:
     ENGINEERING:
 

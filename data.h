@@ -16,9 +16,11 @@
 #include <stdbool.h>
 
 #define MAX_PORTS 288
-#define MAX_NAME_LEN 32
+#define MAX_NAME_LEN 48
 #define MAX_RUN_CMDS (288 * 5)
 #define NO_PORT ((unsigned int) -1)
+#define MAX_ALARMS 32
+#define MAX_ALARM_STATUS_LEN 256
 
 struct device_desc {
 	bool			dev_present;
@@ -73,6 +75,16 @@ struct port_set {
 	struct port		port[MAX_PORTS];
 };
 
+struct alarm {
+	char			name[MAX_NAME_LEN];
+	char			status[MAX_ALARM_STATUS_LEN];
+};
+
+struct alarm_status {
+	unsigned int	num;
+	struct alarm	alarm[MAX_ALARMS];
+};
+
 struct videohub_data {
 	char					*dev_host;
 	char					*dev_port;
@@ -84,6 +96,7 @@ struct videohub_data {
 	struct port_set			serial;
 	struct port_set			proc_units;
 	struct port_set			frames;
+	struct alarm_status		alarms;
 };
 
 extern int debug;

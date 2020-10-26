@@ -37,7 +37,9 @@ INPUT LABELS:
 15 Loopback
 
 ALARM STATUS:
+Fan 1: ok
 0 Error
+Fan 2: Something very bad is happening
 
 END PRELUDE:
 

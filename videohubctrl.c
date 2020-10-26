@@ -46,6 +46,7 @@ enum list_actions {
 	action_list_serial		= (1 << 4),
 	action_list_proc_units	= (1 << 5),
 	action_list_frames		= (1 << 6),
+	action_list_alarms		= (1 << 7),
 };
 
 static const char *program_id = PROGRAM_NAME " Version: " VERSION " Git: " GIT_VER;
@@ -75,6 +76,7 @@ static const struct option long_options[] = {
 	{ "list-serial",		no_argument,       NULL, 905 },
 	{ "list-proc-units",	no_argument,       NULL, 906 },
 	{ "list-frames",		no_argument,       NULL, 907 },
+	{ "list-alarms",		no_argument,       NULL, 908 },
 
 	{ "set-name",			required_argument, NULL, 950 },
 
@@ -167,6 +169,7 @@ static void show_help(struct videohub_data *data) {
 	printf(" --list-serial              | List device serial ports.\n");
 	printf(" --list-proc-units          | List device processing units.\n");
 	printf(" --list-frames              | List device frame buffers.\n");
+	printf(" --list-alarms              | List device alarms.\n");
 	printf("\n");
 	printf(" --set-name <name>          | Set the device \"friendly name\".\n");
 	printf("\n");
@@ -344,6 +347,7 @@ static void parse_options(struct videohub_data *data, int argc, char **argv) {
 			case 905: show_list |= action_list_serial; break; // --list-serial
 			case 906: show_list |= action_list_proc_units; break; // --list-proc-units
 			case 907: show_list |= action_list_frames; break; // --list-frames
+			case 908: show_list |= action_list_alarms; break; // --list-alarms
 			case 950: set_device_option("Friendly name", optarg); break; // --set-name
 			case 1001: parse_cmd2(argc, argv, CMD_INPUT_LABELS); break; // --in-name
 			case 1002: parse_cmd2(argc, argv, CMD_VIDEO_OUTPUT_ROUTING); switch_cmd_args(); break; // --in-output
@@ -409,6 +413,7 @@ static void reset_routed_to(struct port_set *p) {
 
 static void print_device_full(struct videohub_data *d) {
 	print_device_info(d);
+	print_device_alarm_status(d);
 	print_device_video_inputs(d);
 	print_device_video_outputs(d);
 	print_device_monitoring_outputs(d);
@@ -528,6 +533,7 @@ int main(int argc, char **argv) {
 		}
 	} else if (show_list) {
 		if (show_list & action_list_device)		print_device_info(data);
+		if (show_list & action_list_alarms)		print_device_alarm_status(data);
 		if (show_list & action_list_vinputs)	print_device_video_inputs(data);
 		if (show_list & action_list_voutputs)	print_device_video_outputs(data);
 		if (show_list & action_list_moutputs)	print_device_monitoring_outputs(data);

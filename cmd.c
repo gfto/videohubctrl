@@ -43,6 +43,7 @@ const char *videohub_commands_text[NUM_COMMANDS] = {
 	[CMD_FRAME_LABELS]           = "FRAME LABELS",
 	[CMD_FRAME_BUFFER_ROUTING]   = "FRAME BUFFER ROUTING",
 	[CMD_FRAME_BUFFER_LOCKS]     = "FRAME BUFFER LOCKS",
+	[CMD_ALARM_STATUS]         = "ALARM STATUS",
 	[CMD_PING]                 = "PING",
 	[CMD_ACK]                  = "ACK",
 	[CMD_NAK]                  = "NAK",
@@ -162,6 +163,7 @@ struct videohub_commands videohub_commands[NUM_COMMANDS] = {
 		.port_id1 = "frame",
 		.opt_prefix = "fr",
 	},
+	[CMD_ALARM_STATUS]         = { .cmd = CMD_ALARM_STATUS        , .type = PARSE_CUSTOM },
 	[CMD_END_PRELUDE]          = { .cmd = CMD_END_PRELUDE         , .type = PARSE_NONE },
 	[CMD_PING]                 = { .cmd = CMD_PING                , .type = PARSE_NONE },
 	[CMD_ACK]                  = { .cmd = CMD_ACK                 , .type = PARSE_NONE },
@@ -332,6 +334,22 @@ bool parse_command(struct videohub_data *d, char *cmd) {
 			if ((p = parse_text(line, "Take Mode: "))) {
 				d->device.conf_take_mode = streq(p, "true");
 			}
+			break;
+		case CMD_ALARM_STATUS:
+			p = strchr(line, ':');
+			if (p) {
+				char *alarm_name = line; // Use start of the line
+				*p = '\0'; // Terminate the alarm name at :
+				char *alarm_status = p + 2; // Set alarm value to point after ': '
+				if (d->alarms.num + 1 < MAX_ALARMS) {
+					snprintf(d->alarms.alarm[ d->alarms.num ].name  , MAX_NAME_LEN, "%s", alarm_name);
+					snprintf(d->alarms.alarm[ d->alarms.num ].status, MAX_ALARM_STATUS_LEN, "%s", alarm_status);
+					d->alarms.num++;
+				} else {
+					q("WARNING: Too many alarms (> %d) increase MAX_ALARMS and recompile. Alarm '%s' value '%s' ignorred\n", d->alarms.num + 1, alarm_name, alarm_status);
+				}
+		}
+			break;
 		case CMD_NAK:
 			ret = false;
 			break;

@@ -1,0 +1,51 @@
+PROTOCOL PREAMBLE:
+Version: 2.3
+
+VIDEOHUB DEVICE:
+Device present: true
+Model name: Blackmagic Universal Videohub
+Video inputs: 288
+Video processing units: 0
+Video outputs: 288
+Video monitoring outputs: 0
+Serial ports: 288
+
+ALARM STATUS:
+Fan 0: ok
+Fan 1: zok
+Fan 2: ok
+Power Supply Slot 0: ok
+Power Supply Slot 1: ok
+Power Sufficient for Load: ok
+Network Slot 0: ok
+Network Slot 1: ok
+Card Bus: ok
+Card Firmware Version: ok
+Logic Slot 0: ok
+Logic Slot 1: ok
+Logic Firmware Version Slot 0: ok
+Logic Firmware Version Slot 1: ok
+ProcessorLink: ok
+Processor Firmware Version: ok
+Crosspoint Slot 0: ok
+Crosspoint Slot 1: ok
+Bus Host Slot 0: ok
+Bus Host Slot 1: ok
+Bus Host Firmware Version Slot 0: ok
+Bus Host Firmware Version Slot 1: ok
+test 01: ok
+test 02: ok
+test 03: ok
+test 04: ok
+test 05: ok
+test 06: ok
+test 07: ok
+test 08: ok
+test 09: ok
+test 10: ok
+test 11: ok
+test 12: ok
+test 13: ok
+test 14: ok
+test 15: ok
+test 16: ok

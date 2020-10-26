@@ -1,0 +1,3226 @@
+PROTOCOL PREAMBLE:
+Version: 2.3
+
+VIDEOHUB DEVICE:
+Device present: true
+Model name: Blackmagic Universal Videohub
+Video inputs: 288
+Video processing units: 0
+Video outputs: 288
+Video monitoring outputs: 0
+Serial ports: 288
+
+INPUT LABELS:
+0 Vtr 1 Out A
+1 Vtr 1 Out B
+2 Vtr 1 Out Fc
+3 Vtr 2 Out
+4 Vtr 3 Out
+5 Vtr 4 Out
+6 Vtr 5 Out
+7 Vtr 6 Out A
+8 Vtr 6 Out B
+9 Vtr 6 Out Fc
+10 Vtr 7 Out
+11 STREAM 1
+12 Vtr 9 Out
+13 STREAM 2
+14 Vtr 10 Out B
+15 Vtr 10 Out Fc
+16 Vtr 11 Out A
+17 STREAM 3
+18 Vtr 11 Out fc sd
+19 Vtr 12 Out
+20 Vtr 13 Out
+21 Vtr 14 Out
+22 Vtr 15 Out
+23 Vtr 16 Out A
+24 Vtr 16 Out B
+25 Vtr 16 Out fc sd
+26 Vtr 17 Out
+27 Vtr 18 Out
+28 Input 29
+29 STREAM 4
+30 EDIT 1 Out A
+31 EDIT 1 Out B
+32 EDIT 2 Out A
+33 EDIT 2 Out B
+34 EDIT 3 Out A
+35 EDIT 3 Out B
+36 EDIT 4 Out A
+37 EDIT 4 Out B
+38 EDIT 5 Out A
+39 EDIT 5 Out B
+40 EDIT 6 Out A
+41 EDIT 6 Out B
+42 EDIT 7 Out A
+43 EDIT 7 Out B
+44 EDIT 8 Out A
+45 EDIT 8 Out B
+46 EDIT 9 Out A
+47 EDIT 9 Out B
+48 EDIT 10 Out A
+49 EDIT 10 Out B
+50 EDIT 11 Out A
+51 EDIT 11 Out B
+52 ASSIST 1 Out A
+53 ASSIST 1 Out B
+54 ASSIST 2 Out A
+55 ASSIST 2 Out B
+56 ASSIST 3 Out A
+57 ASSIST 3 Out B
+58 ASSIST 4 Out A
+59 ASSIST 4 Out B
+60 EDIT 12 OUT A
+61 EDIT 12 OUT B
+62 COMP 12 OUT A
+63 COMP 12 OUT B
+64 COLOR 1 OUT A
+65 COLOR 1 OUT B
+66 COLOR 3 OUT A
+67 COLOR 3 OUT B
+68 COMP 13 OUT A
+69 COMP 13 OUT B
+70 COLOR 2 OUT A
+71 COLOR 2 OUT B
+72 STREAM 5
+73 STREAM 6
+74 Input 75
+75 Input 76
+76 COMP 1 OUT A1
+77 COMP 1 OUT B1
+78 COMP 1 OUT A2
+79 COMP 1 OUT B2
+80 COMP 2 OUT A
+81 COMP 2 OUT B
+82 COMP 7 OUT A
+83 COMP 7 OUT B
+84 COMP 3 OUT A
+85 COMP 3 OUT B
+86 COMP 8 OUT A
+87 COMP 8 OUT B
+88 COMP 4 OUT A1
+89 COMP 4 OUT B1
+90 COMP 4 OUT A2
+91 COMP 4 OUT B2
+92 COMP 10 OUT A1
+93 COMP 10 OUT B1
+94 COMP 10 OUT A2
+95 COMP 10 OUT B2
+96 COMP 11 OUT A1
+97 COMP 11 OUT B1
+98 COMP 11 OUT A2
+99 COMP 11 OUT B2
+100 SUITE 2 OUT A
+101 SUITE 2 OUT B
+102 SUITE 2 MON
+103 STREAM 7
+104 STREAM 8
+105 STREAM 9
+106 STREAM 10
+107 STREAM 11
+108 SUITE 3 Out A
+109 SUITE 3 Out B
+110 SUITE 4 Out A
+111 SUITE 4 Out B
+112 SUITE 5 Out A
+113 SUITE 5 Out B
+114 SUITE 6 Out A
+115 SUITE 6 Out B
+116 SUITE 7 Out A
+117 SUITE 7 Out B
+118 SUITE 8 Out A
+119 SUITE 8 Out B
+120 SUITE 9 Out A
+121 SUITE 9 Out B
+122 SUITE 10 Out A
+123 SUITE 10 Out B
+124 STREAM 12
+125 STREAM 13
+126 SUITE 11 Out A
+127 SUITE 11 Out B
+128 Input 129
+129 Input 130
+130 Input 131
+131 Input 132
+132 Input 133
+133 Input 134
+134 Input 135
+135 Input 136
+136 Input 137
+137 Input 138
+138 Input 139
+139 Input 140
+140 Input 141
+141 Input 142
+142 Input 143
+143 Input 144
+144 Input 145
+145 Input 146
+146 Input 147
+147 Input 148
+148 Input 149
+149 Input 150
+150 Input 151
+151 Input 152
+152 Input 153
+153 Input 154
+154 Input 155
+155 Input 156
+156 Input 157
+157 Input 158
+158 Input 159
+159 Input 160
+160 Input 161
+161 Input 162
+162 Input 163
+163 Input 164
+164 Input 165
+165 Input 166
+166 Input 167
+167 Input 168
+168 Input 169
+169 Input 170
+170 Input 171
+171 Input 172
+172 Input 173
+173 Input 174
+174 Input 175
+175 Input 176
+176 Input 177
+177 Input 178
+178 Input 179
+179 Input 180
+180 Input 181
+181 Input 182
+182 Input 183
+183 Input 184
+184 Input 185
+185 Input 186
+186 Input 187
+187 Input 188
+188 Input 189
+189 Input 190
+190 Input 191
+191 Input 192
+192 Input 193
+193 Input 194
+194 Input 195
+195 Input 196
+196 Input 197
+197 Input 198
+198 Input 199
+199 Input 200
+200 Input 201
+201 Input 202
+202 Input 203
+203 Input 204
+204 Input 205
+205 Input 206
+206 Input 207
+207 Input 208
+208 Input 209
+209 Input 210
+210 Input 211
+211 Input 212
+212 Input 213
+213 Input 214
+214 Input 215
+215 Input 216
+216 Input 217
+217 Input 218
+218 Input 219
+219 Input 220
+220 Input 221
+221 Input 222
+222 Input 223
+223 Input 224
+224 Input 225
+225 Input 226
+226 Input 227
+227 Input 228
+228 Input 229
+229 Input 230
+230 Input 231
+231 Input 232
+232 Input 233
+233 Input 234
+234 Input 235
+235 Input 236
+236 Input 237
+237 Input 238
+238 Input 239
+239 Input 240
+240 Input 241
+241 Input 242
+242 Input 243
+243 Input 244
+244 Input 245
+245 Input 246
+246 Input 247
+247 Input 248
+248 Input 249
+249 Input 250
+250 Input 251
+251 Input 252
+252 Input 253
+253 Input 254
+254 Input 255
+255 Input 256
+256 Input 257
+257 Input 258
+258 Input 259
+259 Input 260
+260 Input 261
+261 Input 262
+262 Input 263
+263 Input 264
+264 Input 265
+265 Input 266
+266 Input 267
+267 Input 268
+268 Input 269
+269 Input 270
+270 Input 271
+271 Input 272
+272 Input 273
+273 Input 274
+274 Input 275
+275 Input 276
+276 Input 277
+277 Input 278
+278 Input 279
+279 Input 280
+280 Input 281
+281 Input 282
+282 Input 283
+283 Input 284
+284 Input 285
+285 Input 286
+286 Input 287
+287 Input 288
+
+VIDEO INPUT STATUS:
+0 BNC
+1 BNC
+2 BNC
+3 BNC
+4 BNC
+5 BNC
+6 BNC
+7 BNC
+8 BNC
+9 BNC
+10 BNC
+11 BNC
+12 BNC
+13 BNC
+14 BNC
+15 BNC
+16 BNC
+17 BNC
+18 BNC
+19 BNC
+20 BNC
+21 BNC
+22 BNC
+23 BNC
+24 BNC
+25 BNC
+26 BNC
+27 BNC
+28 BNC
+29 BNC
+30 BNC
+31 BNC
+32 BNC
+33 BNC
+34 BNC
+35 BNC
+36 BNC
+37 BNC
+38 BNC
+39 BNC
+40 BNC
+41 BNC
+42 BNC
+43 BNC
+44 BNC
+45 BNC
+46 BNC
+47 BNC
+48 BNC
+49 BNC
+50 BNC
+51 BNC
+52 BNC
+53 BNC
+54 BNC
+55 BNC
+56 BNC
+57 BNC
+58 BNC
+59 BNC
+60 BNC
+61 BNC
+62 BNC
+63 BNC
+64 BNC
+65 BNC
+66 BNC
+67 BNC
+68 BNC
+69 BNC
+70 BNC
+71 BNC
+72 BNC
+73 BNC
+74 BNC
+75 BNC
+76 BNC
+77 BNC
+78 BNC
+79 BNC
+80 BNC
+81 BNC
+82 BNC
+83 BNC
+84 BNC
+85 BNC
+86 BNC
+87 BNC
+88 BNC
+89 BNC
+90 BNC
+91 BNC
+92 BNC
+93 BNC
+94 BNC
+95 BNC
+96 BNC
+97 BNC
+98 BNC
+99 BNC
+100 BNC
+101 BNC
+102 BNC
+103 BNC
+104 BNC
+105 BNC
+106 BNC
+107 BNC
+108 BNC
+109 BNC
+110 BNC
+111 BNC
+112 BNC
+113 BNC
+114 BNC
+115 BNC
+116 BNC
+117 BNC
+118 BNC
+119 BNC
+120 BNC
+121 BNC
+122 BNC
+123 BNC
+124 BNC
+125 BNC
+126 BNC
+127 BNC
+128 None
+129 None
+130 None
+131 None
+132 None
+133 None
+134 None
+135 None
+136 BNC
+137 BNC
+138 BNC
+139 BNC
+140 BNC
+141 BNC
+142 BNC
+143 BNC
+144 None
+145 None
+146 None
+147 None
+148 None
+149 None
+150 None
+151 None
+152 None
+153 None
+154 None
+155 None
+156 None
+157 None
+158 None
+159 None
+160 None
+161 None
+162 None
+163 None
+164 None
+165 None
+166 None
+167 None
+168 None
+169 None
+170 None
+171 None
+172 None
+173 None
+174 None
+175 None
+176 None
+177 None
+178 None
+179 None
+180 None
+181 None
+182 None
+183 None
+184 None
+185 None
+186 None
+187 None
+188 None
+189 None
+190 None
+191 None
+192 None
+193 None
+194 None
+195 None
+196 None
+197 None
+198 None
+199 None
+200 None
+201 None
+202 None
+203 None
+204 None
+205 None
+206 None
+207 None
+208 None
+209 None
+210 None
+211 None
+212 None
+213 None
+214 None
+215 None
+216 None
+217 None
+218 None
+219 None
+220 None
+221 None
+222 None
+223 None
+224 None
+225 None
+226 None
+227 None
+228 None
+229 None
+230 None
+231 None
+232 None
+233 None
+234 None
+235 None
+236 None
+237 None
+238 None
+239 None
+240 None
+241 None
+242 None
+243 None
+244 None
+245 None
+246 None
+247 None
+248 None
+249 None
+250 None
+251 None
+252 None
+253 None
+254 None
+255 None
+256 None
+257 None
+258 None
+259 None
+260 None
+261 None
+262 None
+263 None
+264 None
+265 None
+266 None
+267 None
+268 None
+269 None
+270 None
+271 None
+272 None
+273 None
+274 None
+275 None
+276 None
+277 None
+278 None
+279 None
+280 None
+281 None
+282 None
+283 None
+284 None
+285 None
+286 None
+287 None
+
+OUTPUT LABELS:
+0 Vtr 1 In A
+1 Vtr 1 In B
+2 Output 3
+3 Vtr 2 In
+4 Vtr 3 In
+5 Vtr 4 In
+6 Vtr 5 In
+7 Vtr 6 In A
+8 Vtr 6 In B
+9 Output 10
+10 STREAM 3
+11 STREAM 4
+12 Vtr 9 In
+13 STREAM 5
+14 STREAM 6
+15 Output 16
+16 Vtr 11 In A
+17 STREAM 7
+18 Output 19
+19 Vtr 12 In
+20 Vtr 13 In
+21 STREAM 8
+22 Vtr 15 In
+23 STREAM 9
+24 STREAM 10
+25 Output 26
+26 Vtr 17 In
+27 Vtr 18 In
+28 Output 29
+29 STREAM 11
+30 EDIT 1 In A
+31 EDIT 1 In B
+32 EDIT 2 In A
+33 EDIT 2 In B
+34 EDIT 3 In A
+35 EDIT 3 In B
+36 EDIT 4 In A
+37 EDIT 4 In B
+38 EDIT 5 In A
+39 EDIT 5 In B
+40 EDIT 6 In A
+41 EDIT 6 In B
+42 EDIT 7 In A
+43 EDIT 7 In B
+44 EDIT 8 In A
+45 EDIT 8 In B
+46 EDIT 9 In A
+47 EDIT 9 In B
+48 EDIT 10 In A
+49 EDIT 10 In B
+50 EDIT 11 In A
+51 EDIT 11 In B
+52 ASSIST1 In A
+53 ASSIST1 In B
+54 ASSIST2 In A
+55 ASSIST2 In B
+56 SUITE 7 In A
+57 SUITE 7 In B
+58 SUITE 8 In A
+59 SUITE 8 In B
+60 SUITE 9 In A
+61 SUITE 9 In B
+62 COMP 12 In A
+63 COMP 12 In B
+64 COLOR 1 In A
+65 COLOR 1 In B
+66 COLOR 3 In A
+67 COLOR 3 In B
+68 COMP 13 In A
+69 COMP 13 In B
+70 COLOR 2 In A
+71 COLOR 2 In B
+72 STREAM 12
+73 STREAM 13
+74 Output 75
+75 Output 76
+76 COMP 1 In A
+77 COMP 1 In B
+78 Output 79
+79 Output 80
+80 COMP 2 In A
+81 COMP 2 In B
+82 Output 83
+83 Output 84
+84 COMP 3 In A
+85 COMP 3 In B
+86 Output 87
+87 Output 88
+88 COMP 4 In A
+89 COMP 4 In B
+90 Output 91
+91 Output 92
+92 COMP 10 In A
+93 COMP 10 In B
+94 Output 95
+95 Output 96
+96 COMP 15 In A
+97 COMP 15 In B
+98 Output 99
+99 Output 100
+100 SUITE 11
+101 SUITE 12
+102 SUITE 13
+103 STREAM 14
+104 STREAM 15
+105 STREAM 16
+106 SUITE 14 In A
+107 SUITE 14 In B
+108 SUITE 1 In A
+109 SUITE 1 In B
+110 SUITE 2 In A
+111 SUITE 2 In B
+112 SUITE 3 In A
+113 SUITE 3 In B
+114 SUITE 4 In A
+115 SUITE 4 In B
+116 SUITE 5 In A
+117 SUITE 5 In B
+118 SUITE 6 In A
+119 SUITE 6 In B
+120 SUITE 16 In A
+121 SUITE 16 In B
+122 COMP 16 In A
+123 COMP 16 In B
+124 SUITE 17 In A
+125 SUITE 17 In B
+126 SUITE 18 In A
+127 SUITE 18 In B
+128 Output 129
+129 Output 130
+130 Output 131
+131 Output 132
+132 Output 133
+133 Output 134
+134 Output 135
+135 Output 136
+136 Output 137
+137 Output 138
+138 Output 139
+139 Output 140
+140 Output 141
+141 Output 142
+142 Output 143
+143 Output 144
+144 Output 145
+145 Output 146
+146 Output 147
+147 Output 148
+148 Output 149
+149 Output 150
+150 Output 151
+151 Output 152
+152 Output 153
+153 Output 154
+154 Output 155
+155 Output 156
+156 Output 157
+157 Output 158
+158 Output 159
+159 Output 160
+160 Output 161
+161 Output 162
+162 Output 163
+163 Output 164
+164 Output 165
+165 Output 166
+166 Output 167
+167 Output 168
+168 Output 169
+169 Output 170
+170 Output 171
+171 Output 172
+172 Output 173
+173 Output 174
+174 Output 175
+175 Output 176
+176 Output 177
+177 Output 178
+178 Output 179
+179 Output 180
+180 Output 181
+181 Output 182
+182 Output 183
+183 Output 184
+184 Output 185
+185 Output 186
+186 Output 187
+187 Output 188
+188 Output 189
+189 Output 190
+190 Output 191
+191 Output 192
+192 Output 193
+193 Output 194
+194 Output 195
+195 Output 196
+196 Output 197
+197 Output 198
+198 Output 199
+199 Output 200
+200 Output 201
+201 Output 202
+202 Output 203
+203 Output 204
+204 Output 205
+205 Output 206
+206 Output 207
+207 Output 208
+208 Output 209
+209 Output 210
+210 Output 211
+211 Output 212
+212 Output 213
+213 Output 214
+214 Output 215
+215 Output 216
+216 Output 217
+217 Output 218
+218 Output 219
+219 Output 220
+220 Output 221
+221 Output 222
+222 Output 223
+223 Output 224
+224 Output 225
+225 Output 226
+226 Output 227
+227 Output 228
+228 Output 229
+229 Output 230
+230 Output 231
+231 Output 232
+232 Output 233
+233 Output 234
+234 Output 235
+235 Output 236
+236 Output 237
+237 Output 238
+238 Output 239
+239 Output 240
+240 Output 241
+241 Output 242
+242 Output 243
+243 Output 244
+244 Output 245
+245 Output 246
+246 Output 247
+247 Output 248
+248 Output 249
+249 Output 250
+250 Output 251
+251 Output 252
+252 Output 253
+253 Output 254
+254 Output 255
+255 Output 256
+256 Output 257
+257 Output 258
+258 Output 259
+259 Output 260
+260 Output 261
+261 Output 262
+262 Output 263
+263 Output 264
+264 Output 265
+265 Output 266
+266 Output 267
+267 Output 268
+268 Output 269
+269 Output 270
+270 Output 271
+271 Output 272
+272 Output 273
+273 Output 274
+274 Output 275
+275 Output 276
+276 Output 277
+277 Output 278
+278 Output 279
+279 Output 280
+280 Output 281
+281 Output 282
+282 Output 283
+283 Output 284
+284 Output 285
+285 Output 286
+286 Output 287
+287 Output 288
+
+VIDEO OUTPUT LOCKS:
+0 U
+1 U
+2 U
+3 U
+4 U
+5 U
+6 U
+7 U
+8 U
+9 U
+10 U
+11 U
+12 U
+13 U
+14 U
+15 U
+16 U
+17 U
+18 U
+19 U
+20 U
+21 U
+22 U
+23 U
+24 U
+25 U
+26 U
+27 U
+28 U
+29 U
+30 U
+31 U
+32 U
+33 U
+34 U
+35 U
+36 U
+37 U
+38 U
+39 U
+40 U
+41 U
+42 U
+43 U
+44 U
+45 U
+46 U
+47 U
+48 U
+49 U
+50 U
+51 U
+52 U
+53 U
+54 U
+55 U
+56 U
+57 U
+58 U
+59 U
+60 U
+61 U
+62 U
+63 U
+64 U
+65 U
+66 U
+67 U
+68 U
+69 U
+70 U
+71 U
+72 U
+73 U
+74 U
+75 U
+76 U
+77 U
+78 U
+79 U
+80 U
+81 U
+82 U
+83 U
+84 U
+85 U
+86 U
+87 U
+88 U
+89 U
+90 U
+91 U
+92 U
+93 U
+94 U
+95 U
+96 U
+97 U
+98 U
+99 U
+100 U
+101 U
+102 U
+103 U
+104 U
+105 U
+106 U
+107 U
+108 U
+109 U
+110 U
+111 U
+112 U
+113 U
+114 U
+115 U
+116 U
+117 U
+118 U
+119 U
+120 U
+121 U
+122 U
+123 U
+124 U
+125 U
+126 U
+127 U
+128 U
+129 U
+130 U
+131 U
+132 U
+133 U
+134 U
+135 U
+136 U
+137 U
+138 U
+139 U
+140 U
+141 U
+142 U
+143 U
+144 U
+145 U
+146 U
+147 U
+148 U
+149 U
+150 U
+151 U
+152 U
+153 U
+154 U
+155 U
+156 U
+157 U
+158 U
+159 U
+160 U
+161 U
+162 U
+163 U
+164 U
+165 U
+166 U
+167 U
+168 U
+169 U
+170 U
+171 U
+172 U
+173 U
+174 U
+175 U
+176 U
+177 U
+178 U
+179 U
+180 U
+181 U
+182 U
+183 U
+184 U
+185 U
+186 U
+187 U
+188 U
+189 U
+190 U
+191 U
+192 U
+193 U
+194 U
+195 U
+196 U
+197 U
+198 U
+199 U
+200 U
+201 U
+202 U
+203 U
+204 U
+205 U
+206 U
+207 U
+208 U
+209 U
+210 U
+211 U
+212 U
+213 U
+214 U
+215 U
+216 U
+217 U
+218 U
+219 U
+220 U
+221 U
+222 U
+223 U
+224 U
+225 U
+226 U
+227 U
+228 U
+229 U
+230 U
+231 U
+232 U
+233 U
+234 U
+235 U
+236 U
+237 U
+238 U
+239 U
+240 U
+241 U
+242 U
+243 U
+244 U
+245 U
+246 U
+247 U
+248 U
+249 U
+250 U
+251 U
+252 U
+253 U
+254 U
+255 U
+256 U
+257 U
+258 U
+259 U
+260 U
+261 U
+262 U
+263 U
+264 U
+265 U
+266 U
+267 U
+268 U
+269 U
+270 U
+271 U
+272 U
+273 U
+274 U
+275 U
+276 U
+277 U
+278 U
+279 U
+280 U
+281 U
+282 U
+283 U
+284 U
+285 U
+286 U
+287 U
+
+VIDEO OUTPUT ROUTING:
+0 0
+1 139
+2 139
+3 3
+4 28
+5 139
+6 139
+7 124
+8 136
+9 136
+10 66
+11 124
+12 140
+13 124
+14 73
+15 137
+16 20
+17 80
+18 124
+19 136
+20 28
+21 74
+22 139
+23 124
+24 124
+25 141
+26 139
+27 139
+28 141
+29 124
+30 30
+31 31
+32 32
+33 33
+34 34
+35 35
+36 36
+37 37
+38 38
+39 39
+40 40
+41 41
+42 42
+43 43
+44 44
+45 45
+46 47
+47 47
+48 48
+49 49
+50 50
+51 51
+52 28
+53 28
+54 139
+55 141
+56 74
+57 83
+58 70
+59 71
+60 60
+61 61
+62 62
+63 62
+64 64
+65 65
+66 66
+67 67
+68 68
+69 69
+70 71
+71 70
+72 68
+73 73
+74 124
+75 73
+76 124
+77 137
+78 142
+79 142
+80 124
+81 136
+82 142
+83 142
+84 28
+85 136
+86 141
+87 142
+88 28
+89 124
+90 142
+91 143
+92 136
+93 136
+94 140
+95 141
+96 124
+97 143
+98 139
+99 139
+100 80
+101 142
+102 139
+103 141
+104 143
+105 124
+106 142
+107 143
+108 76
+109 77
+110 80
+111 81
+112 84
+113 85
+114 88
+115 89
+116 92
+117 93
+118 136
+119 136
+120 136
+121 136
+122 136
+123 137
+124 124
+125 124
+126 124
+127 124
+128 128
+129 129
+130 130
+131 131
+132 132
+133 133
+134 134
+135 135
+136 136
+137 137
+138 138
+139 139
+140 140
+141 141
+142 142
+143 136
+144 144
+145 145
+146 146
+147 147
+148 148
+149 149
+150 150
+151 151
+152 152
+153 153
+154 154
+155 155
+156 156
+157 157
+158 158
+159 159
+160 160
+161 161
+162 162
+163 163
+164 164
+165 165
+166 166
+167 167
+168 168
+169 169
+170 170
+171 171
+172 172
+173 173
+174 174
+175 175
+176 176
+177 177
+178 178
+179 179
+180 180
+181 181
+182 182
+183 183
+184 184
+185 185
+186 186
+187 187
+188 188
+189 189
+190 190
+191 191
+192 192
+193 193
+194 194
+195 195
+196 196
+197 197
+198 198
+199 199
+200 200
+201 201
+202 202
+203 203
+204 204
+205 205
+206 206
+207 207
+208 208
+209 209
+210 210
+211 211
+212 212
+213 213
+214 214
+215 215
+216 216
+217 217
+218 218
+219 219
+220 220
+221 221
+222 222
+223 223
+224 224
+225 225
+226 226
+227 227
+228 228
+229 229
+230 230
+231 231
+232 232
+233 233
+234 234
+235 235
+236 236
+237 237
+238 238
+239 239
+240 240
+241 241
+242 242
+243 243
+244 244
+245 245
+246 246
+247 247
+248 248
+249 249
+250 250
+251 251
+252 252
+253 253
+254 254
+255 255
+256 256
+257 257
+258 258
+259 259
+260 260
+261 261
+262 262
+263 263
+264 264
+265 265
+266 266
+267 267
+268 268
+269 269
+270 270
+271 271
+272 272
+273 273
+274 274
+275 275
+276 276
+277 277
+278 278
+279 279
+280 280
+281 281
+282 282
+283 283
+284 284
+285 285
+286 286
+287 287
+
+VIDEO OUTPUT STATUS:
+0 BNC
+1 BNC
+2 BNC
+3 BNC
+4 BNC
+5 BNC
+6 BNC
+7 BNC
+8 BNC
+9 BNC
+10 BNC
+11 BNC
+12 BNC
+13 BNC
+14 BNC
+15 BNC
+16 BNC
+17 BNC
+18 BNC
+19 BNC
+20 BNC
+21 BNC
+22 BNC
+23 BNC
+24 BNC
+25 BNC
+26 BNC
+27 BNC
+28 BNC
+29 BNC
+30 BNC
+31 BNC
+32 BNC
+33 BNC
+34 BNC
+35 BNC
+36 BNC
+37 BNC
+38 BNC
+39 BNC
+40 BNC
+41 BNC
+42 BNC
+43 BNC
+44 BNC
+45 BNC
+46 BNC
+47 BNC
+48 BNC
+49 BNC
+50 BNC
+51 BNC
+52 BNC
+53 BNC
+54 BNC
+55 BNC
+56 BNC
+57 BNC
+58 BNC
+59 BNC
+60 BNC
+61 BNC
+62 BNC
+63 BNC
+64 BNC
+65 BNC
+66 BNC
+67 BNC
+68 BNC
+69 BNC
+70 BNC
+71 BNC
+72 BNC
+73 BNC
+74 BNC
+75 BNC
+76 BNC
+77 BNC
+78 BNC
+79 BNC
+80 BNC
+81 BNC
+82 BNC
+83 BNC
+84 BNC
+85 BNC
+86 BNC
+87 BNC
+88 BNC
+89 BNC
+90 BNC
+91 BNC
+92 BNC
+93 BNC
+94 BNC
+95 BNC
+96 BNC
+97 BNC
+98 BNC
+99 BNC
+100 BNC
+101 BNC
+102 BNC
+103 BNC
+104 BNC
+105 BNC
+106 BNC
+107 BNC
+108 BNC
+109 BNC
+110 BNC
+111 BNC
+112 BNC
+113 BNC
+114 BNC
+115 BNC
+116 BNC
+117 BNC
+118 BNC
+119 BNC
+120 BNC
+121 BNC
+122 BNC
+123 BNC
+124 BNC
+125 BNC
+126 BNC
+127 BNC
+128 None
+129 None
+130 None
+131 None
+132 None
+133 None
+134 None
+135 None
+136 BNC
+137 BNC
+138 BNC
+139 BNC
+140 BNC
+141 BNC
+142 BNC
+143 BNC
+144 None
+145 None
+146 None
+147 None
+148 None
+149 None
+150 None
+151 None
+152 None
+153 None
+154 None
+155 None
+156 None
+157 None
+158 None
+159 None
+160 None
+161 None
+162 None
+163 None
+164 None
+165 None
+166 None
+167 None
+168 None
+169 None
+170 None
+171 None
+172 None
+173 None
+174 None
+175 None
+176 None
+177 None
+178 None
+179 None
+180 None
+181 None
+182 None
+183 None
+184 None
+185 None
+186 None
+187 None
+188 None
+189 None
+190 None
+191 None
+192 None
+193 None
+194 None
+195 None
+196 None
+197 None
+198 None
+199 None
+200 None
+201 None
+202 None
+203 None
+204 None
+205 None
+206 None
+207 None
+208 None
+209 None
+210 None
+211 None
+212 None
+213 None
+214 None
+215 None
+216 None
+217 None
+218 None
+219 None
+220 None
+221 None
+222 None
+223 None
+224 None
+225 None
+226 None
+227 None
+228 None
+229 None
+230 None
+231 None
+232 None
+233 None
+234 None
+235 None
+236 None
+237 None
+238 None
+239 None
+240 None
+241 None
+242 None
+243 None
+244 None
+245 None
+246 None
+247 None
+248 None
+249 None
+250 None
+251 None
+252 None
+253 None
+254 None
+255 None
+256 None
+257 None
+258 None
+259 None
+260 None
+261 None
+262 None
+263 None
+264 None
+265 None
+266 None
+267 None
+268 None
+269 None
+270 None
+271 None
+272 None
+273 None
+274 None
+275 None
+276 None
+277 None
+278 None
+279 None
+280 None
+281 None
+282 None
+283 None
+284 None
+285 None
+286 None
+287 None
+
+SERIAL PORT LABELS:
+0 VTR 1
+1 Remote 2
+2 Remote 3
+3 VTR 2
+4 VTR 3
+5 VTR 4
+6 VTR 5
+7 VTR 6
+8 Remote 9
+9 Remote 10
+10 VTR 7
+11 VTR 8
+12 VTR 9
+13 VTR 10
+14 Remote 15
+15 Remote 16
+16 VTR 11
+17 Remote 18
+18 Remote 19
+19 VTR 12
+20 VTR 13
+21 VTR 14
+22 VTR 15
+23 VTR 16
+24 Remote 25
+25 Remote 26
+26 VTR 17
+27 VTR 18
+28 Remote 29
+29 Remote 30
+30 EDIT 1
+31 Remote 32
+32 EDIT 2
+33 Remote 34
+34 EDIT 3
+35 Remote 36
+36 EDIT 4
+37 Remote 38
+38 EDIT 5
+39 Remote 40
+40 EDIT 6
+41 Remote 42
+42 EDIT 7
+43 Remote 44
+44 EDIT 8
+45 Remote 46
+46 EDIT 9
+47 Remote 48
+48 EDIT 10
+49 Remote 50
+50 EDIT 11
+51 Remote 52
+52 ASSIST 1
+53 Remote 54
+54 ASSIST 2
+55 Remote 56
+56 ASSIST 3
+57 Remote 58
+58 ASSIST 4
+59 Remote 60
+60 EDIT 12
+61 Remote 62
+62 ASSIST
+63 Remote 64
+64 STREAM A
+65 STREAM B
+66 ASSIST 8
+67 Remote 68
+68 ASSIST 9
+69 Remote 70
+70 ASSIST 1O
+71 Remote 72
+72 ASSIST 11
+73 Remote 74
+74 Remote 75
+75 Remote 76
+76 COMP 1
+77 Remote 78
+78 Remote 79
+79 Remote 80
+80 COMP 2
+81 Remote 82
+82 Remote 83
+83 Remote 84
+84 COMP 3
+85 Remote 86
+86 Remote 87
+87 Remote 88
+88 COMP 4
+89 Remote 90
+90 Remote 91
+91 Remote 92
+92 COMP 5
+93 Remote 94
+94 Remote 95
+95 Remote 96
+96 SUITE 1
+97 Remote 98
+98 Remote 99
+99 Remote 100
+100 SUITE 2
+101 Remote 102
+102 Remote 103
+103 Remote 104
+104 SUITE 3
+105 Remote 106
+106 Remote 107
+107 Remote 108
+108 SUITE 4
+109 Remote 110
+110 SUITE 5
+111 Remote 112
+112 SUITE 6
+113 Remote 114
+114 SUITE 7
+115 Remote 116
+116 SUITE 8
+117 Remote 118
+118 SUITE 9
+119 Remote 120
+120 Remote 121
+121 Remote 122
+122 COMP 6
+123 EDIT PLAY
+124 EDIT RECORD
+125 Remote 126
+126 SUITE 10
+127 Remote 128
+128 Remote 129
+129 Remote 130
+130 Remote 131
+131 Remote 132
+132 Remote 133
+133 Remote 134
+134 Remote 135
+135 Remote 136
+136 Remote 137
+137 Remote 138
+138 Remote 139
+139 Remote 140
+140 Remote 141
+141 Remote 142
+142 Remote 143
+143 Remote 144
+144 Remote 145
+145 Remote 146
+146 Remote 147
+147 Remote 148
+148 Remote 149
+149 Remote 150
+150 Remote 151
+151 Remote 152
+152 Remote 153
+153 Remote 154
+154 Remote 155
+155 Remote 156
+156 Remote 157
+157 Remote 158
+158 Remote 159
+159 Remote 160
+160 Remote 161
+161 Remote 162
+162 Remote 163
+163 Remote 164
+164 Remote 165
+165 Remote 166
+166 Remote 167
+167 Remote 168
+168 Remote 169
+169 Remote 170
+170 Remote 171
+171 Remote 172
+172 Remote 173
+173 Remote 174
+174 Remote 175
+175 Remote 176
+176 Remote 177
+177 Remote 178
+178 Remote 179
+179 Remote 180
+180 Remote 181
+181 Remote 182
+182 Remote 183
+183 Remote 184
+184 Remote 185
+185 Remote 186
+186 Remote 187
+187 Remote 188
+188 Remote 189
+189 Remote 190
+190 Remote 191
+191 Remote 192
+192 Remote 193
+193 Remote 194
+194 Remote 195
+195 Remote 196
+196 Remote 197
+197 Remote 198
+198 Remote 199
+199 Remote 200
+200 Remote 201
+201 Remote 202
+202 Remote 203
+203 Remote 204
+204 Remote 205
+205 Remote 206
+206 Remote 207
+207 Remote 208
+208 Remote 209
+209 Remote 210
+210 Remote 211
+211 Remote 212
+212 Remote 213
+213 Remote 214
+214 Remote 215
+215 Remote 216
+216 Remote 217
+217 Remote 218
+218 Remote 219
+219 Remote 220
+220 Remote 221
+221 Remote 222
+222 Remote 223
+223 Remote 224
+224 Remote 225
+225 Remote 226
+226 Remote 227
+227 Remote 228
+228 Remote 229
+229 Remote 230
+230 Remote 231
+231 Remote 232
+232 Remote 233
+233 Remote 234
+234 Remote 235
+235 Remote 236
+236 Remote 237
+237 Remote 238
+238 Remote 239
+239 Remote 240
+240 Remote 241
+241 Remote 242
+242 Remote 243
+243 Remote 244
+244 Remote 245
+245 Remote 246
+246 Remote 247
+247 Remote 248
+248 Remote 249
+249 Remote 250
+250 Remote 251
+251 Remote 252
+252 Remote 253
+253 Remote 254
+254 Remote 255
+255 Remote 256
+256 Remote 257
+257 Remote 258
+258 Remote 259
+259 Remote 260
+260 Remote 261
+261 Remote 262
+262 Remote 263
+263 Remote 264
+264 Remote 265
+265 Remote 266
+266 Remote 267
+267 Remote 268
+268 Remote 269
+269 Remote 270
+270 Remote 271
+271 Remote 272
+272 Remote 273
+273 Remote 274
+274 Remote 275
+275 Remote 276
+276 Remote 277
+277 Remote 278
+278 Remote 279
+279 Remote 280
+280 Remote 281
+281 Remote 282
+282 Remote 283
+283 Remote 284
+284 Remote 285
+285 Remote 286
+286 Remote 287
+287 Remote 288
+
+SERIAL PORT LOCKS:
+0 U
+1 U
+2 U
+3 U
+4 U
+5 U
+6 U
+7 U
+8 U
+9 U
+10 U
+11 U
+12 U
+13 U
+14 U
+15 U
+16 U
+17 U
+18 U
+19 U
+20 U
+21 U
+22 U
+23 U
+24 U
+25 U
+26 U
+27 U
+28 U
+29 U
+30 U
+31 U
+32 U
+33 U
+34 U
+35 U
+36 U
+37 U
+38 U
+39 U
+40 U
+41 U
+42 U
+43 U
+44 U
+45 U
+46 U
+47 U
+48 U
+49 U
+50 U
+51 U
+52 U
+53 U
+54 U
+55 U
+56 U
+57 U
+58 U
+59 U
+60 U
+61 U
+62 U
+63 U
+64 U
+65 U
+66 U
+67 U
+68 U
+69 U
+70 U
+71 U
+72 U
+73 U
+74 U
+75 U
+76 U
+77 U
+78 U
+79 U
+80 U
+81 U
+82 U
+83 U
+84 U
+85 U
+86 U
+87 U
+88 U
+89 U
+90 U
+91 U
+92 U
+93 U
+94 U
+95 U
+96 U
+97 U
+98 U
+99 U
+100 U
+101 U
+102 U
+103 U
+104 U
+105 U
+106 U
+107 U
+108 U
+109 U
+110 U
+111 U
+112 U
+113 U
+114 U
+115 U
+116 U
+117 U
+118 U
+119 U
+120 U
+121 U
+122 U
+123 U
+124 U
+125 U
+126 U
+127 U
+128 U
+129 U
+130 U
+131 U
+132 U
+133 U
+134 U
+135 U
+136 U
+137 U
+138 U
+139 U
+140 U
+141 U
+142 U
+143 U
+144 U
+145 U
+146 U
+147 U
+148 U
+149 U
+150 U
+151 U
+152 U
+153 U
+154 U
+155 U
+156 U
+157 U
+158 U
+159 U
+160 U
+161 U
+162 U
+163 U
+164 U
+165 U
+166 U
+167 U
+168 U
+169 U
+170 U
+171 U
+172 U
+173 U
+174 U
+175 U
+176 U
+177 U
+178 U
+179 U
+180 U
+181 U
+182 U
+183 U
+184 U
+185 U
+186 U
+187 U
+188 U
+189 U
+190 U
+191 U
+192 U
+193 U
+194 U
+195 U
+196 U
+197 U
+198 U
+199 U
+200 U
+201 U
+202 U
+203 U
+204 U
+205 U
+206 U
+207 U
+208 U
+209 U
+210 U
+211 U
+212 U
+213 U
+214 U
+215 U
+216 U
+217 U
+218 U
+219 U
+220 U
+221 U
+222 U
+223 U
+224 U
+225 U
+226 U
+227 U
+228 U
+229 U
+230 U
+231 U
+232 U
+233 U
+234 U
+235 U
+236 U
+237 U
+238 U
+239 U
+240 U
+241 U
+242 U
+243 U
+244 U
+245 U
+246 U
+247 U
+248 U
+249 U
+250 U
+251 U
+252 U
+253 U
+254 U
+255 U
+256 U
+257 U
+258 U
+259 U
+260 U
+261 U
+262 U
+263 U
+264 U
+265 U
+266 U
+267 U
+268 U
+269 U
+270 U
+271 U
+272 U
+273 U
+274 U
+275 U
+276 U
+277 U
+278 U
+279 U
+280 U
+281 U
+282 U
+283 U
+284 U
+285 U
+286 U
+287 U
+
+SERIAL PORT ROUTING:
+0 -1
+1 -1
+2 -1
+3 -1
+4 -1
+5 -1
+6 -1
+7 -1
+8 -1
+9 -1
+10 -1
+11 -1
+12 -1
+13 -1
+14 -1
+15 -1
+16 20
+17 -1
+18 -1
+19 -1
+20 16
+21 -1
+22 -1
+23 -1
+24 -1
+25 -1
+26 -1
+27 -1
+28 -1
+29 -1
+30 -1
+31 -1
+32 -1
+33 -1
+34 -1
+35 -1
+36 -1
+37 -1
+38 -1
+39 -1
+40 -1
+41 -1
+42 -1
+43 -1
+44 -1
+45 -1
+46 -1
+47 -1
+48 -1
+49 -1
+50 -1
+51 -1
+52 -1
+53 -1
+54 -1
+55 -1
+56 -1
+57 -1
+58 -1
+59 -1
+60 -1
+61 -1
+62 -1
+63 -1
+64 -1
+65 -1
+66 -1
+67 -1
+68 -1
+69 -1
+70 -1
+71 -1
+72 -1
+73 -1
+74 -1
+75 -1
+76 -1
+77 -1
+78 -1
+79 -1
+80 -1
+81 -1
+82 -1
+83 -1
+84 -1
+85 -1
+86 -1
+87 -1
+88 -1
+89 -1
+90 -1
+91 -1
+92 -1
+93 -1
+94 -1
+95 -1
+96 -1
+97 -1
+98 -1
+99 -1
+100 -1
+101 -1
+102 -1
+103 -1
+104 -1
+105 -1
+106 -1
+107 -1
+108 -1
+109 -1
+110 -1
+111 -1
+112 -1
+113 -1
+114 -1
+115 -1
+116 -1
+117 -1
+118 -1
+119 -1
+120 -1
+121 -1
+122 -1
+123 -1
+124 -1
+125 -1
+126 -1
+127 -1
+128 -1
+129 -1
+130 -1
+131 -1
+132 -1
+133 -1
+134 -1
+135 -1
+136 -1
+137 -1
+138 -1
+139 -1
+140 -1
+141 -1
+142 -1
+143 -1
+144 -1
+145 -1
+146 -1
+147 -1
+148 -1
+149 -1
+150 -1
+151 -1
+152 -1
+153 -1
+154 -1
+155 -1
+156 -1
+157 -1
+158 -1
+159 -1
+160 -1
+161 -1
+162 -1
+163 -1
+164 -1
+165 -1
+166 -1
+167 -1
+168 -1
+169 -1
+170 -1
+171 -1
+172 -1
+173 -1
+174 -1
+175 -1
+176 -1
+177 -1
+178 -1
+179 -1
+180 -1
+181 -1
+182 -1
+183 -1
+184 -1
+185 -1
+186 -1
+187 -1
+188 -1
+189 -1
+190 -1
+191 -1
+192 -1
+193 -1
+194 -1
+195 -1
+196 -1
+197 -1
+198 -1
+199 -1
+200 -1
+201 -1
+202 -1
+203 -1
+204 -1
+205 -1
+206 -1
+207 -1
+208 -1
+209 -1
+210 -1
+211 -1
+212 -1
+213 -1
+214 -1
+215 -1
+216 -1
+217 -1
+218 -1
+219 -1
+220 -1
+221 -1
+222 -1
+223 -1
+224 -1
+225 -1
+226 -1
+227 -1
+228 -1
+229 -1
+230 -1
+231 -1
+232 -1
+233 -1
+234 -1
+235 -1
+236 -1
+237 -1
+238 -1
+239 -1
+240 -1
+241 -1
+242 -1
+243 -1
+244 -1
+245 -1
+246 -1
+247 -1
+248 -1
+249 -1
+250 -1
+251 -1
+252 -1
+253 -1
+254 -1
+255 -1
+256 -1
+257 -1
+258 -1
+259 -1
+260 -1
+261 -1
+262 -1
+263 -1
+264 -1
+265 -1
+266 -1
+267 -1
+268 -1
+269 -1
+270 -1
+271 -1
+272 -1
+273 -1
+274 -1
+275 -1
+276 -1
+277 -1
+278 -1
+279 -1
+280 -1
+281 -1
+282 -1
+283 -1
+284 -1
+285 -1
+286 -1
+287 -1
+
+SERIAL PORT DIRECTIONS:
+0 auto
+1 auto
+2 auto
+3 auto
+4 auto
+5 auto
+6 auto
+7 auto
+8 auto
+9 auto
+10 auto
+11 auto
+12 auto
+13 auto
+14 auto
+15 auto
+16 auto
+17 auto
+18 auto
+19 auto
+20 auto
+21 auto
+22 auto
+23 auto
+24 auto
+25 auto
+26 auto
+27 auto
+28 auto
+29 auto
+30 auto
+31 auto
+32 auto
+33 auto
+34 auto
+35 auto
+36 auto
+37 auto
+38 auto
+39 auto
+40 auto
+41 auto
+42 auto
+43 auto
+44 auto
+45 auto
+46 auto
+47 auto
+48 auto
+49 auto
+50 auto
+51 auto
+52 auto
+53 auto
+54 auto
+55 auto
+56 auto
+57 auto
+58 auto
+59 auto
+60 auto
+61 auto
+62 auto
+63 auto
+64 auto
+65 auto
+66 auto
+67 auto
+68 auto
+69 auto
+70 auto
+71 auto
+72 auto
+73 auto
+74 auto
+75 auto
+76 auto
+77 auto
+78 auto
+79 auto
+80 auto
+81 auto
+82 auto
+83 auto
+84 auto
+85 auto
+86 auto
+87 auto
+88 auto
+89 auto
+90 auto
+91 auto
+92 auto
+93 auto
+94 auto
+95 auto
+96 auto
+97 auto
+98 auto
+99 auto
+100 auto
+101 auto
+102 auto
+103 auto
+104 auto
+105 auto
+106 auto
+107 auto
+108 auto
+109 auto
+110 auto
+111 auto
+112 auto
+113 auto
+114 auto
+115 auto
+116 auto
+117 auto
+118 auto
+119 auto
+120 auto
+121 auto
+122 auto
+123 auto
+124 auto
+125 auto
+126 auto
+127 auto
+128 auto
+129 auto
+130 auto
+131 auto
+132 auto
+133 auto
+134 auto
+135 auto
+136 auto
+137 auto
+138 auto
+139 auto
+140 auto
+141 auto
+142 auto
+143 auto
+144 auto
+145 auto
+146 auto
+147 auto
+148 auto
+149 auto
+150 auto
+151 auto
+152 auto
+153 auto
+154 auto
+155 auto
+156 auto
+157 auto
+158 auto
+159 auto
+160 auto
+161 auto
+162 auto
+163 auto
+164 auto
+165 auto
+166 auto
+167 auto
+168 auto
+169 auto
+170 auto
+171 auto
+172 auto
+173 auto
+174 auto
+175 auto
+176 auto
+177 auto
+178 auto
+179 auto
+180 auto
+181 auto
+182 auto
+183 auto
+184 auto
+185 auto
+186 auto
+187 auto
+188 auto
+189 auto
+190 auto
+191 auto
+192 auto
+193 auto
+194 auto
+195 auto
+196 auto
+197 auto
+198 auto
+199 auto
+200 auto
+201 auto
+202 auto
+203 auto
+204 auto
+205 auto
+206 auto
+207 auto
+208 auto
+209 auto
+210 auto
+211 auto
+212 auto
+213 auto
+214 auto
+215 auto
+216 auto
+217 auto
+218 auto
+219 auto
+220 auto
+221 auto
+222 auto
+223 auto
+224 auto
+225 auto
+226 auto
+227 auto
+228 auto
+229 auto
+230 auto
+231 auto
+232 auto
+233 auto
+234 auto
+235 auto
+236 auto
+237 auto
+238 auto
+239 auto
+240 auto
+241 auto
+242 auto
+243 auto
+244 auto
+245 auto
+246 auto
+247 auto
+248 auto
+249 auto
+250 auto
+251 auto
+252 auto
+253 auto
+254 auto
+255 auto
+256 auto
+257 auto
+258 auto
+259 auto
+260 auto
+261 auto
+262 auto
+263 auto
+264 auto
+265 auto
+266 auto
+267 auto
+268 auto
+269 auto
+270 auto
+271 auto
+272 auto
+273 auto
+274 auto
+275 auto
+276 auto
+277 auto
+278 auto
+279 auto
+280 auto
+281 auto
+282 auto
+283 auto
+284 auto
+285 auto
+286 auto
+287 auto
+
+SERIAL PORT STATUS:
+0 RS422
+1 RS422
+2 RS422
+3 RS422
+4 RS422
+5 RS422
+6 RS422
+7 RS422
+8 RS422
+9 RS422
+10 RS422
+11 RS422
+12 RS422
+13 RS422
+14 RS422
+15 RS422
+16 RS422
+17 RS422
+18 RS422
+19 RS422
+20 RS422
+21 RS422
+22 RS422
+23 RS422
+24 RS422
+25 RS422
+26 RS422
+27 RS422
+28 RS422
+29 RS422
+30 RS422
+31 RS422
+32 RS422
+33 RS422
+34 RS422
+35 RS422
+36 RS422
+37 RS422
+38 RS422
+39 RS422
+40 RS422
+41 RS422
+42 RS422
+43 RS422
+44 RS422
+45 RS422
+46 RS422
+47 RS422
+48 RS422
+49 RS422
+50 RS422
+51 RS422
+52 RS422
+53 RS422
+54 RS422
+55 RS422
+56 RS422
+57 RS422
+58 RS422
+59 RS422
+60 RS422
+61 RS422
+62 RS422
+63 RS422
+64 RS422
+65 RS422
+66 RS422
+67 RS422
+68 RS422
+69 RS422
+70 RS422
+71 RS422
+72 RS422
+73 RS422
+74 RS422
+75 RS422
+76 RS422
+77 RS422
+78 RS422
+79 RS422
+80 RS422
+81 RS422
+82 RS422
+83 RS422
+84 RS422
+85 RS422
+86 RS422
+87 RS422
+88 RS422
+89 RS422
+90 RS422
+91 RS422
+92 RS422
+93 RS422
+94 RS422
+95 RS422
+96 RS422
+97 RS422
+98 RS422
+99 RS422
+100 RS422
+101 RS422
+102 RS422
+103 RS422
+104 RS422
+105 RS422
+106 RS422
+107 RS422
+108 RS422
+109 RS422
+110 RS422
+111 RS422
+112 RS422
+113 RS422
+114 RS422
+115 RS422
+116 RS422
+117 RS422
+118 RS422
+119 RS422
+120 RS422
+121 RS422
+122 RS422
+123 RS422
+124 RS422
+125 RS422
+126 RS422
+127 RS422
+128 None
+129 None
+130 None
+131 None
+132 None
+133 None
+134 None
+135 None
+136 RS422
+137 RS422
+138 RS422
+139 RS422
+140 RS422
+141 RS422
+142 RS422
+143 RS422
+144 None
+145 None
+146 None
+147 None
+148 None
+149 None
+150 None
+151 None
+152 None
+153 None
+154 None
+155 None
+156 None
+157 None
+158 None
+159 None
+160 None
+161 None
+162 None
+163 None
+164 None
+165 None
+166 None
+167 None
+168 None
+169 None
+170 None
+171 None
+172 None
+173 None
+174 None
+175 None
+176 None
+177 None
+178 None
+179 None
+180 None
+181 None
+182 None
+183 None
+184 None
+185 None
+186 None
+187 None
+188 None
+189 None
+190 None
+191 None
+192 None
+193 None
+194 None
+195 None
+196 None
+197 None
+198 None
+199 None
+200 None
+201 None
+202 None
+203 None
+204 None
+205 None
+206 None
+207 None
+208 None
+209 None
+210 None
+211 None
+212 None
+213 None
+214 None
+215 None
+216 None
+217 None
+218 None
+219 None
+220 None
+221 None
+222 None
+223 None
+224 None
+225 None
+226 None
+227 None
+228 None
+229 None
+230 None
+231 None
+232 None
+233 None
+234 None
+235 None
+236 None
+237 None
+238 None
+239 None
+240 None
+241 None
+242 None
+243 None
+244 None
+245 None
+246 None
+247 None
+248 None
+249 None
+250 None
+251 None
+252 None
+253 None
+254 None
+255 None
+256 None
+257 None
+258 None
+259 None
+260 None
+261 None
+262 None
+263 None
+264 None
+265 None
+266 None
+267 None
+268 None
+269 None
+270 None
+271 None
+272 None
+273 None
+274 None
+275 None
+276 None
+277 None
+278 None
+279 None
+280 None
+281 None
+282 None
+283 None
+284 None
+285 None
+286 None
+287 None
+
+ALARM STATUS:
+Fan 0: ok
+Fan 1: ok
+Fan 2: ok
+Power Supply Slot 0: ok
+Power Supply Slot 1: ok
+Power Sufficient for Load: ok
+Network Slot 0: ok
+Network Slot 1: ok
+Card Bus: ok
+Card Firmware Version: ok
+Logic Slot 0: ok
+Logic Slot 1: ok
+Logic Firmware Version Slot 0: ok
+Logic Firmware Version Slot 1: ok
+ProcessorLink: ok
+Processor Firmware Version: ok
+Crosspoint Slot 0: ok
+Crosspoint Slot 1: ok
+Bus Host Slot 0: ok
+Bus Host Slot 1: ok
+Bus Host Firmware Version Slot 0: ok
+Bus Host Firmware Version Slot 1: ok
+
